@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
+    <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MoveToCompontent.cpp" />
