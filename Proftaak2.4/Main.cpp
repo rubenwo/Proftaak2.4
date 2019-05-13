@@ -9,20 +9,19 @@
 #include "MoveToComponent.h"
 #include "TimerJumper.h"
 
-int height = 800;
-int width = 1200;
+int windowHeight = 800;
+int windowWidth = 1200;
+
 GameObject* player;
 
-
 bool keys[256];
-
 
 std::list<GameObject*> objects;
 
 void reshape(int w, int h)
 {
-	width = w;
-	height = h;
+	windowWidth = w;
+	windowHeight = h;
 	glViewport(0, 0, w, h);
 }
 
@@ -82,7 +81,7 @@ void display()
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(90.0f, width / (float)height, 0.1f, 50.0f);
+	gluPerspective(90.0f, windowWidth / (float)windowHeight, 0.1f, 50.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -116,9 +115,9 @@ void idle()
 int main(int argc, char* argv[])
 {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
-	glutInitWindowSize(width, height);
+	glutInitWindowSize(windowWidth, windowHeight);
 	glutInit(&argc, argv);
-	glutCreateWindow("Hello OpenGL");
+	glutCreateWindow("Program");
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
 	glutReshapeFunc(reshape);
