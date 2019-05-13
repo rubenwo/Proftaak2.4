@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 		bool bSuccess = cap.read(frame);
 
 		flip(frame, frame, ROTATE_180);
-
+		resize(frame, frame, Size(800, 600));
 		if (!bSuccess)
 		{
 			cout << "Cannot read a frame from video stream" << endl;
@@ -68,7 +68,6 @@ int main(int argc, char** argv)
 		//	findContours(greenMask.clone(), greenContours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 		//	findContours(orangeMask.clone(), orangeContours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 		findContours(orangeMask.clone(), orangeContours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
 		if (!hierarchy.empty())
 		{
 			cout << "Hierarchy size: " << hierarchy.size() << endl;
@@ -77,6 +76,7 @@ int main(int argc, char** argv)
 		if (!orangeContours.empty())
 		{
 			cout << "Found contours: " << orangeContours.size() << endl;
+			drawContours(frame, orangeContours, -1, Scalar(0, 255, 0), 10);
 		}
 
 		imshow("Original", frame);
