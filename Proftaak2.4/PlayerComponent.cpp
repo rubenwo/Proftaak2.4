@@ -19,7 +19,7 @@ PlayerComponent::PlayerComponent(HandTracker& tracker)
 		{
 			//std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
 		}
-		atomic_hands._My_val = hands;
+		atomic_hands.store(hands);
 	});
 }
 
@@ -30,10 +30,10 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::draw()
 {
-	for (auto hand : atomic_hands._My_val)
+	for (auto hand : atomic_hands.load())
 	{
 		std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
-		drawCircle(hand.x, hand.y, 100, 10);
+		drawCircle(hand.x, hand.y, 1, 5);
 	}
 
 }
@@ -46,6 +46,7 @@ void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
 		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments); //get the current angle 
 		float x = r * cosf(theta); //calculate the x component 
 		float y = r * sinf(theta); //calculate the y component 
+		glColor3f(0, -1, 0);
 		glVertex2f(x + cx, y + cy); //output vertex 
 	}
 	glEnd();

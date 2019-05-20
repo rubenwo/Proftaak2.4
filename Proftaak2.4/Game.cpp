@@ -29,7 +29,7 @@ namespace Game
 		o->addComponent(new PlayerComponent(tracker));
 
 
-		o->position = Vec3f(0, 4, 0);
+		o->position = Vec3f(0, 0, -2);
 
 		objects.push_back(o);
 	}
