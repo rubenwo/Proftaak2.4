@@ -112,10 +112,12 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 
 void HandTracker::translateCoordinates()
 {
+	const auto scaleX = this->width / camera_width;
+	const auto scaleY = this->width / camera_height;
 	for (auto h : hands)
 	{
-		h.x *= this->width / camera_width;
-		h.y *= this->height / camera_height;
+		h.x *= scaleX;
+		h.y *= scaleY;
 	}
 }
 

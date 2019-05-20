@@ -18,14 +18,15 @@ namespace Game
 	//GameObject* player;
 	//CameraComponent* camComponent;
 
-	void loadContent()
+	void loadContent(HandTracker& tracker)
 	{
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
 
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.5));
-		o->addComponent(new PlayerComponent(windowWidth, windowHeight));
+		//o->addComponent(new CubeComponent(0.5));
+		//HandTracker tracker(windowWidth, windowHeight);
+		o->addComponent(new PlayerComponent(tracker));
 
 
 		o->position = Vec3f(0, 4, 0);
@@ -38,6 +39,7 @@ namespace Game
 		for (const auto& o : objects)
 			o->update(deltaTime);
 	}
+
 	void draw()
 	{
 		//glRotatef(camera.rotX, 1, 0, 0);

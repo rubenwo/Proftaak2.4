@@ -11,43 +11,42 @@
 
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
-PlayerComponent::PlayerComponent(int width, int height)
+PlayerComponent::PlayerComponent(HandTracker& tracker)
 {
-	HandTracker tracker(width, height);
-
-	tracker.startTracking([](std::array<hand, HANDS_AMOUNT> hands) {
+	tracker.startTracking([](std::array<hand, HANDS_AMOUNT> hands)
+	{
+		for (auto hand : hands)
+		{
+			//std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
+		}
 		atomic_hands._My_val = hands;
 	});
 }
 
 PlayerComponent::~PlayerComponent()
 {
-
 }
 
-void PlayerComponent::update(float elapsedTime)
-{
-	for (int i = 0; i < atomic_hands._My_val.size(); i++)
-	{
-		std::cout << "ID: " << atomic_hands._My_val[i].id << " X: " << atomic_hands._My_val[i].x << " Y: " <<
-			atomic_hands._My_val[i].y << std::endl;
-	}
-}
 
 void PlayerComponent::draw()
 {
-	for (auto hand : atomic_hands._My_val) {
-		drawCircle(hand.x, hand.y, 5, 10);
+	for (auto hand : atomic_hands._My_val)
+	{
+		std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
+		drawCircle(hand.x, hand.y, 100, 10);
 	}
+
 }
 
-void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments) {
+void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
+{
 	glBegin(GL_LINE_LOOP);
-	for (int ii = 0; ii < num_segments; ii++) {
-		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);//get the current angle 
-		float x = r * cosf(theta);//calculate the x component 
-		float y = r * sinf(theta);//calculate the y component 
-		glVertex2f(x + cx, y + cy);//output vertex 
+	for (int ii = 0; ii < num_segments; ii++)
+	{
+		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments); //get the current angle 
+		float x = r * cosf(theta); //calculate the x component 
+		float y = r * sinf(theta); //calculate the y component 
+		glVertex2f(x + cx, y + cy); //output vertex 
 	}
 	glEnd();
 }

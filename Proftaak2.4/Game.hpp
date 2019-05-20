@@ -1,12 +1,14 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include "Globals.hpp"
+#include "Tracker.hpp"
+
 namespace Game
 {
 	// Needs to be publicly available for modules etc.
 	extern bool keys[256];
 	// Gets called when the engine is ready to load in content / initialize.
-	void loadContent();
+	void loadContent(HandTracker& tracker);
 	// Gets called every frame for game logic.
 	void update(float deltaTime);
 	// Gets called on every draw.

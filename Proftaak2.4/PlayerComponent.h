@@ -11,10 +11,9 @@ private:
 	void drawCircle(float cx, float cy, float r, int num_segments);
 
 public:
-	PlayerComponent(int width, int height);
+	PlayerComponent(HandTracker& tracker);
 	~PlayerComponent();
 
-	void update(float elapsedTime) override;
 	virtual void draw() override;
 
 };
