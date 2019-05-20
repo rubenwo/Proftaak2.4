@@ -2,22 +2,9 @@
 #define TRACKER_HPP
 #include <functional>
 
-class Hand
+struct hand
 {
-private:
-	int id;
-	std::pair<int, int> position;
-public:
-	Hand();
-	Hand
-	(int);
-	~Hand();
-
-	int getId();
-	int getX();
-	int getY();
-	void setX(int);
-	void setY(int);
+	int id, x, y;
 };
 
 
@@ -25,16 +12,16 @@ class HandTracker
 {
 private:
 	int width, height;
-	Hand hands[2];
-	std::function<void(Hand [2])> callback;
-	void track();
+	hand hands[2];
+	//std::function<void(hand[2])> callback;
+	void track(const std::function<void(hand[])>& callback);
 
 public:
 	HandTracker(int, int);
 	~HandTracker();
 
-	void set_callback(const std::function<void(Hand [])>& callback);
-	void start_tracking();
+	//void set_callback(const std::function<void(hand[])>& callback);
+	void start_tracking(const std::function<void(hand[])>& callback);
 };
 
 

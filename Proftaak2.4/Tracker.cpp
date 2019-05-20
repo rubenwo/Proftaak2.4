@@ -3,48 +3,8 @@
 #include <iostream>
 #include <opencv2/tracking/tracker.hpp>
 
-Hand::Hand()
-{
-	id = 0;
-}
 
-Hand::Hand(int id)
-{
-	this->id = id;
-}
-
-Hand::~Hand()
-{
-}
-
-
-int Hand::getId()
-{
-	return this->id;
-}
-
-int Hand::getX()
-{
-	return this->position.second;
-}
-
-int Hand::getY()
-{
-	return this->position.second;
-}
-
-void Hand::setX(int x)
-{
-	this->position.first = x;
-}
-
-void Hand::setY(int y)
-{
-	this->position.second = y;
-}
-
-
-void HandTracker::track()
+void HandTracker::track(const std::function<void(hand [])>& callback)
 {
 	cv::Scalar blue_lower, blue_upper;
 	cv::UMat frame, blurred, hsv;
@@ -75,7 +35,7 @@ void HandTracker::track()
 
 		if (vcap.read(frame))
 		{
-			cv::resize(frame, frame, cv::Size(540, 960)); //Resize the image to a easier resolution.
+			cv::resize(frame, frame, cv::Size(1280, 720)); //Resize the image to a easier resolution.
 
 			cv::GaussianBlur(frame, blurred, cv::Size(11, 11), 0); //Blur the image in order to remove noise.
 
@@ -112,7 +72,7 @@ void HandTracker::track()
 				circle(frame, mc[i], 4, color, -1, 8, 0);
 			}
 
-
+			callback(hands);
 			cv::imshow("Contours", frame); //Finally show the image with the contours
 		}
 		else
@@ -133,7 +93,7 @@ HandTracker::HandTracker(int width, int height)
 	this->height = height;
 	for (int i = 0; i < 2; i++)
 	{
-		this->hands[i] = Hand(i);
+		this->hands[i] = {i};
 	}
 }
 
@@ -141,13 +101,9 @@ HandTracker::~HandTracker()
 {
 }
 
-void HandTracker::set_callback(const std::function<void(Hand [])>& callback)
-{
-	this->callback = callback;
-}
 
-void HandTracker::start_tracking()
+void HandTracker::start_tracking(const std::function<void(hand [])>& callback)
 {
-	track();
+	track(callback);
 	// Start thread for tracking
 }
