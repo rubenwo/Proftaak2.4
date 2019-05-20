@@ -103,7 +103,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 			std::cout << "couldn't read frame" << std::endl;
 			break;
 		}
-		if (cv::waitKey(30) == 27)
+		if (cv::waitKey(1) == 27)
 		{
 			break;
 		}

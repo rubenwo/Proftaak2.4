@@ -33,9 +33,8 @@ void PlayerComponent::draw()
 	for (auto hand : atomic_hands.load())
 	{
 		std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
-		drawCircle(hand.x, hand.y, 1, 5);
+		drawCircle(hand.x / 1240.0f * 2, -hand.y / 720.0f * 2, 0.8, 10);
 	}
-
 }
 
 void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
@@ -46,7 +45,7 @@ void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
 		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments); //get the current angle 
 		float x = r * cosf(theta); //calculate the x component 
 		float y = r * sinf(theta); //calculate the y component 
-		glColor3f(0, -1, 0);
+		glColor3f(0, 0, 0);
 		glVertex2f(x + cx, y + cy); //output vertex 
 	}
 	glEnd();
