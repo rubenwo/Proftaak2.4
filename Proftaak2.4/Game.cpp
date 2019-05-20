@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
+#include "Camera.hpp"
 
 namespace Game
 {
@@ -16,7 +17,7 @@ namespace Game
 	Camera camera;
 	std::list<GameObject*> objects;
 	//GameObject* player;
-	//CameraComponent* camComponent;
+	//CameraComponent* camComponent;	
 
 	void loadContent()
 	{
