@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
-#include "Camera.hpp"
+#include "WallComponent.h"
 
 namespace Game
 {
@@ -17,9 +17,8 @@ namespace Game
 	Camera camera;
 	std::list<GameObject*> objects;
 
-	void drawRoom();
-	void createMovingRubeRight();
-	void createMovingRubeLeft();
+	void createMovingCubeRight(float height = 0);
+	void createMovingCubeLeft(float height = 0);
 
 	//GameObject* player;
 	//CameraComponent* camComponent;	
@@ -29,8 +28,12 @@ namespace Game
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
 
-		createMovingRubeRight();
-		createMovingRubeLeft();
+		GameObject* room = new GameObject();
+		room->addComponent(new WallComponent());
+		objects.push_back(room);
+
+		createMovingCubeRight();
+		createMovingCubeLeft();
 	}
 	void update(float deltaTime)
 	{
@@ -40,8 +43,6 @@ namespace Game
 	void draw()
 	{
 		glRotatef(180, 1, 0, 0);
-
-		drawRoom();
 
 		for (const auto& o : objects)
 			o->draw();
@@ -103,57 +104,7 @@ namespace Game
 		std::cout << "Closing game.\n";
 	}
 
-	void drawRoom()
-	{
-		//RIGHT WALL
-		glBegin(GL_QUADS);
-		glColor3f(1, 0, 0);
-
-		glVertex3f(-3, -2, 2.5);
-		glVertex3f(-3, -2, 100);
-		glVertex3f(-3, 4, 100);
-		glVertex3f(-3, 4, 2.5);
-		glEnd();
-
-		//START WALL RIGHT
-		glBegin(GL_QUADS);
-		glColor3f(1, 0, 1);
-		glColor3f(0, 1, 0);
-		glVertex3f(-2.5, -2, 2.49);
-		glVertex3f(-3.5, -2, 2.49);
-		glVertex3f(-3.5, 4, 2.49);
-		glVertex3f(-2.5, 4, 2.49);
-		glEnd();
-
-		//LEFT WALL
-		glBegin(GL_QUADS);
-		glColor3f(0, 1, 0);
-		glVertex3f(3, -2, 2.5);
-		glVertex3f(3, -2, 100);
-		glVertex3f(3, 4, 100);
-		glVertex3f(3, 4, 2.5);
-		glEnd();
-
-		//START WALL LEFT
-		glBegin(GL_QUADS);
-		glColor3f(1, 0, 0);
-		glVertex3f(2.5, -2, 2.49);
-		glVertex3f(3.5, -2, 2.49);
-		glVertex3f(3.5, 4, 2.49);
-		glVertex3f(2.5, 4, 2.49);
-		glEnd();
-
-		//BASE PLATFORM
-		glBegin(GL_QUADS);
-		glColor3f(0, 0, 1);
-		glVertex3f(-2, 0.7, 1);
-		glVertex3f(-2, 0.7, 100);
-		glVertex3f(2, 0.7, 100);
-		glVertex3f(2, 0.7, 1);
-		glEnd();
-	}
-
-	void createMovingRubeRight()
+	void createMovingCubeRight(float height)
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
@@ -161,12 +112,12 @@ namespace Game
 		o->addComponent(new MoveToComponent());
 
 		o->position = Vec3f(0, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(1.5, 0.6, -5);
+		o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
 
 		objects.push_back(o);
 	}
 
-	void createMovingRubeLeft()
+	void createMovingCubeLeft(float height)
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
@@ -174,7 +125,7 @@ namespace Game
 		o->addComponent(new MoveToComponent());
 
 		o->position = Vec3f(0, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, 0.6, -5);
+		o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
 
 		objects.push_back(o);
 	}
