@@ -131,21 +131,23 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MoveToCompontent.cpp" />
-    <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="SpinComponent.cpp" />
     <ClCompile Include="TimerJumper.cpp" />
     <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CubeComponent.h" />
     <ClInclude Include="DrawComponent.h" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Globals.hpp" />
     <ClInclude Include="MoveToComponent.h" />
-    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="SpinComponent.h" />
     <ClInclude Include="TimerJumper.h" />
     <ClInclude Include="Vec.h" />
