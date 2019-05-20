@@ -1,4 +1,3 @@
-#include "CubeComponent.h"
 #include <GL/freeglut.h>
 #include "WallComponent.h"
 
@@ -6,7 +5,6 @@
 WallComponent::WallComponent()
 {
 }
-
 
 WallComponent::~WallComponent()
 {

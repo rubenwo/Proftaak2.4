@@ -136,7 +136,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MoveToCompontent.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
-    <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="SpinComponent.cpp" />
     <ClCompile Include="TimerJumper.cpp" />
     <ClCompile Include="Vec.cpp" />
@@ -153,7 +152,6 @@
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjectModel.h" />
-    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="SpinComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TimerJumper.h" />

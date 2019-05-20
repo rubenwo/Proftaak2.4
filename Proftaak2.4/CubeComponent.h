@@ -1,12 +1,8 @@
 #pragma once
 
-using namespace std;
-
 #include <GL\freeglut.h>
 #include "DrawComponent.h"
-#include <string>
 #include "Enums.h"
-#include <iostream>
 
 
 class CubeComponent : public DrawComponent
