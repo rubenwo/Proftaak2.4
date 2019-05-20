@@ -25,6 +25,12 @@
     <Filter Include="Source Files\GameObjects\Components">
       <UniqueIdentifier>{2b12f0a1-a097-4e10-acc7-f791ebaa6bf9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Music">
+      <UniqueIdentifier>{bd73bb08-a454-42f7-8fb7-fc7dd2f2e132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Music">
+      <UniqueIdentifier>{cc7f0637-0322-40a0-843e-25b752563cef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -63,6 +69,12 @@
     <ClCompile Include="PlayerComponent.cpp">
       <Filter>Source Files\GameObjects\Components</Filter>
     </ClCompile>
+    <ClCompile Include="MusicLoader.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicTrack.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.hpp">
@@ -100,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
       <Filter>Header Files\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicTrack.h">
+      <Filter>Header Files\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicLoader.hpp">
+      <Filter>Header Files\Music</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
