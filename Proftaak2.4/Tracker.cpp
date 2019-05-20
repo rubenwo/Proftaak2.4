@@ -95,7 +95,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 				}
 				cv::imshow("Contours", flipped_frame); //Finally show the image with the contours
 			}
-			this->translate_coordinates();
+			this->translateCoordinates();
 			callback(hands);
 		}
 		else
@@ -110,7 +110,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 	}
 }
 
-void HandTracker::translate_coordinates()
+void HandTracker::translateCoordinates()
 {
 	for (auto h : hands)
 	{
@@ -141,7 +141,7 @@ void HandTracker::resize(int width, int height)
 }
 
 
-void HandTracker::start_tracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
+void HandTracker::startTracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
 	callback(hands);
 	std::thread tracking_thread(&HandTracker::track, this, callback);

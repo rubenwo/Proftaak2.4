@@ -13,7 +13,6 @@
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 800
 
-
 int windowWidth;
 int windowHeight;
 
@@ -93,31 +92,11 @@ bool initOpenGL()
 	return true;
 }
 
-/*
-std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
-
-void callback(std::array<hand, HANDS_AMOUNT> hands)
-{
-	atomic_hands = hands;
-}*/
-
 int main(int argc, char** argv)
 {
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-	/*HandTracker tracker(1920, 1080);
 
-	tracker.start_tracking(callback);
-	while (1)
-	{
-		cv::waitKey(1000);
-
-		for (int i = 0; i < atomic_hands._My_val.size(); i++)
-		{
-			std::cout << "ID: " << atomic_hands._My_val[i].id << " X: " << atomic_hands._My_val[i].x << " Y: " <<
-				atomic_hands._My_val[i].y << std::endl;
-		}
-	}*/
 	if (initGlut(argc, argv))
 		std::cout << "Succesfully initialized glut.\n";
 	else

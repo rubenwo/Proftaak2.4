@@ -6,6 +6,7 @@
 #include "Camera.hpp"
 #include "GameObject.h"
 #include "CubeComponent.h"
+#include "PlayerComponent.h"
 
 namespace Game
 {
@@ -16,6 +17,7 @@ namespace Game
 	std::list<GameObject*> objects;
 	//GameObject* player;
 	//CameraComponent* camComponent;
+
 	void loadContent()
 	{
 		ZeroMemory(keys, sizeof(keys));
@@ -23,11 +25,14 @@ namespace Game
 
 		GameObject* o = new GameObject();
 		o->addComponent(new CubeComponent(0.5));
+		o->addComponent(new PlayerComponent(windowWidth, windowHeight));
+
 
 		o->position = Vec3f(0, 4, 0);
 
 		objects.push_back(o);
 	}
+
 	void update(float deltaTime)
 	{
 		for (const auto& o : objects)

@@ -19,14 +19,14 @@ private:
 	std::array<hand, HANDS_AMOUNT> hands;
 
 	void track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
-	void translate_coordinates();
+	void translateCoordinates();
 
 public:
 	HandTracker(int, int);
 	~HandTracker();
 
 	void resize(int, int);
-	void start_tracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
+	void startTracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
 };
 
 
