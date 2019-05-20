@@ -18,6 +18,8 @@ namespace Game
 	std::list<GameObject*> objects;
 
 	void drawRoom();
+	void createMovingRubeRight();
+	void createMovingRubeLeft();
 
 	//GameObject* player;
 	//CameraComponent* camComponent;	
@@ -27,15 +29,8 @@ namespace Game
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
 
-		//Add moving cube, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
-		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.5));
-		o->addComponent(new MoveToComponent());
-
-		o->position = Vec3f(0, 0, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(0, -1.6, 0);
-
-		objects.push_back(o);
+		createMovingRubeRight();
+		createMovingRubeLeft();
 	}
 	void update(float deltaTime)
 	{
@@ -48,15 +43,8 @@ namespace Game
 
 		drawRoom();
 
-		glColor3f(0.5f, 0.8f, 0.2f);
 		for (const auto& o : objects)
 			o->draw();
-		//glBegin(GL_QUADS);
-		//glVertex3f(-15, -1, -15);
-		//glVertex3f(15, -1, -15);
-		//glVertex3f(15, -1, 15);
-		//glVertex3f(-15, -1, 15);
-		//glEnd();
 	}
 
 	void onKey(Key key)
@@ -163,5 +151,31 @@ namespace Game
 		glVertex3f(2, 0.7, 100);
 		glVertex3f(2, 0.7, 1);
 		glEnd();
+	}
+
+	void createMovingRubeRight()
+	{
+		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
+		GameObject* o = new GameObject();
+		o->addComponent(new CubeComponent(0.1));
+		o->addComponent(new MoveToComponent());
+
+		o->position = Vec3f(0, 0, 30);
+		o->getComponent<MoveToComponent>()->target = Vec3f(1.5, 0.6, -5);
+
+		objects.push_back(o);
+	}
+
+	void createMovingRubeLeft()
+	{
+		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
+		GameObject* o = new GameObject();
+		o->addComponent(new CubeComponent(0.1));
+		o->addComponent(new MoveToComponent());
+
+		o->position = Vec3f(0, 0, 30);
+		o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, 0.6, -5);
+
+		objects.push_back(o);
 	}
 }
