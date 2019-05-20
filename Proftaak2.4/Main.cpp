@@ -24,9 +24,7 @@ GameObject* player;
 
 //Textures:
 GLuint texture1;
-//const char* textureFilename = "blockTextures.jpg";
 const char* textureFilename = "textures12.png";
-
 
 bool keys[256];
 bool skeys[5]; //for arrow keys
@@ -112,18 +110,15 @@ void specialKeysUp(int key, int x, int y)
 	}
 }
 
-void init()
-{
-	ZeroMemory(keys, sizeof(keys));
-
+void createBlockObject(HAND handSide, ARROWDIRECTION arrowDirection) {
 	GameObject* o = new GameObject();
-	CubeComponent* c = new CubeComponent(1.0f, 1, HAND::rightHand, ARROWDIRECTION::up);
+	CubeComponent* c = new CubeComponent(1.0f, 1, handSide, arrowDirection);
 	o->addComponent(c);
-	HAND handSide = c->CubeComponent::getHandSide();
-	cout << "\r\nHandSide: " << handSide;
-	
-	c->CubeComponent::getTexture(handSide);
-	if (handSide == HAND::leftHand) {
+	HAND handSidee = c->CubeComponent::getHandSide();
+	cout << "\r\nHandSide: " << handSidee;
+
+	c->CubeComponent::getTexture(handSidee);
+	if (handSidee == HAND::leftHand) {
 		//links van middenlijn
 		o->position = Vec3f(-3, 0, 0);
 	}
@@ -131,9 +126,21 @@ void init()
 		//rechts van middenlijn
 		o->position = Vec3f(3, 0, 0);
 	}
-
 	objects.push_back(o);
 	player = o;
+}
+
+CubeComponent* createBlock(HAND handSide, ARROWDIRECTION arrowDirection) {
+	CubeComponent* c = new CubeComponent(1.0f, 1, handSide, arrowDirection);
+	return c;
+}
+
+void init()
+{
+	ZeroMemory(keys, sizeof(keys));
+	createBlockObject(HAND::leftHand, ARROWDIRECTION::down);
+	createBlockObject(HAND::rightHand, ARROWDIRECTION::up);
+	
 
 
 	/*for (int i = -10; i < 10; i++)

@@ -63,7 +63,7 @@ void CubeComponent::draw()
 	glBegin(GL_QUADS);
 
 	//Red
-	glColor3f(1, 0, 0);
+	glColor3f(22.74f, 1.56f, 3.92f);
 	glVertex3f(-1, -1, -1);
 	glVertex3f(1, -1, -1);
 	glVertex3f(1, 1, -1);
@@ -109,7 +109,7 @@ void CubeComponent::draw()
 	glRotatef(180, 1.0f, 0, 0);
 
 	glBegin(GL_QUADS);
-	glColor3f(0, 0, 0);
+	glColor3f(22.74f, 1.56f, 3.92f);
 	glVertex3f(-1, -1, -1);
 	glVertex3f(-1, 1, -1);
 	glVertex3f(-1, 1, 1);
