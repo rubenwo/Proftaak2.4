@@ -1,5 +1,6 @@
 #include "CubeComponent.h"
 #include <GL/freeglut.h>
+#include <iostream>
 
 int textureID;
 int startPos;
@@ -55,53 +56,44 @@ void CubeComponent::getTexture(HAND handSide) {
 
 void CubeComponent::draw()
 {
-	glBegin(GL_QUADS);
-
-	if (handSide == HAND::leftHand) 
-		glColor3f(0.2274f, 0.0156f, 0.0392f);	//red
-	else 
-		glColor3f(0.0392f, 0.0235f, 0.2627f);	//blue
-
-	glVertex3f(-size, -size, -size);
-	glVertex3f(size, -size, -size);
-	glVertex3f(size, size, -size);
-	glVertex3f(-size, size, -size);
-	glEnd();
-
-	//FRONT
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glDisable(GL_BLEND);
 
-	if (arrowDirection == ARROWDIRECTION::left)
+	//FRONT
+	if (arrowDirection == ARROWDIRECTION::left) {
+	}
+	else if (arrowDirection == ARROWDIRECTION::right) {
 		glRotatef(180, 0, 0, 1.0f);
-	else if (arrowDirection == ARROWDIRECTION::right) 
-		glRotatef(0, 0, 0, 1.0f);
-	else if (arrowDirection == ARROWDIRECTION::up) 
+	}
+	else if (arrowDirection == ARROWDIRECTION::up)
 		glRotatef(90, 0, 0, 1.0f);
-	else if (arrowDirection == ARROWDIRECTION::down) 
+	else if (arrowDirection == ARROWDIRECTION::down)
 		glRotatef(270, 0, 0, 1.0f);
 
 	getTexture(handSide);
-
+	
 	glBegin(GL_QUADS);
 	glColor4f(1, 1, 1, 1);
 	glTexCoord2f(startPos, startPos);
-	glVertex3f(-size, -size, size);
+	glVertex3f(-size, -size, -size);
 	glTexCoord2f(startPos, endPos);
-	glVertex3f(size, -size, size); 
+	glVertex3f(size, -size, -size);
 	glTexCoord2f(endPos, endPos);
-	glVertex3f(size, size, size); 
+	glVertex3f(size, size, -size);
 	glTexCoord2f(endPos, startPos);
-	glVertex3f(-size, size, size);
+	glVertex3f(-size, size, -size);
 	glDisable(GL_TEXTURE_2D);
-	glEnd();
 
-	glBegin(GL_QUADS);
 	if (handSide == HAND::leftHand)
 		glColor3f(0.2274f, 0.0156f, 0.0392f);	//red
-	else 
+	else
 		glColor3f(0.0392f, 0.0235f, 0.2627f);	//blue
+
+	glVertex3f(-size, -size, size);
+	glVertex3f(size, -size, size); 
+	glVertex3f(size, size, size); 
+	glVertex3f(-size, size, size);
 
 	glVertex3f(-size, -size, -size);
 	glVertex3f(-size, size, -size);

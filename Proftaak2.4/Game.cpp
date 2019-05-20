@@ -110,28 +110,28 @@ namespace Game
 		std::cout << "Closing game.\n";
 	}
 
-	void createMovingCubeRight(float height)
+	void createMovingCubeLeft(float height) //blue color
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
-		o->addComponent(new MoveToComponent());
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::left));
+		//o->addComponent(new MoveToComponent());
 
-		o->position = Vec3f(2, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
+		o->position = Vec3f(2, 0, 0);
+		//o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
 
 		objects.push_back(o);
 	}
 
-	void createMovingCubeLeft(float height)
+	void createMovingCubeRight(float height) //red color
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::down));
-		o->addComponent(new MoveToComponent());
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
+		//o->addComponent(new MoveToComponent());
 
-		o->position = Vec3f(-2, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
+		o->position = Vec3f(-2, 0, 0);
+		//o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
 
 		objects.push_back(o);
 	}
