@@ -6,7 +6,7 @@
 class MoveToComponent : public Component
 {
 public:
-	float speed = 10;// 0.025f;
+	float speed = 2.5f;
 	Vec3f target;
 
 	MoveToComponent();
