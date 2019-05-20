@@ -1,5 +1,5 @@
 #include <GL\freeglut.h>
-#include <GL\glut.h>
+//#include <GL\glut.h>
 #include <opencv2\highgui\highgui.hpp>
 #define _USE_MATH_DEFINES
 #define STB_IMAGE_IMPLEMENTATION
@@ -132,7 +132,7 @@ void createBlockObject(HAND handSide, ARROWDIRECTION arrowDirection) {
 
 CubeComponent* createBlock(HAND handSide, ARROWDIRECTION arrowDirection) {
 	CubeComponent* c = new CubeComponent(1.0f, 1, handSide, arrowDirection);
-	return c;
+	return c; 
 }
 
 void init()

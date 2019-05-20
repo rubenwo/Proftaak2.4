@@ -61,9 +61,14 @@ void CubeComponent::getTexture(HAND handSide) {
 void CubeComponent::draw()
 {
 	glBegin(GL_QUADS);
-
-	//Red
-	glColor3f(22.74f, 1.56f, 3.92f);
+	if (handSide == HAND::leftHand) {
+		//red
+		glColor3f(0.2274f, 0.0156f, 0.0392f);
+	}
+	else {
+		//blue
+		glColor3f(0.0392f, 0.0235f, 0.2627f);
+	}
 	glVertex3f(-1, -1, -1);
 	glVertex3f(1, -1, -1);
 	glVertex3f(1, 1, -1);
@@ -91,7 +96,7 @@ void CubeComponent::draw()
 		glRotatef(270, 0, 0, 1.0f);
 	}
 
-	getTexture(handSide);
+	//getTexture(handSide);
 	//printf("\r\nTexture ID: " + textureID);
 
 	glBegin(GL_QUADS);
@@ -109,7 +114,14 @@ void CubeComponent::draw()
 	glRotatef(180, 1.0f, 0, 0);
 
 	glBegin(GL_QUADS);
-	glColor3f(22.74f, 1.56f, 3.92f);
+	if (handSide == HAND::leftHand) {
+		//red
+		glColor3f(0.2274f, 0.0156f, 0.0392f);
+	}
+	else {
+		//blue
+		glColor3f(0.0392f, 0.0235f, 0.2627f);
+	}
 	glVertex3f(-1, -1, -1);
 	glVertex3f(-1, 1, -1);
 	glVertex3f(-1, 1, 1);
