@@ -21,9 +21,9 @@ GLuint Texture::getTextureId()
 
 void Texture::loadTextureFromFile(const char *filename)
 {
-	//glClearColor(0.0, 0.0, 0.0, 0.0);
-	//glShadeModel(GL_FLAT);
-	//glEnable(GL_DEPTH_TEST);
+	// glClearColor(0.0, 0.0, 0.0, 0.0);
+	// glShadeModel(GL_FLAT);
+	// glEnable(GL_DEPTH_TEST);
 
 	int width, height, bpp;
 	unsigned char* imgData = stbi_load(filename, &width, &height, &bpp, 4);

@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <GL\freeglut.h>
 #include "DrawComponent.h"
 #include "Enums.h"
@@ -26,4 +27,3 @@ public:
 	virtual void draw() override;
 	//void drawWithTexture(GLuint textureID, int size, int startPos, int endPos);
 };
-

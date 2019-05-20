@@ -1,19 +1,37 @@
 /*
 	Engine functionality
 */
+#define _USE_MATH_DEFINES
+#define STB_IMAGE_IMPLEMENTATION
 #include <iostream>
 #include <GL\freeglut.h>
 #include "Globals.hpp"
 #include "Game.hpp"
 #include "ObjectModel.h"
+#include <math.h>
 
 #define APP_NAME "Game"
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 800
 
+using namespace std;
 
-int windowWidth;
-int windowHeight;
+struct Camera
+{
+	float posX = 0;
+	float posY = -4;
+	float rotX = 0;
+	float rotY = 0;
+	float posZ = 0;
+	float rotZ = 0;
+} camera;
+
+bool keys[256];
+bool skeys[5]; //for arrow keys
+
+
+int windowWidth = 1200;
+int windowHeight = 800;
 GLuint texture1;
 const char* textureFilename = "textures12.png";
 
@@ -24,23 +42,24 @@ void reshape(int w, int h)
 	glViewport(0, 0, w, h);
 }
 
-void keyboard(unsigned char key, int x, int  y)
-{
-	Game::onKey(key);
-}
-
-void keyboardup(unsigned char key, int x, int y)
-{
-	Game::onKeyUp(key);
-}
-
-void mousePassiveMotion(int x, int y)
-{
-	Game::onMouseMove(x, y);
-}
+//void keyboard(unsigned char key, int x, int  y)
+//{
+//	Game::onKey(key);
+//}
+//
+//void keyboardup(unsigned char key, int x, int y)
+//{
+//	Game::onKeyUp(key);
+//}
+//
+//void mousePassiveMotion(int x, int y)
+//{
+//	Game::onMouseMove(x, y);
+//}
 
 void display()
 {
+
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
@@ -50,6 +69,11 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	glRotatef(camera.rotX, 1, 0, 0);
+	glRotatef(camera.rotY, 0, 1, 0);
+	glRotatef(camera.rotZ, 0, 0, 1);
+	glTranslatef(camera.posX, camera.posZ, camera.posY);
+
 	Game::draw();
 
 	glutSwapBuffers();
@@ -57,11 +81,32 @@ void display()
 
 int lastTime = 0;
 
+void move(float angle, float fac)
+{
+	camera.posX += (float)cos((camera.rotY + angle) / 180 * M_PI) * fac;
+	camera.posY += (float)sin((camera.rotY + angle) / 180 * M_PI) * fac;
+}
+
 void idle()
 {
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
 	lastTime = currentTime;
+
+	const float speed = 3;
+	if (keys['a']) move(0, deltaTime*speed);
+	if (keys['d']) move(180, deltaTime*speed);
+	if (keys['w']) move(90, deltaTime*speed);
+	if (keys['s']) move(270, deltaTime*speed);
+
+	glutWarpPointer(windowWidth / 2, windowHeight / 2);
+
+	if (skeys[0]) { //UP ARROW KEY
+		camera.posZ -= 0.025;
+	}
+	if (skeys[1]) { //DOWN ARROW KEY
+		camera.posZ += 0.025;
+	}
 
 	Game::update(deltaTime);
 	// update
@@ -69,7 +114,71 @@ void idle()
 	glutPostRedisplay();
 }
 
-bool initGlut(int argc, char** argv)
+
+
+bool justMovedMouse = false;
+void mousePassiveMotion(int x, int y)
+{
+	int dx = x - windowWidth / 2;
+	int dy = y - windowHeight / 2;
+	if ((dx != 0 || dy != 0) && abs(dx) < 400 && abs(dy) < 400 && !justMovedMouse)
+	{
+		camera.rotY += dx / 10.0f;
+		camera.rotX += dy / 10.0f;
+	}
+	if (!justMovedMouse)
+	{
+		//glutWarpPointer(windowWidth / 2, windowHeight / 2);
+		justMovedMouse = true;
+	}
+	else
+		justMovedMouse = false;
+}
+
+void keyboard(unsigned char key, int x, int  y)
+{
+	keys[key] = true;
+	if (key == 27)
+		exit(0);
+
+	cout << "Key: " << key << std::endl;
+}
+
+void keyboardup(unsigned char key, int x, int y)
+{
+	keys[key] = false;
+}
+
+void specialKeys(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		skeys[0] = true;
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_DOWN:
+		skeys[1] = true;
+		glutPostRedisplay();
+		break;
+	}
+	std::cout << "Special key: " << key << std::endl;
+}
+
+void specialKeysUp(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		skeys[0] = false;
+		break;
+	case GLUT_KEY_DOWN:
+		skeys[1] = false;
+		break;
+	}
+}
+
+bool initGlut(int argc, char* argv[])
 {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(windowWidth, windowHeight);
@@ -94,10 +203,6 @@ bool initOpenGL()
 }
 int main(int argc, char** argv)
 {
-	Texture texture = Texture(textureFilename);
-	texture.loadTextureFromFile(textureFilename);
-	texture1 = texture.getTextureId();
-
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
 
@@ -117,6 +222,10 @@ int main(int argc, char** argv)
 		return OPENGL_INIT_FAILED;
 	}
 
+	Texture texture = Texture(textureFilename);
+	texture.loadTextureFromFile(textureFilename);
+	texture1 = texture.getTextureId();
+
 	// Start loading in game content.
 	Game::loadContent();
 
@@ -128,93 +237,3 @@ int main(int argc, char** argv)
 
 	return EXIT_SUCCESS;
 }
-
-/*
-void display()
-{
-	glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(90.0f, windowWidth / (float)windowHeight, 0.1f, 50.0f);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	//gluLookAt(0, -5, 5,
-	//	player->position.x, player->position.y, player->position.z,
-	//	0, 1, 0);
-
-	glRotatef(camera.rotX, 1, 0, 0);
-	glRotatef(camera.rotY, 0, 1, 0);
-	glRotatef(camera.rotZ, 0, 0, 1);
-	glTranslatef(camera.posX, camera.posZ, camera.posY);
-
-	for (auto& o : objects)
-		o->draw();
-
-	glutSwapBuffers();
-}
-
-void move(float angle, float fac)
-{
-	camera.posX += (float)cos((camera.rotY + angle) / 180 * M_PI) * fac;
-	camera.posY += (float)sin((camera.rotY + angle) / 180 * M_PI) * fac;
-}
-
-int lastTime = 0;
-void idle()
-{
-	int currentTime = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = (currentTime - lastTime) / 1000.0f;
-	lastTime = currentTime;
-
-	const float speed = 3;
-	if (keys['a']) move(0, deltaTime*speed);
-	if (keys['d']) move(180, deltaTime*speed);
-	if (keys['w']) move(90, deltaTime*speed);
-	if (keys['s']) move(270, deltaTime*speed);
-
-	if (skeys[0]) { //UP ARROW KEY
-		camera.posZ -= 0.025;
-	}
-	if (skeys[1]) { //DOWN ARROW KEY
-		camera.posZ += 0.025;
-	}
-
-	for (auto& o : objects)
-		o->update(deltaTime);
-
-	glutPostRedisplay();
-}
-
-int main(int argc, char* argv[])
-{
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize(width, height);
-	glutInit(&argc, argv);
-	glutCreateWindow("Program");
-	glutDisplayFunc(display);
-	glutIdleFunc(idle);
-	glutReshapeFunc(reshape);
-
-	//Regular keys:
-	glutKeyboardFunc(keyboard);
-	glutKeyboardUpFunc(keyboardup);
-
-	//Special keys:
-	glutSpecialFunc(specialKeys);
-	glutSpecialUpFunc(specialKeysUp);
-	
-	//Texture loading:
-
-	//opengl init
-	init();
-
-	glutPassiveMotionFunc(mousePassiveMotion);
-	glutWarpPointer(width / 2, height / 2);
-	glutMainLoop();
-	return 0;
-}
-*/
-
