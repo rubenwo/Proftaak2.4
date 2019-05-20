@@ -123,5 +123,6 @@ void CubeComponent::draw()
 	glVertex3f(size, size, size);
 	glVertex3f(-size, size, size);
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 

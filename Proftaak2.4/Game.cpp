@@ -31,8 +31,8 @@ namespace Game
 		objects.push_back(room);
 
 		//EXAMPLE CUBES
-		// createMovingCubeRight(1);
-		// createMovingCubeLeft();
+		createMovingCubeRight(1);
+		createMovingCubeLeft();
 	}
 
 	void update(float deltaTime)
@@ -114,7 +114,7 @@ namespace Game
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(1, 1, HAND::rightHand, ARROWDIRECTION::right));
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
 		o->addComponent(new MoveToComponent());
 
 		o->position = Vec3f(2, 0, 30);
@@ -127,7 +127,7 @@ namespace Game
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(1.0f, 1, HAND::leftHand, ARROWDIRECTION::down));
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::down));
 		o->addComponent(new MoveToComponent());
 
 		o->position = Vec3f(-2, 0, 30);
