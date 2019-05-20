@@ -16,6 +16,9 @@ namespace Game
 
 	Camera camera;
 	std::list<GameObject*> objects;
+
+	void drawRoom();
+
 	//GameObject* player;
 	//CameraComponent* camComponent;	
 
@@ -29,8 +32,8 @@ namespace Game
 		o->addComponent(new CubeComponent(0.5));
 		o->addComponent(new MoveToComponent());
 
-		o->position = Vec3f(0, 0, -50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(0, 4.6, 0);
+		o->position = Vec3f(0, 0, 50);
+		o->getComponent<MoveToComponent>()->target = Vec3f(0, -1.6, 0);
 
 		objects.push_back(o);
 	}
@@ -41,19 +44,10 @@ namespace Game
 	}
 	void draw()
 	{
-		//glRotatef(camera.rotX, 1, 0, 0);
-		//glRotatef(camera.rotY, 0, 1, 0);
-		//glTranslatef(camera.posX, 0, camera.posY);
+		glRotatef(180, 1, 0, 0);
 
-		// Floor
-		glColor3f(0.1f, 1.0f, 0.2f);
+		drawRoom();
 
-		glBegin(GL_QUADS);
-		glVertex3f(-15, -1, -15);
-		glVertex3f(15, -1, -15);
-		glVertex3f(15, -1, 15);
-		glVertex3f(-15, -1, 15);
-		glEnd();
 		glColor3f(0.5f, 0.8f, 0.2f);
 		for (const auto& o : objects)
 			o->draw();
@@ -119,5 +113,55 @@ namespace Game
 		objects.clear();*/
 
 		std::cout << "Closing game.\n";
+	}
+
+	void drawRoom()
+	{
+		//RIGHT WALL
+		glBegin(GL_QUADS);
+		glColor3f(1, 0, 0);
+
+		glVertex3f(-3, -2, 2.5);
+		glVertex3f(-3, -2, 100);
+		glVertex3f(-3, 4, 100);
+		glVertex3f(-3, 4, 2.5);
+		glEnd();
+
+		//START WALL RIGHT
+		glBegin(GL_QUADS);
+		glColor3f(1, 0, 1);
+		glColor3f(0, 1, 0);
+		glVertex3f(-2.5, -2, 2.49);
+		glVertex3f(-3.5, -2, 2.49);
+		glVertex3f(-3.5, 4, 2.49);
+		glVertex3f(-2.5, 4, 2.49);
+		glEnd();
+
+		//LEFT WALL
+		glBegin(GL_QUADS);
+		glColor3f(0, 1, 0);
+		glVertex3f(3, -2, 2.5);
+		glVertex3f(3, -2, 100);
+		glVertex3f(3, 4, 100);
+		glVertex3f(3, 4, 2.5);
+		glEnd();
+
+		//START WALL LEFT
+		glBegin(GL_QUADS);
+		glColor3f(1, 0, 0);
+		glVertex3f(2.5, -2, 2.49);
+		glVertex3f(3.5, -2, 2.49);
+		glVertex3f(3.5, 4, 2.49);
+		glVertex3f(2.5, 4, 2.49);
+		glEnd();
+
+		//BASE PLATFORM
+		glBegin(GL_QUADS);
+		glColor3f(0, 0, 1);
+		glVertex3f(-2, 0.7, 1);
+		glVertex3f(-2, 0.7, 100);
+		glVertex3f(2, 0.7, 100);
+		glVertex3f(2, 0.7, 1);
+		glEnd();
 	}
 }
