@@ -5,6 +5,9 @@
 #include <GL\freeglut.h>
 #include "Globals.hpp"
 #include "Game.hpp"
+#include <opencv2/highgui.hpp>
+#include "Tracker.hpp"
+#include <atomic>
 
 #define APP_NAME "Game"
 #define WINDOW_WIDTH 1200
@@ -21,7 +24,7 @@ void reshape(int w, int h)
 	glViewport(0, 0, w, h);
 }
 
-void keyboard(unsigned char key, int x, int  y)
+void keyboard(unsigned char key, int x, int y)
 {
 	Game::onKey(key);
 }
@@ -53,6 +56,7 @@ void display()
 }
 
 int lastTime = 0;
+
 void idle()
 {
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
@@ -88,11 +92,32 @@ bool initOpenGL()
 
 	return true;
 }
+
+/*
+std::atomic<std::array<hand, 2>> atomic_hands;
+
+void callback(std::array<hand, 2> hands)
+{
+	atomic_hands = hands;
+}*/
+
 int main(int argc, char** argv)
 {
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-
+	/*	HandTracker tracker(1920, 1080);
+	
+		tracker.start_tracking(callback);
+		while (1)
+		{
+			cv::waitKey(1000);
+	
+			for (int i = 0; i < atomic_hands._My_val.size(); i++)
+			{
+				std::cout << "ID: " << atomic_hands._My_val[i].id << " X: " << atomic_hands._My_val[i].x << " Y: " <<
+					atomic_hands._My_val[i].y << std::endl;
+			}
+		}*/
 	if (initGlut(argc, argv))
 		std::cout << "Succesfully initialized glut.\n";
 	else
@@ -252,7 +277,19 @@ int main(int argc, char* argv[])
 
 	glutMainLoop();
 
+	HandTracker tracker(1920, 1080);
+
+	tracker.start_tracking(callback);
+	while (1)
+	{
+		cv::waitKey(1000);
+
+		for (int i = 0; i < atomic_hands._My_val.size(); i++)
+		{
+				atomic_hands._My_val[i].y << std::endl;
+			std::cout << "ID: " << atomic_hands._My_val[i].id << " X: " << atomic_hands._My_val[i].x << " Y: " <<
+		}
+	}
 	return 0;
 }
 */
-

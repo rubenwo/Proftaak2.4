@@ -134,10 +134,14 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Tracker.cpp" />
     <ClCompile Include="MoveToCompontent.cpp" />
     <ClCompile Include="SpinComponent.cpp" />
     <ClCompile Include="TimerJumper.cpp" />
     <ClCompile Include="Vec.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Tracker.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.hpp" />
