@@ -2,17 +2,19 @@
 #include <opencv2/highgui.hpp>
 #include <iostream>
 #include <opencv2/tracking/tracker.hpp>
+#include <thread>
 
+#define camera_width 1280
+#define camera_height 720
 
-void HandTracker::track(const std::function<void(hand [])>& callback)
+void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback)
 {
-	cv::Scalar blue_lower, blue_upper;
-	cv::UMat frame, blurred, hsv;
-	cv::UMat blue_mask;
+	const auto orange_lower = cv::Scalar(10, 150, 20);
+	const auto orange_upper = cv::Scalar(20, 255, 255);
 
+	cv::UMat frame, scaled_frame, flipped_frame, blurred, hsv;
+	cv::UMat orange_mask;
 
-	blue_lower = cv::Scalar(100, 55, 55);
-	blue_upper = cv::Scalar(130, 255, 255);
 
 	cv::useOpenVX();
 
@@ -25,7 +27,7 @@ void HandTracker::track(const std::function<void(hand [])>& callback)
 		return;
 	}
 	// Create structuring element once
-	cv::Mat element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(4, 4));
+	const auto element = getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(4, 4));
 
 	// processing loop
 	for (;;)
@@ -35,20 +37,21 @@ void HandTracker::track(const std::function<void(hand [])>& callback)
 
 		if (vcap.read(frame))
 		{
-			cv::resize(frame, frame, cv::Size(1280, 720)); //Resize the image to a easier resolution.
-
-			cv::GaussianBlur(frame, blurred, cv::Size(11, 11), 0); //Blur the image in order to remove noise.
+			cv::resize(frame, scaled_frame, cv::Size(camera_width, camera_height));
+			//Resize the image to a easier resolution.
+			cv::flip(scaled_frame, flipped_frame, +1);
+			cv::GaussianBlur(flipped_frame, blurred, cv::Size(11, 11), 0); //Blur the image in order to remove noise.
 
 			cv::cvtColor(blurred, hsv, CV_BGR2HSV); //Convert the blurred image to HSV.
 
-			cv::inRange(hsv, blue_lower, blue_upper, blue_mask); //Create a binary output with only the blue's.
+			cv::inRange(hsv, orange_lower, orange_upper, orange_mask); //Create a binary output with only the blue's.
 
 
 			//Erode & Dilate to remove smaller objects
-			cv::erode(blue_mask, blue_mask, element, cv::Point(-1, -1), 5);
-			cv::dilate(blue_mask, blue_mask, element, cv::Point(-1, -1), 5);
+			cv::erode(orange_mask, orange_mask, element, cv::Point(-1, -1), 5);
+			cv::dilate(orange_mask, orange_mask, element, cv::Point(-1, -1), 5);
 
-			cv::findContours(blue_mask, blue_contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+			cv::findContours(orange_mask, blue_contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
 			//Find the contours of the blue objects.
 			std::vector<cv::Moments> mu(blue_contours.size());
 
@@ -63,29 +66,61 @@ void HandTracker::track(const std::function<void(hand [])>& callback)
 			{
 				mc[i] = cv::Point2f(mu[i].m10 / mu[i].m00, mu[i].m01 / mu[i].m00);
 			}
-
-			// draw the contours of the objects.
-			for (int i = 0; i < blue_contours.size(); i++)
+			if (hands.size() < mc.size())
 			{
-				cv::Scalar color = cv::Scalar(0, 0, 255); // B G R values
-				drawContours(frame, blue_contours, i, color, 2, 8, hierarchy, 0, cv::Point());
-				circle(frame, mc[i], 4, color, -1, 8, 0);
+				for (int i = 0; i < hands.size(); i++)
+				{
+					hands[i].x = mc[i].x;
+					hands[i].y = mc[i].y;
+				}
+			}
+			else
+			{
+				for (int i = 0; i < mc.size(); i++)
+				{
+					hands[i].x = mc[i].x;
+					hands[i].y = mc[i].y;
+				}
 			}
 
+			if (TRACKER_DEBUG)
+			{
+				// draw the contours of the objects.
+				for (int i = 0; i < blue_contours.size(); i++)
+				{
+					cv::Scalar color = cv::Scalar(0, 0, 255); // B G R values
+					drawContours(flipped_frame, blue_contours, i, color, 2, 8, hierarchy, 0, cv::Point());
+					circle(flipped_frame, mc[i], 4, color, -1, 8, 0);
+				}
+				cv::imshow("Contours", flipped_frame); //Finally show the image with the contours
+			}
+			this->translate_coordinates();
 			callback(hands);
-			cv::imshow("Contours", frame); //Finally show the image with the contours
 		}
 		else
 		{
 			std::cout << "couldn't read frame" << std::endl;
 			break;
 		}
-		if (cv::waitKey(1) == 27)
+		if (cv::waitKey(30) == 27)
 		{
 			break;
 		}
 	}
 }
+
+void HandTracker::translate_coordinates()
+{
+	const float scaleX = this->width / camera_width;
+	const float scaleY = this->height / camera_height;
+
+	for (int i = 0; i < hands.size(); i++)
+	{
+		hands[i].x *= scaleX;
+		hands[i].y *= scaleY;
+	}
+}
+
 
 HandTracker::HandTracker(int width, int height)
 {
@@ -93,7 +128,7 @@ HandTracker::HandTracker(int width, int height)
 	this->height = height;
 	for (int i = 0; i < 2; i++)
 	{
-		this->hands[i] = {i};
+		this->hands[i] = {i, -1, -1};
 	}
 }
 
@@ -101,9 +136,16 @@ HandTracker::~HandTracker()
 {
 }
 
-
-void HandTracker::start_tracking(const std::function<void(hand [])>& callback)
+void HandTracker::resize(int width, int height)
 {
-	track(callback);
-	// Start thread for tracking
+	this->width = width;
+	this->height = height;
+}
+
+
+void HandTracker::start_tracking(const std::function<void(std::array<hand, 2>)>& callback)
+{
+	callback(hands);
+	std::thread tracking_thread(&HandTracker::track, this, callback);
+	tracking_thread.detach();
 }

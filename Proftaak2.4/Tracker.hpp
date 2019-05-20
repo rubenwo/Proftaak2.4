@@ -1,6 +1,9 @@
 #ifndef TRACKER_HPP
 #define TRACKER_HPP
 #include <functional>
+#include <array>
+
+#define TRACKER_DEBUG true
 
 struct hand
 {
@@ -12,16 +15,17 @@ class HandTracker
 {
 private:
 	int width, height;
-	hand hands[2];
-	//std::function<void(hand[2])> callback;
-	void track(const std::function<void(hand[])>& callback);
+	std::array<hand, 2> hands;
+
+	void track(const std::function<void(std::array<hand, 2>)> &callback);
+	void translate_coordinates();
 
 public:
 	HandTracker(int, int);
 	~HandTracker();
 
-	//void set_callback(const std::function<void(hand[])>& callback);
-	void start_tracking(const std::function<void(hand[])>& callback);
+	void resize(int, int);
+	void start_tracking(const std::function<void(std::array<hand, 2>)> &callback);
 };
 
 
