@@ -4,6 +4,7 @@
 #include <array>
 
 #define TRACKER_DEBUG true
+#define HANDS_AMOUNT 2
 
 struct hand
 {
@@ -15,9 +16,9 @@ class HandTracker
 {
 private:
 	int width, height;
-	std::array<hand, 2> hands;
+	std::array<hand, HANDS_AMOUNT> hands;
 
-	void track(const std::function<void(std::array<hand, 2>)> &callback);
+	void track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
 	void translate_coordinates();
 
 public:
@@ -25,7 +26,7 @@ public:
 	~HandTracker();
 
 	void resize(int, int);
-	void start_tracking(const std::function<void(std::array<hand, 2>)> &callback);
+	void start_tracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
 };
 
 

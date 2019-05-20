@@ -7,7 +7,7 @@
 #define camera_width 1280
 #define camera_height 720
 
-void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback)
+void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
 	const auto orange_lower = cv::Scalar(10, 150, 20);
 	const auto orange_upper = cv::Scalar(20, 255, 255);
@@ -37,6 +37,7 @@ void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback
 
 		if (vcap.read(frame))
 		{
+			//-------PRE-PROCESSING--------//
 			cv::resize(frame, scaled_frame, cv::Size(camera_width, camera_height));
 			//Resize the image to a easier resolution.
 			cv::flip(scaled_frame, flipped_frame, +1);
@@ -46,29 +47,29 @@ void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback
 
 			cv::inRange(hsv, orange_lower, orange_upper, orange_mask); //Create a binary output with only the blue's.
 
-
 			//Erode & Dilate to remove smaller objects
 			cv::erode(orange_mask, orange_mask, element, cv::Point(-1, -1), 5);
 			cv::dilate(orange_mask, orange_mask, element, cv::Point(-1, -1), 5);
 
+			//-------OBJECT-DETECTION------//
 			cv::findContours(orange_mask, blue_contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
 			//Find the contours of the blue objects.
 			std::vector<cv::Moments> mu(blue_contours.size());
 
-			for (int i = 0; i < blue_contours.size(); i++)
+			for (auto i = 0; i < blue_contours.size(); i++)
 			{
 				mu[i] = cv::moments(blue_contours[i], false); //Add the contours to the moments vector
 			}
 
 			// get the centroid of the objects.
 			std::vector<cv::Point2f> mc(blue_contours.size());
-			for (int i = 0; i < blue_contours.size(); i++)
+			for (auto i = 0; i < blue_contours.size(); i++)
 			{
 				mc[i] = cv::Point2f(mu[i].m10 / mu[i].m00, mu[i].m01 / mu[i].m00);
 			}
 			if (hands.size() < mc.size())
 			{
-				for (int i = 0; i < hands.size(); i++)
+				for (auto i = 0; i < hands.size(); i++)
 				{
 					hands[i].x = mc[i].x;
 					hands[i].y = mc[i].y;
@@ -76,7 +77,7 @@ void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback
 			}
 			else
 			{
-				for (int i = 0; i < mc.size(); i++)
+				for (auto i = 0; i < mc.size(); i++)
 				{
 					hands[i].x = mc[i].x;
 					hands[i].y = mc[i].y;
@@ -86,7 +87,7 @@ void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback
 			if (TRACKER_DEBUG)
 			{
 				// draw the contours of the objects.
-				for (int i = 0; i < blue_contours.size(); i++)
+				for (auto i = 0; i < blue_contours.size(); i++)
 				{
 					cv::Scalar color = cv::Scalar(0, 0, 255); // B G R values
 					drawContours(flipped_frame, blue_contours, i, color, 2, 8, hierarchy, 0, cv::Point());
@@ -111,13 +112,10 @@ void HandTracker::track(const std::function<void(std::array<hand, 2>)>& callback
 
 void HandTracker::translate_coordinates()
 {
-	const float scaleX = this->width / camera_width;
-	const float scaleY = this->height / camera_height;
-
-	for (int i = 0; i < hands.size(); i++)
+	for (auto h : hands)
 	{
-		hands[i].x *= scaleX;
-		hands[i].y *= scaleY;
+		h.x *= this->width / camera_width;
+		h.y *= this->height / camera_height;
 	}
 }
 
@@ -126,7 +124,7 @@ HandTracker::HandTracker(int width, int height)
 {
 	this->width = width;
 	this->height = height;
-	for (int i = 0; i < 2; i++)
+	for (auto i = 0; i < HANDS_AMOUNT; i++)
 	{
 		this->hands[i] = {i, -1, -1};
 	}
@@ -143,7 +141,7 @@ void HandTracker::resize(int width, int height)
 }
 
 
-void HandTracker::start_tracking(const std::function<void(std::array<hand, 2>)>& callback)
+void HandTracker::start_tracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
 	callback(hands);
 	std::thread tracking_thread(&HandTracker::track, this, callback);
