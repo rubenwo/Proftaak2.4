@@ -3,6 +3,8 @@
 
 
 StageComponent::StageComponent()
+	// GLuint leftWallTex, GLuint rightWallTex, GLuint leftPanelTex, GLuint rightPanelTex, GLuint basePlatformTex)
+	// : leftWallTex(leftWallTex), rightWallTex(rightWallTex), leftPanelTex(leftPanelTex), rightPanelTex(rightPanelTex), basePlatformTex(basePlatformTex)
 {
 }
 

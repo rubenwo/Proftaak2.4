@@ -5,6 +5,7 @@
 #include <GL\freeglut.h>
 #include "Globals.hpp"
 #include "Game.hpp"
+#include "ObjectModel.h"
 
 #define APP_NAME "Game"
 #define WINDOW_WIDTH 1200
@@ -13,6 +14,8 @@
 
 int windowWidth;
 int windowHeight;
+GLuint texture1;
+const char* textureFilename = "textures12.png";
 
 void reshape(int w, int h)
 {
@@ -53,6 +56,7 @@ void display()
 }
 
 int lastTime = 0;
+
 void idle()
 {
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
@@ -90,6 +94,10 @@ bool initOpenGL()
 }
 int main(int argc, char** argv)
 {
+	Texture texture = Texture(textureFilename);
+	texture.loadTextureFromFile(textureFilename);
+	texture1 = texture.getTextureId();
+
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
 
@@ -197,13 +205,8 @@ int main(int argc, char* argv[])
 	//Special keys:
 	glutSpecialFunc(specialKeys);
 	glutSpecialUpFunc(specialKeysUp);
-
-	glEnable(GL_DEPTH_TEST);
 	
 	//Texture loading:
-	Texture texture = Texture(textureFilename);
-	texture.loadTextureFromFile(textureFilename);
-	texture1 = texture.getTextureId();
 
 	//opengl init
 	init();

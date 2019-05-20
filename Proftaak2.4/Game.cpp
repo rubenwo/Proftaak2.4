@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
-#include "WallComponent.h"
+#include "StageComponent.h"
 
 namespace Game
 {
@@ -28,17 +28,24 @@ namespace Game
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
 
+		//Load room with TODO textures
 		GameObject* room = new GameObject();
-		room->addComponent(new WallComponent());
+		room->addComponent(new StageComponent());
 		objects.push_back(room);
 
+		//EXAMPLE CUBES
 		createMovingCubeRight();
-		createMovingCubeLeft();
+		createMovingCubeLeft(1);
 	}
 	void update(float deltaTime)
 	{
 		for (const auto& o : objects)
+		{
 			o->update(deltaTime);
+			//
+			// if (o->position.z == o->getComponent<MoveToComponent>()->target.z)
+			// 	objects.remove(o);
+		}
 	}
 	void draw()
 	{
@@ -108,11 +115,11 @@ namespace Game
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.1, 1, HAND::rightHand, ARROWDIRECTION::right));
-		o->addComponent(new MoveToComponent());
+		o->addComponent(new CubeComponent(1, 1, HAND::rightHand, ARROWDIRECTION::right));
+		//o->addComponent(new MoveToComponent());
 
-		o->position = Vec3f(0, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
+		o->position = Vec3f(0, 0, 3);
+		//o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
 
 		objects.push_back(o);
 	}
@@ -121,11 +128,11 @@ namespace Game
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.1, 1, HAND::leftHand, ARROWDIRECTION::left));
-		o->addComponent(new MoveToComponent());
+		o->addComponent(new CubeComponent(1, 1, HAND::leftHand, ARROWDIRECTION::left));
+		//o->addComponent(new MoveToComponent());
 
-		o->position = Vec3f(0, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
+		o->position = Vec3f(0, 0, 3);
+		//o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
 
 		objects.push_back(o);
 	}

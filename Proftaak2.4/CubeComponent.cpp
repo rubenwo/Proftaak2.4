@@ -14,10 +14,6 @@ CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWD
 	this->textureID = textureID;
 	this->arrowDirection = arrowDirection;
 	this->handSide = handSide;
-	//this->startPos = 0;
-	//this->endPos = 1;
-	//this->startPos = startPos;
-	//this->endPos = endPos;
 }
 
 CubeComponent::~CubeComponent()
@@ -62,8 +58,17 @@ void CubeComponent::draw()
 {
 	glBegin(GL_QUADS);
 
+	//glRotatef(180, 0, 0, 1);
+
 	//Red
-	glColor3f(22.74f, 1.56f, 3.92f);
+	if (handSide == HAND::leftHand) {
+		//red
+		glColor3f(0.2274f, 0.0156f, 0.0392f);
+	}
+	else {
+		//blue
+		glColor3f(0.0392f, 0.0235f, 0.2627f);
+	}
 	glVertex3f(-size, -size, -size);
 	glVertex3f(size, -size, -size);
 	glVertex3f(size, size, -size);
@@ -109,7 +114,14 @@ void CubeComponent::draw()
 	glRotatef(180, 1.0f, 0, 0);
 
 	glBegin(GL_QUADS);
-	glColor3f(22.74f, 1.56f, 3.92f);
+	if (handSide == HAND::leftHand) {
+		//red
+		glColor3f(0.2274f, 0.0156f, 0.0392f);
+	}
+	else {
+		//blue
+		glColor3f(0.0392f, 0.0235f, 0.2627f);
+	}
 	glVertex3f(-size, -size, -size);
 	glVertex3f(-size, size, -size);
 	glVertex3f(-size, size, size);
@@ -130,6 +142,8 @@ void CubeComponent::draw()
 	glVertex3f(size, size, size);
 	glVertex3f(-size, size, size);
 	glEnd();
+
+	//glRotatef(9, 0, 0, 1);
 
 	//========================
 

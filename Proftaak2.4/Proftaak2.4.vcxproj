@@ -139,7 +139,7 @@
     <ClCompile Include="SpinComponent.cpp" />
     <ClCompile Include="TimerJumper.cpp" />
     <ClCompile Include="Vec.cpp" />
-    <ClCompile Include="WallComponent.cpp" />
+    <ClCompile Include="StageComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.hpp" />
@@ -156,7 +156,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TimerJumper.h" />
     <ClInclude Include="Vec.h" />
-    <ClInclude Include="WallComponent.h" />
+    <ClInclude Include="StageComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

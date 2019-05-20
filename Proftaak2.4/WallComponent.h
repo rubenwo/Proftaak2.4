@@ -2,11 +2,11 @@
 
 #include "DrawComponent.h"
 
-class WallComponent : public DrawComponent
+class StageComponent : public DrawComponent
 {
 public:
-	WallComponent();
-	~WallComponent();
+	StageComponent();
+	~StageComponent();
 
 	virtual void draw() override;
 };
