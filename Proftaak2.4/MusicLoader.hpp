@@ -1,9 +1,11 @@
 #ifndef MUSICLOADER_HPP
 #define MUSICLOADER_HPP
+#include <vector>
+#include "MusicTrack.h"
 
 namespace MusicLoader
 {
-	void LoadMusicFile();
+	MusicDataStructures::MusicTrack* LoadMusicFile();
 }
 
 #endif
