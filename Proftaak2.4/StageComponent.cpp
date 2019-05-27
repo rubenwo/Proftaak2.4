@@ -24,9 +24,9 @@ void StageComponent::draw()
 	glTexCoord2f(0, 0);
 	glVertex3f(-3, -2, -2.5);
 	glTexCoord2f(0, 1);
-	glVertex3f(-3, -2, 100);
+	glVertex3f(-3, -2, 50);
 	glTexCoord2f(1, 1);
-	glVertex3f(-3, 4, 100);
+	glVertex3f(-3, 4, 50);
 	glTexCoord2f(1, 0);
 	glVertex3f(-3, 4, -2.5);
 	glDisable(GL_TEXTURE_BINDING_2D);
@@ -36,10 +36,13 @@ void StageComponent::draw()
 	glBegin(GL_QUADS);
 	glColor4f(1, 1, 1, 1);
 	glEnable(GL_TEXTURE_BINDING_2D);
+	glTexCoord2f(0, 0);
 	glVertex3f(3, -2, -2.5);
-	glVertex3f(3, -2, 100);
+	glTexCoord2f(0, 1);
+	glVertex3f(3, -2, 50);
 	glTexCoord2f(1, 1);
-	glVertex3f(3, 4, 100);
+	glVertex3f(3, 4, 50);
+	glTexCoord2f(1, 0);
 	glVertex3f(3, 4, -2.5);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);

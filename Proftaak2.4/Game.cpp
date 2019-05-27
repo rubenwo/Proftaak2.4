@@ -10,8 +10,6 @@
 #include "ObjectModel.h"
 #include "Level.h"
 
-Texture *texturess;
-
 namespace Game
 {
 	int windowWidth, windowHeight;
@@ -20,15 +18,9 @@ namespace Game
 
 	Camera camera;
 
-	void loadTextures() {
-		texturess = new Texture("texture");
-		texturess->initTextures();
-	}
-
 	void loadContent() {
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
-		loadTextures();
 		currentLevel = Level();
 		currentLevel.loadContent();
 	}
@@ -36,11 +28,7 @@ namespace Game
 	void update(float deltaTime)
 	{
 		currentLevel.update(deltaTime);
-			if (o->position.z <= -4) {
-				std::cout << "\r\nDelete object: ";
-				objects.remove(o);
-				break;
-			}
+
 	}
 
 	void draw()
