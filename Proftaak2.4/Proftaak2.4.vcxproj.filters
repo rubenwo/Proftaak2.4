@@ -25,6 +25,12 @@
     <Filter Include="Source Files\GameObjects\Components">
       <UniqueIdentifier>{2b12f0a1-a097-4e10-acc7-f791ebaa6bf9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Music">
+      <UniqueIdentifier>{bd73bb08-a454-42f7-8fb7-fc7dd2f2e132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Music">
+      <UniqueIdentifier>{cc7f0637-0322-40a0-843e-25b752563cef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -71,6 +77,17 @@
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Source Files</Filter>
+    <ClCompile Include="MusicLoader.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicTrack.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundPlayer.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Source Files\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +125,18 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
+      <Filter>Header Files\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicTrack.h">
+      <Filter>Header Files\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicLoader.hpp">
+      <Filter>Header Files\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundPlayer.hpp">
+      <Filter>Header Files\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
       <Filter>Header Files\GameObjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
