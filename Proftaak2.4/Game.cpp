@@ -31,16 +31,14 @@ namespace Game
 
 		Texture texture = Texture(textureFilenameCube);
 		texture.loadTextureFromFile(textureFilenameCube, 0);
-		//glBindTexture(GL_TEXTURE_2D, 0);
 
 		Texture wallTexture = Texture(textureFilenameWalls);
 		wallTexture.loadTextureFromFile(textureFilenameWalls, 1);
-		glBindTexture(GL_TEXTURE_BINDING_2D, 1);
 
 		//Load room with TODO textures
 		GameObject* room = new GameObject();
 		room->addComponent(new StageComponent());
-		objects.push_back(room);
+		objects.push_front(room);
 
 		//EXAMPLE CUBES
 		createMovingCubeRight(1);

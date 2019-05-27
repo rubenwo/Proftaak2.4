@@ -8,15 +8,18 @@
 #include "stb_image.h"
 #include "GL/freeglut.h"
 
-GLuint  textureId;         // Storage For One Texture ( NEW )
-
 Texture::Texture(const std::string &dirName) {
 
 
 }
 GLuint Texture::getTextureId()
 {
-	return textureId;
+	return blockTextureId;
+}
+
+GLuint Texture::getWallTextureId()
+{
+	return wallTextureId;
 }
 
 void Texture::loadTextureFromFile(const char *filename, int texture)
@@ -36,8 +39,8 @@ void Texture::loadTextureFromFile(const char *filename, int texture)
 			std::cout << "Image could not be loaded succesfully!\r\n" << std::endl;
 		}
 
-		glGenTextures(1, &textureId);
-		glBindTexture(GL_TEXTURE_2D, textureId);
+		glGenTextures(1, &blockTextureId);
+		glBindTexture(GL_TEXTURE_2D, blockTextureId);
 		glTexImage2D(GL_TEXTURE_2D,
 			0,					//level
 			GL_RGBA,			//internal format
@@ -60,8 +63,8 @@ void Texture::loadTextureFromFile(const char *filename, int texture)
 			std::cout << "Image could not be loaded succesfully!\r\n" << std::endl;
 		}
 
-		glGenTextures(2, &textureId);
-		glBindTexture(GL_TEXTURE_BINDING_2D, textureId);
+		glGenTextures(2, &wallTextureId);
+		glBindTexture(GL_TEXTURE_BINDING_2D, wallTextureId);
 
 		glTexImage2D(GL_TEXTURE_BINDING_2D,
 			0,					//level
