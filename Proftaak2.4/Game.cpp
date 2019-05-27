@@ -15,16 +15,17 @@ namespace Game
 	bool keys[256];
 	Level currentLevel;
 	Camera camera;
+	GameObject player;
 
 	void loadContent() {
-		ZeroMemory(keys, sizeof(keys));
+		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0);
 		currentLevel = Level();
 		currentLevel.loadContent();
-		o->position = Vec3f(0, 0, -1);
-		objects.push_back(o);
-		o->addComponent(new PlayerComponent());
-		GameObject* o = new GameObject();
+		
+		player = GameObject();
+		player.position = Vec3f(0, 0, -1);
+		player.addComponent(new PlayerComponent());
 	}
 
 	void update(float deltaTime)
@@ -34,6 +35,7 @@ namespace Game
 
 	void draw()
 	{
+		player.draw();
 		currentLevel.draw();
 	}
 

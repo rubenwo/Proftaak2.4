@@ -33,7 +33,6 @@ void Level::loadTextures() {
 void Level::draw()
 {
 	glRotatef(180, 1, 0, 0);
-
 	for (const auto& o : objects)
 		o->draw();
 }

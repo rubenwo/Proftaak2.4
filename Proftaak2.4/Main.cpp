@@ -125,15 +125,6 @@ void mousePassiveMotion(int x, int y)
 		justMovedMouse = false;
 }
 
-void keyboard(unsigned char key, int x, int  y)
-{
-	keys[key] = true;
-	if (key == 27)
-		exit(0);
-
-	cout << "Key: " << key << std::endl;
-}
-
 void keyboardup(unsigned char key, int x, int y)
 {
 	keys[key] = false;
