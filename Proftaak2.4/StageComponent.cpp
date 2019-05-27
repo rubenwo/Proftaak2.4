@@ -46,13 +46,4 @@ void StageComponent::draw()
 	glVertex3f(3, 4, -2.5);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
-
-	//BASE PLATFORM
-	glBegin(GL_QUADS);
-	glColor3f(0, 0, 1);
-	glVertex3f(-2, 0.7f, 1);
-	glVertex3f(-2, 0.7f, 100);
-	glVertex3f(2, 0.7f, 100);
-	glVertex3f(2, 0.7f, 1);
-	glEnd();
 }
