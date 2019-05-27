@@ -18,6 +18,7 @@ class CubeComponent : public DrawComponent
 public:
 	CubeComponent(float size, GLuint textureID, HAND handSide, ARROWDIRECTION arrowDirection);// , double startPos, double endPos); //, int startPos, int endPos);// , GLuint textureID, int startPos, int endPos);
 	~CubeComponent();
+#
 	HAND getHandSide();
 	void getTexture(HAND handSide);
 	virtual void draw() override;
