@@ -39,7 +39,13 @@ namespace Game
 	{
 		for (const auto& o : objects)
 		{
+			if (o->position.z <= -4) {
+				std::cout << "\r\nDelete object: ";
+				objects.remove(o);
+				break;
+			}
 			o->update(deltaTime);
+			
 			//
 			// if (o->position.z == o->getComponent<MoveToComponent>()->target.z)
 			// 	objects.remove(o);
