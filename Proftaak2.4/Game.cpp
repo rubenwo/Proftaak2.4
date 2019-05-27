@@ -3,6 +3,9 @@
 #include <iostream>
 #include <GL\freeglut.h>
 #include "Camera.hpp"
+#include "GameObject.h"
+#include "CubeComponent.h"
+#include "PlayerComponent.h"
 #include "ObjectModel.h"
 #include "Level.h"
 
@@ -18,6 +21,10 @@ namespace Game
 		camera = Camera(0, -4, 0, 0);
 		currentLevel = Level();
 		currentLevel.loadContent();
+		o->position = Vec3f(0, 0, -1);
+		objects.push_back(o);
+		o->addComponent(new PlayerComponent());
+		GameObject* o = new GameObject();
 	}
 
 	void update(float deltaTime)

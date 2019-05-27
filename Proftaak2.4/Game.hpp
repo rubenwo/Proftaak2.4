@@ -1,6 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include "Globals.hpp"
+#include "Tracker.hpp"
+
 namespace Game
 {
 	// Needs to be publicly available for modules etc.

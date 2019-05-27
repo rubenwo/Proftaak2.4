@@ -9,6 +9,9 @@
 #include "Game.hpp"
 #include "ObjectModel.h"
 #include <math.h>
+#include <opencv2/highgui.hpp>
+#include "Tracker.hpp"
+#include <atomic>
 
 #define APP_NAME "Game"
 #define WINDOW_WIDTH 1200
@@ -40,20 +43,10 @@ void reshape(int w, int h)
 	glViewport(0, 0, w, h);
 }
 
-//void keyboard(unsigned char key, int x, int  y)
-//{
-//	Game::onKey(key);
-//}
-//
-//void keyboardup(unsigned char key, int x, int y)
-//{
-//	Game::onKeyUp(key);
-//}
-//
-//void mousePassiveMotion(int x, int y)
-//{
-//	Game::onMouseMove(x, y);
-//}
+void keyboard(unsigned char key, int x, int y)
+{
+	Game::onKey(key);
+}
 
 void display()
 {
@@ -198,6 +191,8 @@ bool initOpenGL()
 
 	return true;
 }
+
+
 int main(int argc, char** argv)
 {
 	windowWidth = WINDOW_WIDTH;
@@ -218,11 +213,11 @@ int main(int argc, char** argv)
 		std::cout << "Failed initializing OpenGL.\n";
 		return OPENGL_INIT_FAILED;
 	}
+	Game::onResize(windowWidth, windowHeight);
 
 	// Start loading in game content.
 	Game::loadContent();
 
-	Game::onResize(windowWidth, windowHeight);
 	// Start game.
 	glutMainLoop();
 
