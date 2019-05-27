@@ -29,7 +29,7 @@ namespace Game
 
 		player = GameObject();
 		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(&currentLevel.objects));
+		player.addComponent(new PlayerComponent(&currentLevel.objects, 1));
 	}
 
 	void update(float deltaTime)
