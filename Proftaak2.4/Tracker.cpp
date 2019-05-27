@@ -8,9 +8,9 @@
 #define camera_height 720
 
 
-float map(float s, float a1, float a2, float b1, float b2)
+float map(float input, float srcRangeLow, float srcRangeHigh, float dstRangeLow, float dstRangeHigh)
 {
-	return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+	return dstRangeLow + (input - srcRangeLow) * (dstRangeHigh - dstRangeLow) / (srcRangeHigh - srcRangeLow);
 }
 
 void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
