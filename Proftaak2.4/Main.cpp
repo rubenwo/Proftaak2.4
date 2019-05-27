@@ -96,7 +96,7 @@ void idle()
 	if (keys['w']) move(90, deltaTime*speed);
 	if (keys['s']) move(270, deltaTime*speed);
 
-	glutWarpPointer(windowWidth / 2, windowHeight / 2);
+	//glutWarpPointer(windowWidth / 2, windowHeight / 2);
 
 	if (skeys[0]) { //UP ARROW KEY
 		camera.posZ -= 0.025;
@@ -186,7 +186,7 @@ bool initGlut(int argc, char* argv[])
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardup);
-	glutPassiveMotionFunc(mousePassiveMotion);
+	//glutPassiveMotionFunc(mousePassiveMotion);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
 	return true;

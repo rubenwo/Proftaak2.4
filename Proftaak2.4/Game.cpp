@@ -2,29 +2,23 @@
 #include <list>
 #include <iostream>
 #include <GL\freeglut.h>
-
 #include "Camera.hpp"
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
 #include "StageComponent.h"
 #include "ObjectModel.h"
+#include "Level.h"
 
 Texture *texturess;
 
 namespace Game
 {
-	const char* textureFilenameCube = "textures12.png";
-	const char* textureFilenameWalls = "wallTexture.png";
-
 	int windowWidth, windowHeight;
 	bool keys[256];
+	Level currentLevel;
 
 	Camera camera;
-	std::list<GameObject*> objects;
-
-	void createMovingCubeRight(float height = 0);
-	void createMovingCubeLeft(float height = 0);	
 
 	void loadTextures() {
 		texturess = new Texture("texture");
@@ -35,37 +29,23 @@ namespace Game
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
 		loadTextures();
-
-		//Load room with TODO textures
-		GameObject* room = new GameObject();
-		room->addComponent(new StageComponent(texturess->textures[1]));
-		objects.push_front(room);
-
-		//EXAMPLE CUBES
-		createMovingCubeRight(1);
-		createMovingCubeLeft();
+		currentLevel = Level();
+		currentLevel.loadContent();
 	}
 
-	void update(float deltaTime) {
-		for (const auto& o : objects) {
+	void update(float deltaTime)
+	{
+		currentLevel.update(deltaTime);
 			if (o->position.z <= -4) {
 				std::cout << "\r\nDelete object: ";
 				objects.remove(o);
 				break;
 			}
-			o->update(deltaTime);
-			
-			//
-			// if (o->position.z == o->getComponent<MoveToComponent>()->target.z)
-			// 	objects.remove(o);
-		}
 	}
 
-	void draw() {
-		glRotatef(180, 1, 0, 0);
-
-		for (const auto& o : objects)
-			o->draw();
+	void draw()
+	{
+		currentLevel.draw();
 	}
 
 	void onKey(Key key)
@@ -122,31 +102,5 @@ namespace Game
 		objects.clear();*/
 
 		std::cout << "Closing game.\n";
-	}
-
-	void createMovingCubeLeft(float height) //blue color
-	{
-		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
-		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
-		o->addComponent(new MoveToComponent());
-
-		o->position = Vec3f(2, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
-
-		objects.push_back(o);
-	}
-
-	void createMovingCubeRight(float height) //red color
-	{
-		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
-		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
-		o->addComponent(new MoveToComponent());
-
-		o->position = Vec3f(-2, 0, 30);
-		o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
-
-		objects.push_back(o);
 	}
 }
