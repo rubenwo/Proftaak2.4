@@ -13,5 +13,6 @@ public:
 	~MoveToComponent();
 
 	virtual void update(float elapsedTime) override;
+	void loadWallTexture();
 };
 

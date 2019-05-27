@@ -41,8 +41,7 @@ void CubeComponent::setEndPos(double eP) {
 }
 
 void CubeComponent::getTexture(HAND handSide) {
-	//std::cout << "\r\nGettexture: " << handSide;
-	if (handSide == 0) {
+	if (handSide == HAND::leftHand) {
 		//cout << "\r\nLEFT";
 		startPos = 0;
 		endPos = 0.5;
@@ -58,7 +57,7 @@ void CubeComponent::draw()
 {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glDisable(GL_BLEND);
+	//glDisable(GL_BLEND);
 
 	//FRONT
 	if (arrowDirection == ARROWDIRECTION::left) {

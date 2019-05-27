@@ -15,5 +15,5 @@ public:
 	GLuint getTextureId();
 	GLuint textureId;
 
-	void loadTextureFromFile(const char *filename);
+	void loadTextureFromFile(const char* filename, int texture);
 };

@@ -32,8 +32,6 @@ bool skeys[5]; //for arrow keys
 
 int windowWidth = 1200;
 int windowHeight = 800;
-GLuint texture1;
-const char* textureFilename = "textures12.png";
 
 void reshape(int w, int h)
 {
@@ -221,10 +219,6 @@ int main(int argc, char** argv)
 		std::cout << "Failed initializing OpenGL.\n";
 		return OPENGL_INIT_FAILED;
 	}
-
-	Texture texture = Texture(textureFilename);
-	texture.loadTextureFromFile(textureFilename);
-	texture1 = texture.getTextureId();
 
 	// Start loading in game content.
 	Game::loadContent();
