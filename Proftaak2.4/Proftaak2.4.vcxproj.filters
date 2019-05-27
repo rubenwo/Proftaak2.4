@@ -75,6 +75,9 @@
     <ClCompile Include="MusicTrack.cpp">
       <Filter>Source Files\Music</Filter>
     </ClCompile>
+    <ClCompile Include="SoundPlayer.cpp">
+      <Filter>Source Files\Music</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.hpp">
@@ -117,6 +120,9 @@
       <Filter>Header Files\Music</Filter>
     </ClInclude>
     <ClInclude Include="MusicLoader.hpp">
+      <Filter>Header Files\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundPlayer.hpp">
       <Filter>Header Files\Music</Filter>
     </ClInclude>
   </ItemGroup>
