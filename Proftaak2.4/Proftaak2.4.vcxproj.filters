@@ -69,6 +69,14 @@
     <ClCompile Include="PlayerComponent.cpp">
       <Filter>Source Files\GameObjects\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StageComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files</Filter>
     <ClCompile Include="MusicLoader.cpp">
       <Filter>Source Files\Music</Filter>
     </ClCompile>
@@ -136,5 +144,28 @@
     <ClInclude Include="Tracker.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StageComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wallTexture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

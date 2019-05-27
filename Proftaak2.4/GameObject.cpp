@@ -6,7 +6,6 @@ GameObject::GameObject()
 {
 }
 
-
 GameObject::~GameObject()
 {
 }

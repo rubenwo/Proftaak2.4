@@ -6,12 +6,13 @@
 class MoveToComponent : public Component
 {
 public:
-	float speed = 10;// 0.025f;
+	float speed = 5.0f;
 	Vec3f target;
 
 	MoveToComponent();
 	~MoveToComponent();
 
 	virtual void update(float elapsedTime) override;
+	void loadWallTexture();
 };
 

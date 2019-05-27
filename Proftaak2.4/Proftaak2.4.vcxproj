@@ -134,16 +134,19 @@
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="Tracker.cpp" />
     <ClCompile Include="MoveToCompontent.cpp" />
+    <ClCompile Include="ObjectModel.cpp" />
     <ClCompile Include="MusicLoader.cpp" />
     <ClCompile Include="MusicTrack.cpp" />
     <ClCompile Include="SpinComponent.cpp" />
     <ClCompile Include="TimerJumper.cpp" />
     <ClCompile Include="Vec.cpp" />
+    <ClCompile Include="StageComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SoundPlayer.hpp" />
@@ -157,14 +160,23 @@
     <ClInclude Include="CubeComponent.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.hpp" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MoveToComponent.h" />
+    <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="MusicLoader.hpp" />
     <ClInclude Include="MusicTrack.h" />
     <ClInclude Include="SpinComponent.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="TimerJumper.h" />
     <ClInclude Include="Vec.h" />
+    <ClInclude Include="StageComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures12.png" />
+    <Image Include="wallTexture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
