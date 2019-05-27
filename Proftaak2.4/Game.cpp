@@ -8,9 +8,13 @@
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
 #include "StageComponent.h"
+#include "ObjectModel.h"
 
 namespace Game
 {
+	const char* textureFilenameCube = "textures12.png";
+	const char* textureFilenameWalls = "wallTexture.png";
+
 	int windowWidth, windowHeight;
 	bool keys[256];
 
@@ -25,7 +29,15 @@ namespace Game
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
 
-		// //Load room with TODO textures
+		Texture texture = Texture(textureFilenameCube);
+		texture.loadTextureFromFile(textureFilenameCube, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
+
+		Texture wallTexture = Texture(textureFilenameWalls);
+		wallTexture.loadTextureFromFile(textureFilenameWalls, 1);
+		glBindTexture(GL_TEXTURE_BINDING_2D, 1);
+
+		//Load room with TODO textures
 		GameObject* room = new GameObject();
 		room->addComponent(new StageComponent());
 		objects.push_back(room);
@@ -114,7 +126,7 @@ namespace Game
 	{
 		//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::left));
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 		o->addComponent(new MoveToComponent());
 
 		o->position = Vec3f(2, 0, 30);

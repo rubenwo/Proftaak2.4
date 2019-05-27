@@ -109,5 +109,8 @@
     <Image Include="textures12.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="wallTexture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
