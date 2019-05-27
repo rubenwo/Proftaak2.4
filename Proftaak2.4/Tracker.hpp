@@ -8,7 +8,8 @@
 
 struct hand
 {
-	int id, x, y;
+	int id;
+	float x, y;
 };
 
 

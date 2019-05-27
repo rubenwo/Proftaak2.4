@@ -7,6 +7,12 @@
 #define camera_width 1280
 #define camera_height 720
 
+
+float map(float s, float a1, float a2, float b1, float b2)
+{
+	return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+}
+
 void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
 	const auto orange_lower = cv::Scalar(10, 150, 20);
@@ -14,6 +20,9 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 
 	cv::UMat frame, scaled_frame, flipped_frame, blurred, hsv;
 	cv::UMat orange_mask;
+
+	std::vector<cv::Mat> blue_contours;
+	std::vector<cv::Vec4i> hierarchy;
 
 
 	cv::useOpenVX();
@@ -32,8 +41,8 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 	// processing loop
 	for (;;)
 	{
-		std::vector<cv::Mat> blue_contours;
-		std::vector<cv::Vec4i> hierarchy;
+		blue_contours.clear();
+		hierarchy.clear();
 
 		if (vcap.read(frame))
 		{
@@ -71,16 +80,18 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 			{
 				for (auto i = 0; i < hands.size(); i++)
 				{
-					hands[i].x = mc[i].x;
-					hands[i].y = mc[i].y;
+					hands[i].x = map(mc[i].x, 0, camera_width, -1, 1);
+					hands[i].y = map(mc[i].y, 0, camera_height, -1, 1);
+					std::cout << "ID: " << hands[i].id << " X: " << hands[i].x << " Y: " << hands[i].y << std::endl;
 				}
 			}
 			else
 			{
 				for (auto i = 0; i < mc.size(); i++)
 				{
-					hands[i].x = mc[i].x;
-					hands[i].y = mc[i].y;
+					hands[i].x = map(mc[i].x, 0, camera_width, -1, 1);
+					hands[i].y = map(mc[i].y, 0, camera_height, -1, 1);
+					std::cout << "ID: " << hands[i].id << " X: " << hands[i].x << " Y: " << hands[i].y << std::endl;
 				}
 			}
 
@@ -95,7 +106,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 				}
 				cv::imshow("Contours", flipped_frame); //Finally show the image with the contours
 			}
-			this->translateCoordinates();
+			//	this->translateCoordinates();
 			callback(hands);
 		}
 		else
@@ -110,14 +121,34 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 	}
 }
 
+float map_value(std::pair<float, float> a, std::pair<float, float> b, float inVal)
+{
+	float inValNorm = inVal - a.first;
+	float aUpperNorm = a.second - a.first;
+	float normPosition = inValNorm / aUpperNorm;
+
+	float bUpperNorm = b.second - b.first;
+	float bValNorm = normPosition * bUpperNorm;
+	float outVal = b.first + bValNorm;
+
+	return outVal;
+}
+
+
 void HandTracker::translateCoordinates()
 {
-	const auto scaleX = this->width / camera_width;
-	const auto scaleY = this->width / camera_height;
-	for (auto h : hands)
+	for (auto i = 0; i < HANDS_AMOUNT; i++)
 	{
-		h.x *= scaleX;
-		h.y *= scaleY;
+		auto tempX = this->hands[i].x;
+		this->hands[i].x = map(tempX, 0, camera_width, -1, 1);
+
+		auto tempY = this->hands[i].y;
+		this->hands[i].y = map(tempY, 0, camera_height, -1, 1);
+	}
+
+	for (auto hand : this->hands)
+	{
+		std::cout << "ID: " << hand.x << " X: " << hand.x << " Y: " << hand.y << std::endl;
 	}
 }
 
@@ -126,6 +157,7 @@ HandTracker::HandTracker(int width, int height)
 {
 	this->width = width;
 	this->height = height;
+
 	for (auto i = 0; i < HANDS_AMOUNT; i++)
 	{
 		this->hands[i] = {i, -1, -1};

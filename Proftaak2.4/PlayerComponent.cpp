@@ -8,17 +8,13 @@
 #include <opencv2/highgui.hpp>
 #include <atomic>
 #include <GL/freeglut.h>
-
+void drawCube();
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
 PlayerComponent::PlayerComponent(HandTracker& tracker)
 {
 	tracker.startTracking([](std::array<hand, HANDS_AMOUNT> hands)
 	{
-		for (auto hand : hands)
-		{
-			//std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
-		}
 		atomic_hands.store(hands);
 	});
 }
@@ -32,9 +28,53 @@ void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
-		std::cout << "ID: " << hand.id << " X: " << hand.x << " Y: " << hand.y << std::endl;
-		drawCircle(hand.x / 1240.0f * 2, -hand.y / 720.0f * 2, 0.8, 10);
+		//drawCircle(hand.x / 1240.0f * 4, -hand.y / 720.0f, 0.25, 100);
+		glPushMatrix();
+		glTranslatef(hand.x, hand.y, 0);
+		glColor3ub(0, 255, 255);
+		drawCube();
+		glPopMatrix();
 	}
+}
+
+void drawCube()
+{
+	const float size = 0.25;
+	glBegin(GL_QUADS);
+	glColor3f(1, 0, 0);
+	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, size, 0);
+	glVertex3f(-size, size, 0);
+
+	glVertex3f(size, -size, 0);
+	glVertex3f(size, -size, 0);
+	glVertex3f(size, size, 0);
+	glVertex3f(size, size, 0);
+
+	glColor3f(0, 1, 0);
+	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, -size, 0);
+	glVertex3f(size, -size, 0);
+	glVertex3f(size, -size, 0);
+
+	glVertex3f(-size, size, 0);
+	glVertex3f(-size, size, 0);
+	glVertex3f(size, size, 0);
+	glVertex3f(size, size, 0);
+
+	glColor3f(0, 0, 1);
+	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, size, 0);
+	glVertex3f(size, size, 0);
+	glVertex3f(size, -size, 0);
+
+	glVertex3f(-size, -size, 0);
+	glVertex3f(-size, size, 0);
+	glVertex3f(size, size, 0);
+	glVertex3f(size, -size, 0);
+
+	glEnd();
 }
 
 void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
