@@ -31,6 +31,11 @@ void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
+		glColor3f(1, 0, 0);
+		glPushMatrix();
+		glTranslatef(hand.x, hand.y, 0);
+		glutSolidSphere(0.25, 30, 20);
+		glPopMatrix();
 		drawCircle(hand.x, hand.y, 0.25, 50);
 	}
 }
