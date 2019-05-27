@@ -152,6 +152,7 @@
     <ClInclude Include="SoundPlayer.hpp" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tracker.hpp" />
   </ItemGroup>
   <ItemGroup>
