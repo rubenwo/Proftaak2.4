@@ -8,6 +8,7 @@ using namespace irrklang;
 SoundPlayer::SoundPlayer()
 {
 	engine = irrklang::createIrrKlangDevice();
+	//TODO Set engine->setListenerPosition(vec3df(0,0,0), vec3df(0,0,1));
 	if (!engine)
 		std::cout << "Failed to create irrklang device\n";
 
@@ -29,13 +30,13 @@ void SoundPlayer::cleanupSound(ISound* sound)
 
 void SoundPlayer::addSound(const std::string& file, const SoundID& id, bool loop)
 {
-	ISound* sound = engine->play2D(file.c_str(), loop, true, true);
+	ISound* sound = engine->play2D(file.c_str(), loop, true, false);
 	sounds.insert(std::make_pair(id, sound));
 }
 
 void SoundPlayer::addSound3D(const std::string& file, const SoundID& id, bool loop, const Vec3f& pos)
 {
-	ISound* sound = engine->play3D(file.c_str(), vec3df(pos.x, pos.y, pos.z), loop,	true, true);
+	ISound* sound = engine->play3D(file.c_str(), vec3df(pos.x, pos.y, pos.z), loop,	true, false);
 	sounds.insert(std::make_pair(id, sound));
 }
 
