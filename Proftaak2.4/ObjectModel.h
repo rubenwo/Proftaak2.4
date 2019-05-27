@@ -13,7 +13,9 @@ public:
 	Texture(const std::string &dirName);
 	const std::string dirName;
 	GLuint getTextureId();
-	GLuint textureId;
+	GLuint getWallTextureId();
+	GLuint wallTextureId;
+	GLuint blockTextureId;
 
 	void loadTextureFromFile(const char* filename, int texture);
 };

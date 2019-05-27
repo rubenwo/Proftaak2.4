@@ -17,7 +17,6 @@ StageComponent::~StageComponent()
 
 void StageComponent::draw()
 {
-	//glBindTexture(GL_TEXTURE_BINDING_2D, 2);
 	glEnable(GL_TEXTURE_BINDING_2D);
 	glDisable(GL_BLEND);
 

@@ -56,8 +56,7 @@ void CubeComponent::getTexture(HAND handSide) {
 void CubeComponent::draw()
 {
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	//glDisable(GL_BLEND);
+	glDisable(GL_BLEND);
 
 	//FRONT
 	if (arrowDirection == ARROWDIRECTION::left) {
