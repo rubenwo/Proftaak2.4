@@ -10,6 +10,8 @@
 #include "StageComponent.h"
 #include "ObjectModel.h"
 
+Texture *texturess;
+
 namespace Game
 {
 	const char* textureFilenameCube = "textures12.png";
@@ -24,20 +26,19 @@ namespace Game
 	void createMovingCubeRight(float height = 0);
 	void createMovingCubeLeft(float height = 0);	
 
-	void loadContent()
-	{
+	void loadTextures() {
+		texturess = new Texture("texture");
+		texturess->initTextures();
+	}
+
+	void loadContent() {
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
-
-		Texture texture = Texture(textureFilenameCube);
-		texture.loadTextureFromFile(textureFilenameCube, 0);
-
-		Texture wallTexture = Texture(textureFilenameWalls);
-		wallTexture.loadTextureFromFile(textureFilenameWalls, 1);
+		loadTextures();
 
 		//Load room with TODO textures
 		GameObject* room = new GameObject();
-		room->addComponent(new StageComponent());
+		room->addComponent(new StageComponent(texturess->textures[1]));
 		objects.push_front(room);
 
 		//EXAMPLE CUBES
@@ -45,10 +46,8 @@ namespace Game
 		createMovingCubeLeft();
 	}
 
-	void update(float deltaTime)
-	{
-		for (const auto& o : objects)
-		{
+	void update(float deltaTime) {
+		for (const auto& o : objects) {
 			if (o->position.z <= -4) {
 				std::cout << "\r\nDelete object: ";
 				objects.remove(o);
@@ -62,8 +61,7 @@ namespace Game
 		}
 	}
 
-	void draw()
-	{
+	void draw() {
 		glRotatef(180, 1, 0, 0);
 
 		for (const auto& o : objects)

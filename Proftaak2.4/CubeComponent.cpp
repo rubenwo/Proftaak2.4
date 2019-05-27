@@ -1,12 +1,12 @@
 #include "CubeComponent.h"
 #include <GL/freeglut.h>
 #include <iostream>
+#include "ObjectModel.h"
 
-int textureID;
+int textureID[];
 int startPos;
 int endPos;
 HAND handSide;
-
 
 CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWDIRECTION arrowDirection)
 {
@@ -24,22 +24,6 @@ HAND CubeComponent::getHandSide() {
 	return handSide;
 }
 
-double CubeComponent::getStartPos() {
-	return startPos;
-}
-
-double CubeComponent::getEndPos() {
-	return endPos;
-}
-
-void CubeComponent::setStartPos(double sP) {
-	startPos = sP;
-}
-
-void CubeComponent::setEndPos(double eP) {
-	endPos = eP;
-}
-
 void CubeComponent::getTexture(HAND handSide) {
 	if (handSide == HAND::leftHand) {
 		//cout << "\r\nLEFT";
@@ -55,6 +39,7 @@ void CubeComponent::getTexture(HAND handSide) {
 
 void CubeComponent::draw()
 {
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 
@@ -70,7 +55,6 @@ void CubeComponent::draw()
 		glRotatef(270, 0, 0, 1.0f);
 
 	getTexture(handSide);
-	
 	glBegin(GL_QUADS);
 	glColor4f(1, 1, 1, 1);
 	glTexCoord2f(startPos, startPos);

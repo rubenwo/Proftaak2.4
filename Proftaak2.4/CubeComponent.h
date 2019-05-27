@@ -20,10 +20,6 @@ public:
 	~CubeComponent();
 	HAND getHandSide();
 	void getTexture(HAND handSide);
-	double getStartPos();
-	double getEndPos();
-	void setStartPos(double startPos);
-	void setEndPos(double endPos);
 	virtual void draw() override;
 	//void drawWithTexture(GLuint textureID, int size, int startPos, int endPos);
 };

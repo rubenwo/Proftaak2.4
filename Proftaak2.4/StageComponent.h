@@ -5,14 +5,13 @@
 class StageComponent : public DrawComponent
 {
 public:
-	GLuint leftWallTex;
+	GLuint sideWallTextureId;
 	GLuint rightWallTex;
 	GLuint leftPanelTex;
 	GLuint rightPanelTex;
 	GLuint basePlatformTex;
 
-	StageComponent();
-		// GLuint leftWallTex, GLuint rightWallTex, GLuint leftPanelTex, GLuint rightPanelTex, GLuint basePlatformTex);
+	StageComponent(GLuint sideWallTexture);
 	~StageComponent();
 
 	virtual void draw() override;
