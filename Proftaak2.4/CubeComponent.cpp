@@ -4,8 +4,8 @@
 #include "ObjectModel.h"
 
 int textureID[];
-int startPos;
-int endPos;
+float startPos;
+float endPos;
 HAND handSide;
 
 CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWDIRECTION arrowDirection)
@@ -27,13 +27,13 @@ HAND CubeComponent::getHandSide() {
 void CubeComponent::getTexture(HAND handSide) {
 	if (handSide == HAND::leftHand) {
 		//cout << "\r\nLEFT";
-		startPos = 0;
-		endPos = 0.5;
+		startPos = 0.0f;
+		endPos = 0.5f;
 	}
 	else {
 		//std::cout << "\r\nRIGHT";
-		startPos = 0.5;
-		endPos = 1;
+		startPos = 0.5f;
+		endPos = 1.0f;
 	}
 }
 
@@ -57,13 +57,13 @@ void CubeComponent::draw()
 	getTexture(handSide);
 	glBegin(GL_QUADS);
 	glColor4f(1, 1, 1, 1);
-	glTexCoord2f(startPos, startPos);
+	glTexCoord2f((float)startPos, (float)startPos);
 	glVertex3f(-size, -size, -size);
-	glTexCoord2f(startPos, endPos);
+	glTexCoord2f((float)startPos, (float)endPos);
 	glVertex3f(size, -size, -size);
-	glTexCoord2f(endPos, endPos);
+	glTexCoord2f((float)endPos, (float)endPos);
 	glVertex3f(size, size, -size);
-	glTexCoord2f(endPos, startPos);
+	glTexCoord2f((float)endPos, (float)startPos);
 	glVertex3f(-size, size, -size);
 	glDisable(GL_TEXTURE_2D);
 

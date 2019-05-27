@@ -5,6 +5,9 @@ class Level
 public:
 	Level();
 
+	float score;
+	float combo;
+
 	//Load all content, gets called before starting a level.
 	void loadContent();
 	//Load all textures

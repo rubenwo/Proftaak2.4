@@ -99,10 +99,10 @@ void idle()
 	//glutWarpPointer(windowWidth / 2, windowHeight / 2);
 
 	if (skeys[0]) { //UP ARROW KEY
-		camera.posZ -= 0.025;
+		camera.posZ -= 0.025f;
 	}
 	if (skeys[1]) { //DOWN ARROW KEY
-		camera.posZ += 0.025;
+		camera.posZ += 0.025f;
 	}
 
 	Game::update(deltaTime);

@@ -15,7 +15,6 @@ void createMovingCubeLeft(float height = 0);
 
 Level::Level()
 {
-
 }
 
 void Level::loadContent()
@@ -55,12 +54,12 @@ void Level::update(float deltaTime)
 
 void Level::start()
 {
-
+	//TODO start level
 }
 
 void Level::stop()
 {
-
+	//TODO stop level, return to menu
 }
 
 void createRoom() {
@@ -77,7 +76,7 @@ void createMovingCubeLeft(float height) //blue color
 	o->addComponent(new MoveToComponent());
 
 	o->position = Vec3f(2, 0, 30);
-	o->getComponent<MoveToComponent>()->target = Vec3f(1.5, -height + 0.6, -5);
+	o->getComponent<MoveToComponent>()->target = Vec3f(1.5f, -height + 0.6f, -5.0f);
 
 	objects.push_back(o);
 }
@@ -90,7 +89,7 @@ void createMovingCubeRight(float height) //red color
 	o->addComponent(new MoveToComponent());
 
 	o->position = Vec3f(-2, 0, 30);
-	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5, -height + 0.6, -5);
+	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5f, -height + 0.6f, -5.0f);
 
 	objects.push_back(o);
 }

@@ -3,10 +3,6 @@
 #include <iostream>
 #include <GL\freeglut.h>
 #include "Camera.hpp"
-#include "GameObject.h"
-#include "CubeComponent.h"
-#include "MoveToComponent.h"
-#include "StageComponent.h"
 #include "ObjectModel.h"
 #include "Level.h"
 
@@ -15,7 +11,6 @@ namespace Game
 	int windowWidth, windowHeight;
 	bool keys[256];
 	Level currentLevel;
-
 	Camera camera;
 
 	void loadContent() {
@@ -28,7 +23,6 @@ namespace Game
 	void update(float deltaTime)
 	{
 		currentLevel.update(deltaTime);
-
 	}
 
 	void draw()
@@ -53,26 +47,6 @@ namespace Game
 		default:
 			break;
 		}
-	}
-
-	void onMouseMove(int x, int y)
-	{
-		/*static bool justMoved = false;
-
-		if (justMoved)
-		{
-			justMoved = false;
-			return;
-		}
-		int dx = x - windowWidth / 2;
-		int dy = y - windowHeight / 2;
-		if ((dx != 0 || dy != 0) && abs(dx) < 400 && abs(dy) < 400)
-		{
-			camera.rotY += dx / 10.0f;
-			camera.rotX += dy / 10.0f;
-			glutWarpPointer(windowWidth / 2, windowHeight / 2);
-			justMoved = true;
-		}*/
 	}
 
 	void onResize(int w, int h)
