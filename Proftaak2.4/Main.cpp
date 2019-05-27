@@ -97,14 +97,7 @@ int main(int argc, char** argv)
 {
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-	HandTracker tracker(windowWidth, windowHeight);
-	/*tracker.startTracking([](std::array<hand, HANDS_AMOUNT> hands)
-	{
-		for (auto hand : hands)
-		{
-			std::cout << hand.x << std::endl;
-		}
-	});*/
+
 	if (initGlut(argc, argv))
 		std::cout << "Succesfully initialized glut.\n";
 	else
@@ -123,7 +116,7 @@ int main(int argc, char** argv)
 	Game::onResize(windowWidth, windowHeight);
 
 	// Start loading in game content.
-	Game::loadContent(tracker);
+	Game::loadContent();
 
 	// Start game.
 	glutMainLoop();

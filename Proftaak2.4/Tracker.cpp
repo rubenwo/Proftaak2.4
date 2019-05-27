@@ -4,7 +4,7 @@
 #include <opencv2/tracking/tracker.hpp>
 #include <thread>
 
-#define camera_width 1280
+#define camera_width 1240
 #define camera_height 720
 
 
@@ -50,8 +50,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 			cv::resize(frame, scaled_frame, cv::Size(camera_width, camera_height));
 			//Resize the image to a easier resolution.
 			cv::flip(scaled_frame, flipped_frame, +1);
-			cv::GaussianBlur(flipped_frame, blurred, cv::Size(11, 11), 0); //Blur the image in order to remove noise.
-
+			cv::GaussianBlur(flipped_frame, blurred, cv::Size(13, 13), 0); //Blur the image in order to remove noise.
 			cv::cvtColor(blurred, hsv, CV_BGR2HSV); //Convert the blurred image to HSV.
 
 			cv::inRange(hsv, orange_lower, orange_upper, orange_mask); //Create a binary output with only the blue's.
@@ -81,8 +80,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 				for (auto i = 0; i < hands.size(); i++)
 				{
 					hands[i].x = map(mc[i].x, 0, camera_width, -1, 1);
-					hands[i].y = map(mc[i].y, 0, camera_height, -1, 1);
-					std::cout << "ID: " << hands[i].id << " X: " << hands[i].x << " Y: " << hands[i].y << std::endl;
+					hands[i].y = -map(mc[i].y, 0, camera_height, -1, 1);
 				}
 			}
 			else
@@ -90,8 +88,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 				for (auto i = 0; i < mc.size(); i++)
 				{
 					hands[i].x = map(mc[i].x, 0, camera_width, -1, 1);
-					hands[i].y = map(mc[i].y, 0, camera_height, -1, 1);
-					std::cout << "ID: " << hands[i].id << " X: " << hands[i].x << " Y: " << hands[i].y << std::endl;
+					hands[i].y = -map(mc[i].y, 0, camera_height, -1, 1);
 				}
 			}
 
@@ -106,7 +103,6 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 				}
 				cv::imshow("Contours", flipped_frame); //Finally show the image with the contours
 			}
-			//	this->translateCoordinates();
 			callback(hands);
 		}
 		else
@@ -121,43 +117,8 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 	}
 }
 
-float map_value(std::pair<float, float> a, std::pair<float, float> b, float inVal)
+HandTracker::HandTracker()
 {
-	float inValNorm = inVal - a.first;
-	float aUpperNorm = a.second - a.first;
-	float normPosition = inValNorm / aUpperNorm;
-
-	float bUpperNorm = b.second - b.first;
-	float bValNorm = normPosition * bUpperNorm;
-	float outVal = b.first + bValNorm;
-
-	return outVal;
-}
-
-
-void HandTracker::translateCoordinates()
-{
-	for (auto i = 0; i < HANDS_AMOUNT; i++)
-	{
-		auto tempX = this->hands[i].x;
-		this->hands[i].x = map(tempX, 0, camera_width, -1, 1);
-
-		auto tempY = this->hands[i].y;
-		this->hands[i].y = map(tempY, 0, camera_height, -1, 1);
-	}
-
-	for (auto hand : this->hands)
-	{
-		std::cout << "ID: " << hand.x << " X: " << hand.x << " Y: " << hand.y << std::endl;
-	}
-}
-
-
-HandTracker::HandTracker(int width, int height)
-{
-	this->width = width;
-	this->height = height;
-
 	for (auto i = 0; i < HANDS_AMOUNT; i++)
 	{
 		this->hands[i] = {i, -1, -1};
@@ -166,12 +127,6 @@ HandTracker::HandTracker(int width, int height)
 
 HandTracker::~HandTracker()
 {
-}
-
-void HandTracker::resize(int width, int height)
-{
-	this->width = width;
-	this->height = height;
 }
 
 

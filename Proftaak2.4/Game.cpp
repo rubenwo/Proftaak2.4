@@ -18,7 +18,7 @@ namespace Game
 	//GameObject* player;
 	//CameraComponent* camComponent;
 
-	void loadContent(HandTracker& tracker)
+	void loadContent()
 	{
 		ZeroMemory(keys, sizeof(keys));
 		camera = Camera(0, -4, 0, 0);
@@ -26,10 +26,10 @@ namespace Game
 		GameObject* o = new GameObject();
 		//o->addComponent(new CubeComponent(0.5));
 		//HandTracker tracker(windowWidth, windowHeight);
-		o->addComponent(new PlayerComponent(tracker));
+		o->addComponent(new PlayerComponent());
 
 
-		o->position = Vec3f(0, 0, -2);
+		o->position = Vec3f(0, 0, -1);
 
 		objects.push_back(o);
 	}
