@@ -16,11 +16,11 @@ std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
 PlayerComponent::PlayerComponent(std::list<GameObject*>* objects)
 {
-	/*tracker = new HandTracker();
+	tracker = new HandTracker();
 	tracker->startTracking([](std::array<hand, HANDS_AMOUNT> hands)
 	{
 		atomic_hands.store(hands);
-	});*/
+	});
 	this->onCollision = nullptr;
 	this->objects = objects;
 }
