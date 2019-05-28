@@ -5,9 +5,6 @@ class Level
 {
 
 public:
-	//Texture *texturess;
-
-
 	Level(Texture* texture);
 	Level();
 
