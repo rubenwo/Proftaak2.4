@@ -7,6 +7,11 @@
 #include "TrailAnimation.hpp"
 #include <iostream>
 
+#define OBJECT_OUT_OF_BOUNDS -4.0f
+
+bool isObjectOutOfBounds(GameObject* o);
+
+
 Texture* texturess;
 
 Level::Level()
@@ -36,16 +41,21 @@ void Level::draw()
 
 void Level::update(float deltaTime)
 {
-	for (const auto& o : objects)
+	std::list<GameObject*>::iterator itr = objects.begin();
+
+	while (itr != objects.end())
 	{
-		if (o->position.z <= -4)
+		auto o = (*itr);
+		if (isObjectOutOfBounds(o))
 		{
-			std::cout << "\r\nDelete object: ";
-			objects.remove(o);
-			break;
+			itr = objects.erase(itr);
+			delete o;
 		}
-		o->update(deltaTime);
-		//TODO delete objects if behind player
+		else
+		{
+			o->update(deltaTime);
+			++itr;
+		}
 	}
 }
 
@@ -91,4 +101,9 @@ void Level::createMovingCubeRight(float height) //red color
 	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5f, -height + 0.6f, -5.0f);
 
 	objects.push_back(o);
+}
+
+bool isObjectOutOfBounds(GameObject* o)
+{
+	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
 }

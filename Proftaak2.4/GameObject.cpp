@@ -10,6 +10,18 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	for (auto& c : components)
+	{
+		if (c != nullptr)
+			delete c;
+	}
+	for (auto& a : animations)
+	{
+		if (a != nullptr)
+			delete a;
+	}
+	components.clear();
+	animations.clear();
 }
 
 void GameObject::addComponent(Component* component)
