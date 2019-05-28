@@ -15,15 +15,11 @@ namespace Game
 	int windowWidth, windowHeight;
 	bool keys[256];
 	Texture *texturess;
-
 	Level currentLevel;
-
 	Camera camera;
-	GameObject player;
+	GameObject* player;
 
 	//Menu menu(1);
-
-
 
 	void loadContent()
 	{
@@ -35,10 +31,10 @@ namespace Game
 
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
-		
-		player = GameObject();
-		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(1.0f, 1));
+
+		player = new GameObject();
+		player->position = Vec3f(0, 0, -1);
+		player->addComponent(new PlayerComponent(0.1f, 3));
 	}
 
 	void update(float deltaTime)
@@ -51,7 +47,7 @@ namespace Game
 	{
 		currentLevel.draw();
 		//menu.draw();
-		player.draw();
+		player->draw();
 	}
 
 	void onKey(Key key)

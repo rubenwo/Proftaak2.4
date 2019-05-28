@@ -89,7 +89,7 @@ void idle()
 	if (keys['w']) move(90, deltaTime*speed);
 	if (keys['s']) move(270, deltaTime*speed);
 
-	glutWarpPointer(windowWidth / 2, windowHeight / 2);
+	//glutWarpPointer(windowWidth / 2, windowHeight / 2);
 
 	if (skeys[0]) { //UP ARROW KEY
 		camera.posZ -= 0.025f;
@@ -98,13 +98,11 @@ void idle()
 		camera.posZ += 0.025f;
 	}
 
-	Game::update(deltaTime);
 	// update
+	Game::update(deltaTime);
 
 	glutPostRedisplay();
 }
-
-
 
 bool justMovedMouse = false;
 void mousePassiveMotion(int x, int y)

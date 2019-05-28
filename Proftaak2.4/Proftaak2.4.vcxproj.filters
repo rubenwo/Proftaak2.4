@@ -168,13 +168,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures12.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="wallTexture.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="smacky_logo_big.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="blockTextures.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Gerben\Desktop\handTexture.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
