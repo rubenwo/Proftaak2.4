@@ -25,7 +25,7 @@ namespace Game
 		
 		player = GameObject();
 		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(1));
+		player.addComponent(new PlayerComponent(1.0f, 1));
 	}
 
 	void update(float deltaTime)
