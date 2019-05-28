@@ -4,6 +4,7 @@
 #include "MoveToComponent.h"
 #include "StageComponent.h"
 #include "ObjectModel.h"
+#include "TrailAnimation.hpp"
 #include <iostream>
 
 Texture* texturess;
@@ -71,7 +72,7 @@ void Level::createMovingCubeLeft(float height) //blue color
 	GameObject* o = new GameObject();
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
-
+	o->addAnimation(new TrailAnimation());
 	o->position = Vec3f(2, 0, 30);
 	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
 
@@ -84,6 +85,7 @@ void Level::createMovingCubeRight(float height) //red color
 	GameObject* o = new GameObject();
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
 	o->addComponent(new MoveToComponent());
+	o->addAnimation(new TrailAnimation());
 
 	o->position = Vec3f(-2, 0, 30);
 	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5f, -height + 0.6f, -5.0f);

@@ -8,12 +8,14 @@
 
 class CubeComponent : public DrawComponent
 {
+private:
 	float size;
 	GLuint textureID;
 	HAND handSide;
 	ARROWDIRECTION arrowDirection;
 	double startPos;
 	double endPos;
+	void drawTrail();
 
 public:
 	CubeComponent(float size, GLuint textureID, HAND handSide, ARROWDIRECTION arrowDirection);// , double startPos, double endPos); //, int startPos, int endPos);// , GLuint textureID, int startPos, int endPos);
