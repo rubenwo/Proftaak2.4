@@ -2,6 +2,7 @@
 
 #include <list>
 #include "Vec.h"
+#include "CollisionSphere.h"
 
 class Component;
 class DrawComponent;
@@ -15,7 +16,7 @@ public:
 	GameObject();
 	~GameObject();
 
-
+	CollisionSphere sphere;
 	Vec3f position;
 	Vec3f rotation;
 	Vec3f scale = Vec3f(1, 1, 1);
@@ -26,7 +27,7 @@ public:
 	void update(float elapsedTime);
 	void draw();
 
-	template<class T>
+	template <class T>
 	T* getComponent()
 	{
 		for (auto c : components)
@@ -37,10 +38,10 @@ public:
 		}
 	}
 
-	template<class T>
+	template <class T>
 	void removeComponent()
 	{
-		components.remove_if([](Component * c)
+		components.remove_if([](Component* c)
 		{
 			T* t = dynamic_cast<T*>(c);
 			return t != nullptr;

@@ -140,7 +140,7 @@
     <ClInclude Include="CollisionComponent.h">
       <Filter>Header Files\GameObjects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="CollisionSphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

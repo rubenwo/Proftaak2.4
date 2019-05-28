@@ -17,19 +17,21 @@ namespace Game
 	Camera camera;
 	GameObject player;
 
-	void loadContent() {
+	void loadContent()
+	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0);
 		currentLevel = Level();
 		currentLevel.loadContent();
-		
+
 		player = GameObject();
 		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent());
+		player.addComponent(new PlayerComponent(&currentLevel.objects));
 	}
 
 	void update(float deltaTime)
 	{
+		player.update(deltaTime);
 		currentLevel.update(deltaTime);
 	}
 

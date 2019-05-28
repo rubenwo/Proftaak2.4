@@ -4,6 +4,7 @@
 
 GameObject::GameObject()
 {
+	this->sphere = CollisionSphere(this->position, 0.25);
 }
 
 GameObject::~GameObject()

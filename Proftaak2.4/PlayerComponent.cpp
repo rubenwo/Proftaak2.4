@@ -12,23 +12,62 @@
 HandTracker* tracker;
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
-PlayerComponent::PlayerComponent()
+PlayerComponent::PlayerComponent(std::list<GameObject*>* objects)
 {
-	tracker = new HandTracker();
+	/*tracker = new HandTracker();
 	tracker->startTracking([](std::array<hand, HANDS_AMOUNT> hands)
 	{
 		atomic_hands.store(hands);
-	});
+	});*/
+	this->onCollision = nullptr;
+	this->objects = objects;
 }
 
 PlayerComponent::~PlayerComponent()
 {
-	free(tracker);
+	delete tracker;
+}
+
+
+void PlayerComponent::update(float elapsedTime)
+{
+	for (auto obj : *objects)
+	{
+		if (this->gameObject == obj)
+		{
+			std::cout << "Object Position: " << obj->position.x << obj->position.y << obj->position.z << "\n";
+
+			continue;;
+		}
+		else
+		{
+			for (auto hand : atomic_hands.load())
+			{
+				Vec3f pos(1, 1, 0);
+				if (obj->sphere.collides(pos, 0.25))
+				{
+					if (this->onCollision != nullptr)
+						this->onCollision(hand.id, pos);
+					else
+					{
+						std::cout << "Collision occured but callback was not set" << std::endl;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+void PlayerComponent::setCollisionCallback(const std::function<void(int, Vec3f)> onCollision)
+{
+	this->onCollision = onCollision;
 }
 
 
 void PlayerComponent::draw()
 {
+	update(0);
 	for (auto hand : atomic_hands.load())
 	{
 		glColor3f(1, 0, 0);
