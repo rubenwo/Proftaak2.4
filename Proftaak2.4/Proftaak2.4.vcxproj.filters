@@ -87,9 +87,6 @@
     <ClCompile Include="SoundPlayer.cpp">
       <Filter>Source Files\Music</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Source Files\GameObjects\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.hpp">
@@ -136,9 +133,6 @@
     </ClInclude>
     <ClInclude Include="SoundPlayer.hpp">
       <Filter>Header Files\Music</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionComponent.h">
-      <Filter>Header Files\GameObjects\Components</Filter>
     </ClInclude>
     <ClInclude Include="CollisionSphere.h">
       <Filter>Header Files</Filter>

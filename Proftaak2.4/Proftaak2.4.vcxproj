@@ -128,7 +128,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
@@ -150,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SoundPlayer.hpp" />
-    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="Tracker.hpp" />
