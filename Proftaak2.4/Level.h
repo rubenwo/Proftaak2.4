@@ -1,8 +1,14 @@
 #pragma once
+#include "ObjectModel.h"
 
 class Level
 {
+
 public:
+	//Texture *texturess;
+
+
+	Level(Texture* texture);
 	Level();
 
 	float score;
@@ -11,7 +17,7 @@ public:
 	//Load all content, gets called before starting a level.
 	void loadContent();
 	//Load all textures
-	void loadTextures();
+	//void loadTextures();
 	//Gets called on every draw, draw level components
 	void draw();
 	//Gets called at the beginning of a level.

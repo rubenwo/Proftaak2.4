@@ -1,34 +1,42 @@
+#include <iostream>
 #include "Level.h"
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
 #include "StageComponent.h"
 #include "ObjectModel.h"
-#include <iostream>
 
-Texture *texturess;
+
 std::list<GameObject*> objects;
+Texture *texturess;
 
 void createRoom(void);
 void createMovingCubeRight(float height = 0);
 void createMovingCubeLeft(float height = 0);
 
+Level::Level(Texture* texture)
+{
+	texturess = texture;
+}
+
 Level::Level()
 {
+
 }
 
 void Level::loadContent()
 {
-	loadTextures();
+	//loadTextures();
 	createRoom();
 	createMovingCubeLeft();
 	createMovingCubeRight(1);
 }
 
-void Level::loadTextures() {
-	texturess = new Texture("texture");
-	texturess->initTextures();
-}
+//void Level::loadTextures() 
+//{
+//	texturess = new Texture("texture");
+//	texturess->initTextures();
+//}
 
 void Level::draw()
 {
