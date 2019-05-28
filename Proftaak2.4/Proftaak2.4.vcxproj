@@ -177,8 +177,9 @@
     <ClInclude Include="StageComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\Gerben\Desktop\handTexture.png" />
     <Image Include="smacky_logo_big.png" />
-    <Image Include="textures12.png" />
+    <Image Include="blockTextures.png" />
     <Image Include="wallTexture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
