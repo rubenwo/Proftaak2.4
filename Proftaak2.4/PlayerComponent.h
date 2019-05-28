@@ -13,11 +13,12 @@ private:
 	void drawCircle(float cx, float cy, float r, int num_segments);
 	std::function<void(GameObject*, Vec2f)> onCollision;
 	std::list<GameObject*>* objects;
+	float size;
 	GLuint textureID;
 
 public:
 	PlayerComponent() = default;
-	PlayerComponent(std::list<GameObject*>* objects, GLuint textureID);
+	PlayerComponent(std::list<GameObject*>* objects, GLuint textureID, float size);
 	~PlayerComponent();
 
 	void setCollisionCallback(const std::function<void(GameObject*, Vec2f)> onCollision);

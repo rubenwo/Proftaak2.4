@@ -11,6 +11,7 @@
 const char* textureFilenameCube = "textures12.png";
 const char* textureFilenameWalls = "wallTexture.png";
 const char* textureFilenameLogo = "smacky_logo_big.png";
+const char* textureFilenameHand = "";
 
 Texture::Texture(const std::string &dirName) {
 

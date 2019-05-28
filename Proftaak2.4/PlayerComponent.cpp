@@ -17,10 +17,12 @@
 
 HandTracker* tracker;
 GLuint textureID;
+float size;
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
-PlayerComponent::PlayerComponent(std::list<GameObject*>* objects, GLuint textureID)
+PlayerComponent::PlayerComponent(std::list<GameObject*>* objects, GLuint textureID, float size)
 {
+	this->size = size;
 	this->textureID = textureID;
 	tracker = new HandTracker();
 	tracker->startTracking([](std::array<hand, HANDS_AMOUNT> hands)
@@ -79,46 +81,53 @@ void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
-		float radius = 1.0f;
-		float radian, x, y, tx, ty;
-		
-		glColor3f(1, 0, 0);
-		//glPushMatrix();
-		glTranslatef(hand.x, hand.y, 0);
-
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 
-		//draw circles with textures here!
-		glBegin(GL_POLYGON);
-
-		for (double angle = 0.0; angle < 360.0; angle += 2.0)
-		{
-			radian = angle * (M_PI / 180.0f);
-
-			float xcos = (float)cos(radian);
-			float ysin = (float)sin(radian);
-			x = xcos * radius + hand.x;
-			y = ysin * radius + hand.y;
-			tx = xcos * 0.5 + 0.5;
-			ty = ysin * 0.5 + 0.5;
-
-			glTexCoord2f(tx, ty);
-			glVertex2f(x, y);
-		}
-		glEnd();
+		glBegin(GL_QUADS);
+		glColor4f(1, 1, 1, 1);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, -size, -size);
+		glTexCoord2f(0, 0);
+		glVertex3f(size, -size, -size);
+		glTexCoord2f(0, 0);
+		glVertex3f(size, size, -size);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, size, -size);
 		glDisable(GL_TEXTURE_2D);
 
-		//glPopMatrix();
-
-		////=================
+		////=================================
+		//float radius = 1.0f;
+		//float radian, x, y, tx, ty;
+		//
 		//glColor3f(1, 0, 0);
-		//glPushMatrix();
+		////glPushMatrix();
 		//glTranslatef(hand.x, hand.y, 0);
-		//glutSolidSphere(0.25, 30, 20);
-		//glPopMatrix();
-		////drawCircle(hand.x, hand.y, 0.25, 50);
+
+		//glBindTexture(GL_TEXTURE_2D, textureID);
+		//glEnable(GL_TEXTURE_2D);
+		//glDisable(GL_BLEND);
+
+		////draw circles with textures here!
+		//glBegin(GL_POLYGON);
+
+		//for (double angle = 0.0; angle < 360.0; angle += 2.0)
+		//{
+		//	radian = angle * (M_PI / 180.0f);
+
+		//	float xcos = (float)cos(radian);
+		//	float ysin = (float)sin(radian);
+		//	x = xcos * radius + hand.x;
+		//	y = ysin * radius + hand.y;
+		//	tx = xcos * 0.5 + 0.5;
+		//	ty = ysin * 0.5 + 0.5;
+
+		//	glTexCoord2f(tx, ty);
+		//	glVertex2f(x, y);
+		//}
+		//glEnd();
+		//glDisable(GL_TEXTURE_2D);
 	}
 }
 
