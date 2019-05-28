@@ -143,15 +143,26 @@ void createRandomLocCube(float maxX, float maxY)
 	float randNumX = rX * maxX;
 	float randNumY = rY * maxY;
 
+	const int arrowDirection = rand() % 4;
+	ARROWDIRECTION direction;
+	if (arrowDirection == 0)
+		direction = ARROWDIRECTION::left;
+	else if (arrowDirection == 1)
+		direction = ARROWDIRECTION::up;
+	else if (arrowDirection == 2)
+		direction = ARROWDIRECTION::right;
+	else
+		direction = ARROWDIRECTION::down;
+
 	if (randNumX > maxX / 2)
 	{
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::left));
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4, -5.0f); //+0.3 to avoid the player
 	}
 	else
 	{
-		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
+		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4, -5.0f); //+0.4 to avoid the player
 	}
