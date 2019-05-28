@@ -76,7 +76,6 @@ void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*,
 	this->onCollision = onCollision;
 }
 
-
 void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())

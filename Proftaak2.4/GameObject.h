@@ -10,7 +10,7 @@ class Animation;
 
 class GameObject
 {
-	DrawComponent* drawComponent = nullptr;
+	DrawComponent* drawComponent;
 
 	std::list<Component*> components;
 	std::list<Animation*> animations;
