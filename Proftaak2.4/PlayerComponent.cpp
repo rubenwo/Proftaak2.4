@@ -83,17 +83,18 @@ void PlayerComponent::draw()
 	{
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glEnable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
+		//glDisable(GL_BLEND);
+		//glEnable(GL_DEPTH_TEST);
 
 		glBegin(GL_QUADS);
 		glColor4f(1, 1, 1, 1);
 		glTexCoord2f(0, 0);
 		glVertex3f(-size, -size, -size);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(0, 1);
 		glVertex3f(size, -size, -size);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(1, 1);
 		glVertex3f(size, size, -size);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(1, 0);
 		glVertex3f(-size, size, -size);
 		glDisable(GL_TEXTURE_2D);
 

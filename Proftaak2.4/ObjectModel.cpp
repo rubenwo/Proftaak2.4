@@ -8,10 +8,10 @@
 #include "stb_image.h"
 #include "GL/freeglut.h"
 
-const char* textureFilenameCube = "textures12.png";
+const char* textureFilenameCube = "blockTextures.png";
 const char* textureFilenameWalls = "wallTexture.png";
 const char* textureFilenameLogo = "smacky_logo_big.png";
-const char* textureFilenameHand = "";
+const char* textureFilenameHands = "handTexture.png";
 
 Texture::Texture(const std::string &dirName) {
 
@@ -27,10 +27,12 @@ GLuint Texture::getWallTextureId()
 }
 
 void Texture::initTextures() {
-	glGenTextures(2, textures);
+	//Space for 6 textures;
+	glGenTextures(4, textures);
 	loadTextureFromFile(textureFilenameCube, textures[0]);
 	loadTextureFromFile(textureFilenameWalls, textures[1]);
 	loadTextureFromFile(textureFilenameLogo, textures[2]);
+	loadTextureFromFile(textureFilenameHands, textures[3]);
 }
 
 void Texture::loadTextureFromFile(const char *filename, int texture)
