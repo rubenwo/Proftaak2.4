@@ -10,4 +10,5 @@ CollisionComponent::~CollisionComponent()
 
 void CollisionComponent::update(float elapsedTime)
 {
+
 }
