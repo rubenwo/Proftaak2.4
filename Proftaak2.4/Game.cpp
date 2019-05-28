@@ -47,12 +47,8 @@ namespace Game
 
 	void draw()
 	{
-		/*glRotatef(camera.rotX, 1, 0, 0);
-		glRotatef(camera.rotY, 0, 1, 0);
-		glRotatef(camera.rotZ, 0, 0, 1);
-		glTranslatef(camera.posX, camera.posZ, camera.posY);*/
-
-		player.draw();
+		//player.draw();
+		currentLevel.draw();
 	}
 
 	void onKey(Key key)

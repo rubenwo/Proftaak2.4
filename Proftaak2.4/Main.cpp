@@ -18,6 +18,15 @@ using namespace std;
 
 int windowWidth;
 int windowHeight;
+struct Camera
+{
+	float posX = 0;
+	float posY = 0;
+	float rotX = 0;
+	float rotY = 0;
+	float posZ = 0;
+	float rotZ = 0;
+} camera;
 
 void reshape(int w, int h)
 {
