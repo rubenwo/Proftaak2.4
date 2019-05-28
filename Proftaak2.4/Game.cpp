@@ -10,12 +10,16 @@
 #include "PlayerComponent.h"
 #include "ObjectModel.h"
 #include "Level.h"
+#include "Menu.h"
 
 namespace Game
 {
 	int windowWidth, windowHeight;
 	bool keys[256];
+	Texture *texturess;
+
 	Level currentLevel;
+
 	Camera camera;
 	GameObject player;
 	
@@ -25,6 +29,7 @@ namespace Game
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
 		currentLevel = Level();
+
 		currentLevel.loadContent();
 
 		player = GameObject();
@@ -36,6 +41,7 @@ namespace Game
 	{
 		player.update(deltaTime);
 		currentLevel.update(deltaTime);
+		//menu.update(deltaTime);
 	}
 
 	void draw()
@@ -46,7 +52,6 @@ namespace Game
 		glTranslatef(camera.posX, camera.posZ, camera.posY);*/
 
 		player.draw();
-		currentLevel.draw();
 	}
 
 	void onKey(Key key)

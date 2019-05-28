@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Level.h"
 #include "GameObject.h"
 #include "CubeComponent.h"
@@ -9,18 +10,27 @@
 
 #define OBJECT_OUT_OF_BOUNDS -4.0f
 
+std::list<GameObject*> objects;
+Texture *texturess;
+
 bool isObjectOutOfBounds(GameObject* o);
 
 
 Texture* texturess;
 
+Level::Level(Texture* texture)
+{
+	texturess = texture;
+}
+
 Level::Level()
 {
+
 }
 
 void Level::loadContent()
 {
-	loadTextures();
+	//loadTextures();
 	createRoom();
 	createMovingCubeLeft(1);
 	createMovingCubeRight(1);

@@ -23,5 +23,7 @@ namespace Game
 	void onResize(int w, int h);
 	// Gets called when app is closing.
 	void onClose();
+
+	void loadTextures();
 }
 #endif

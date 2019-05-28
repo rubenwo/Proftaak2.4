@@ -64,10 +64,80 @@ void idle()
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
 	lastTime = currentTime;
 
+	const float speed = 3;
+	if (keys['a']) move(0, deltaTime*speed);
+	if (keys['d']) move(180, deltaTime*speed);
+	if (keys['w']) move(90, deltaTime*speed);
+	if (keys['s']) move(270, deltaTime*speed);
+
+	glutWarpPointer(windowWidth / 2, windowHeight / 2);
+
+	if (skeys[0]) { //UP ARROW KEY
+		camera.posZ -= 0.025f;
+	}
+	if (skeys[1]) { //DOWN ARROW KEY
+		camera.posZ += 0.025f;
+	}
+
 	Game::update(deltaTime);
 	// update
 
 	glutPostRedisplay();
+}
+
+
+
+bool justMovedMouse = false;
+void mousePassiveMotion(int x, int y)
+{
+	int dx = x - windowWidth / 2;
+	int dy = y - windowHeight / 2;
+	if ((dx != 0 || dy != 0) && abs(dx) < 400 && abs(dy) < 400 && !justMovedMouse)
+	{
+		camera.rotY += dx / 10.0f;
+		camera.rotX += dy / 10.0f;
+	}
+	if (!justMovedMouse)
+	{
+		glutWarpPointer(windowWidth / 2, windowHeight / 2);
+		justMovedMouse = true;
+	}
+	else
+		justMovedMouse = false;
+}
+
+void keyboardup(unsigned char key, int x, int y)
+{
+	keys[key] = false;
+}
+
+void specialKeys(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		skeys[0] = true;
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_DOWN:
+		skeys[1] = true;
+		glutPostRedisplay();
+		break;
+	}
+	std::cout << "Special key: " << key << std::endl;
+}
+
+void specialKeysUp(int key, int x, int y)
+{
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		skeys[0] = false;
+		break;
+	case GLUT_KEY_DOWN:
+		skeys[1] = false;
+		break;
+	}
 }
 
 bool initGlut(int argc, char* argv[])

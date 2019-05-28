@@ -10,6 +10,7 @@
 
 const char* textureFilenameCube = "textures12.png";
 const char* textureFilenameWalls = "wallTexture.png";
+const char* textureFilenameLogo = "smacky_logo_big.png";
 
 Texture::Texture(const std::string &dirName) {
 
@@ -28,6 +29,7 @@ void Texture::initTextures() {
 	glGenTextures(2, textures);
 	loadTextureFromFile(textureFilenameCube, textures[0]);
 	loadTextureFromFile(textureFilenameWalls, textures[1]);
+	loadTextureFromFile(textureFilenameLogo, textures[2]);
 }
 
 void Texture::loadTextureFromFile(const char *filename, int texture)
