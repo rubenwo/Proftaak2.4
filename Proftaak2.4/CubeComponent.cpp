@@ -1,7 +1,10 @@
 #include "CubeComponent.h"
 #include <GL/freeglut.h>
+#include <GL\GL.h>
+#include <GL\freeglut_ext.h>
 #include <iostream>
 #include "ObjectModel.h"
+#include "GameObject.h"
 
 int textureID[];
 float startPos;
@@ -14,6 +17,8 @@ CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWD
 	this->textureID = textureID;
 	this->arrowDirection = arrowDirection;
 	this->handSide = handSide;
+
+	
 }
 
 CubeComponent::~CubeComponent()
@@ -98,5 +103,45 @@ void CubeComponent::draw()
 	glVertex3f(-size, size, size);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+
+	drawTrail();
 }
 
+const float triangleVertices[]
+{
+	-0.5, -0.5, 0.0, // top
+	0.5, -0.5, 0.0, // bottom left
+	0.0, 0.5, 0.0 // bottom right
+};
+#define PARTICLES 50
+void CubeComponent::drawTrail()
+{
+	Vec3f pos = gameObject->position;
+
+	for (int i = 1; i <= PARTICLES; i++)
+	{
+		
+		float angle = (rand() % 360) + 1;
+		glRotatef(angle, 0, 0, 1);
+		glTranslatef(0, 0, i * 0.002f); // 1 van de z van position
+		float alpha = ((rand() % 100) + 0) / 100.0f;
+		glBegin(GL_TRIANGLES);
+		//glEnableClientState(GL_VERTEX_ARRAY);
+		//glColor3f(229.0f/255.0f, 229.0f/255.0f, 229.0f/255.0f);
+		glColor4f(229.0f / 255.0f, 229.0f / 255.0f, 229.0f / 255.0f, alpha);
+		//glVertexPointer(3, GL_FLOAT, 0, triangleVertices);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glRotatef(i * 20, 1, 0, 0);
+		//glRotatef(i* 20, 0, 1, 0);
+		//glRotatef(i * 20, 0, 0, 1);
+		glVertex3f(-0.1, -0.1, 0.0);
+		glVertex3f(0.1, -0.1, 0.0);
+		glVertex3f(0.0, 0.1, 0.0);
+		
+		glEnd();
+	}
+	
+
+	
+	
+}
