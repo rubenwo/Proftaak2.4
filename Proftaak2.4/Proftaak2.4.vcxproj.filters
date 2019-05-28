@@ -31,6 +31,18 @@
     <Filter Include="Source Files\Music">
       <UniqueIdentifier>{cc7f0637-0322-40a0-843e-25b752563cef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Animations">
+      <UniqueIdentifier>{67e2bfe4-7b95-436b-be32-21ddf44625fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animations">
+      <UniqueIdentifier>{f2e0e829-9635-49a2-8e95-af8f521b9b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{0989e66e-8e69-4041-804a-f78055ba5362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{3cb5d85d-259d-495b-9042-1d3632dbbe73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -87,6 +99,21 @@
     <ClCompile Include="SoundPlayer.cpp">
       <Filter>Source Files\Music</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="TrailAnimation.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionAnimation.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameRateCounter.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.hpp">
@@ -136,6 +163,21 @@
     </ClInclude>
     <ClInclude Include="CollisionSphere.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="TrailAnimation.hpp">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionAnimation.hpp">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRateCounter.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
