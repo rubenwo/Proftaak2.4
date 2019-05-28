@@ -13,8 +13,7 @@ StageComponent::~StageComponent()
 }
 
 void StageComponent::draw()
-{
-	glBindTexture(GL_TEXTURE_2D, sideWallTextureId);
+{glBindTexture(GL_TEXTURE_2D, sideWallTextureId);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 
@@ -31,6 +30,7 @@ void StageComponent::draw()
 	glVertex3f(-3, 4, -2.5);
 	glDisable(GL_TEXTURE_BINDING_2D);
 	glEnd();
+	
 
 	//LEFT WALL
 	glBegin(GL_QUADS);

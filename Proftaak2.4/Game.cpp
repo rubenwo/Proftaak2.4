@@ -31,10 +31,10 @@ namespace Game
 
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
-
-		player = new GameObject();
-		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(0.1f, 3));
+		
+		// player = GameObject();
+		// player.position = Vec3f(0, 0, -1);
+		// player.addComponent(new PlayerComponent(1));
 	}
 
 	void update(float deltaTime)
@@ -45,6 +45,7 @@ namespace Game
 
 	void draw()
 	{
+		player.draw();
 		currentLevel.draw();
 		//menu.draw();
 		player->draw();

@@ -22,7 +22,7 @@ using namespace std;
 struct Camera
 {
 	float posX = 0;
-	float posY = -4;
+	float posY = 0;
 	float rotX = 0;
 	float rotY = 0;
 	float posZ = 0;
