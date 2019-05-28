@@ -6,12 +6,14 @@
 
 class Component;
 class DrawComponent;
+class Animation;
 
 class GameObject
 {
 	DrawComponent* drawComponent = nullptr;
 
 	std::list<Component*> components;
+	std::list<Animation*> animations;
 public:
 	GameObject();
 	~GameObject();
@@ -24,6 +26,8 @@ public:
 
 	void addComponent(Component* component);
 	std::list<Component*> getComponents();
+	void addAnimation(Animation* animation);
+	std::list<Animation*> getAnimations();
 	void update(float elapsedTime);
 	void draw();
 
@@ -44,6 +48,27 @@ public:
 		components.remove_if([](Component* c)
 		{
 			T* t = dynamic_cast<T*>(c);
+			return t != nullptr;
+		});
+	}
+
+	template<class T>
+	T* getAnimation()
+	{
+		for (auto a : animations)
+		{
+			T* t = dynamic_cast<T*>(a);
+			if (t)
+				return t;
+		}
+	}
+
+	template<class T>
+	void removeAnimation()
+	{
+		animations.remove_if([](Animation* a)
+		{
+			T* t = dynamic_cast<T*>(a);
 			return t != nullptr;
 		});
 	}
