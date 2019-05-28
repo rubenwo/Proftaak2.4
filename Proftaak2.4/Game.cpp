@@ -23,9 +23,9 @@ namespace Game
 		currentLevel = Level();
 		currentLevel.loadContent();
 		
-		player = GameObject();
-		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(1));
+		// player = GameObject();
+		// player.position = Vec3f(0, 0, -1);
+		// player.addComponent(new PlayerComponent(1));
 	}
 
 	void update(float deltaTime)
@@ -35,7 +35,7 @@ namespace Game
 
 	void draw()
 	{
-		player.draw();
+		//player.draw();
 		currentLevel.draw();
 	}
 
