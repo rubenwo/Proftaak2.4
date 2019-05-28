@@ -11,7 +11,7 @@
 class Texture
 {
 public:
-	GLuint textures[2];
+	GLuint textures[3];
 	Texture(const std::string &dirName);
 	const std::string dirName;
 	void initTextures();

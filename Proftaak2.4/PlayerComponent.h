@@ -10,10 +10,11 @@ class PlayerComponent : public DrawComponent
 
 private:
 	void drawCircle(float cx, float cy, float r, int num_segments);
+	float size;
 	GLuint textureID;
 
 public:
-	PlayerComponent(GLuint textureID);
+	PlayerComponent(float size, GLuint textureID);
 	~PlayerComponent();
 
 	virtual void draw() override;

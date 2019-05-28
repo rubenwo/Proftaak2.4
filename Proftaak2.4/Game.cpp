@@ -8,35 +8,50 @@
 #include "PlayerComponent.h"
 #include "ObjectModel.h"
 #include "Level.h"
+#include "Menu.h"
 
 namespace Game
 {
 	int windowWidth, windowHeight;
 	bool keys[256];
+	Texture *texturess;
+
 	Level currentLevel;
+
 	Camera camera;
 	GameObject player;
 
-	void loadContent() {
-		ZeroMemory(keys, sizeof keys);
+	//Menu menu(1);
+
+
+
+	void loadContent()
+	{
+		ZeroMemory(keys, sizeof(keys));
+
 		camera = Camera(0, -4, 0, 0);
-		currentLevel = Level();
+
+		loadTextures();
+
+		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 		
 		player = GameObject();
 		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(1));
+		player.addComponent(new PlayerComponent(1.0f, 1));
 	}
 
 	void update(float deltaTime)
 	{
 		currentLevel.update(deltaTime);
+		//menu.update(deltaTime);
 	}
 
 	void draw()
 	{
-		player.draw();
 		currentLevel.draw();
+		//menu.draw();
+		player.draw();
 	}
 
 	void onKey(Key key)
@@ -73,5 +88,11 @@ namespace Game
 		objects.clear();*/
 
 		std::cout << "Closing game.\n";
+	}
+
+	void loadTextures()
+	{
+		texturess = new Texture("texture");
+		texturess->initTextures();
 	}
 }
