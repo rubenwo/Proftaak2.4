@@ -2,6 +2,8 @@
 #include <list>
 #include <iostream>
 #include <GL\freeglut.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "Camera.hpp"
 #include "GameObject.h"
 #include "CubeComponent.h"
@@ -16,11 +18,12 @@ namespace Game
 	Level currentLevel;
 	Camera camera;
 	GameObject player;
+	
 
 	void loadContent()
 	{
 		ZeroMemory(keys, sizeof keys);
-		camera = Camera(0, -4, 0, 0);
+		camera = Camera(0, -4, 0, 0, 0, 0);
 		currentLevel = Level();
 		currentLevel.loadContent();
 
@@ -37,6 +40,11 @@ namespace Game
 
 	void draw()
 	{
+		/*glRotatef(camera.rotX, 1, 0, 0);
+		glRotatef(camera.rotY, 0, 1, 0);
+		glRotatef(camera.rotZ, 0, 0, 1);
+		glTranslatef(camera.posX, camera.posZ, camera.posY);*/
+
 		player.draw();
 		currentLevel.draw();
 	}
@@ -55,9 +63,34 @@ namespace Game
 		case VK_ESCAPE:
 			glutLeaveMainLoop();
 			break;
+		case GLUT_KEY_UP:
+			camera.posZ -= 0.025f;
+			break;
+		case GLUT_KEY_DOWN:
+			camera.posZ += 0.025f;
+			break;
 		default:
 			break;
 		}
+	}
+
+	void onMouseMove(int x, int y)
+	{
+		//static bool justMovedMouse = false;
+		//int dx = x - windowWidth / 2;
+		//int dy = y - windowHeight / 2;
+		//if ((dx != 0 || dy != 0) && abs(dx) < 400 && abs(dy) < 400 && !justMovedMouse)
+		//{
+		//	camera.rotY += dx / 10.0f;
+		//	camera.rotX += dy / 10.0f;
+		//}
+		//if (!justMovedMouse)
+		//{
+		//	//glutWarpPointer(windowWidth / 2, windowHeight / 2);
+		//	justMovedMouse = true;
+		//}
+		//else
+		//	justMovedMouse = false;
 	}
 
 	void onResize(int w, int h)
@@ -70,10 +103,12 @@ namespace Game
 	{
 		std::cout << "Cleaning up game\n";
 
-		/*for (auto& o : objects)
-			delete o;
-		objects.clear();*/
-
 		std::cout << "Closing game.\n";
+	}
+
+	void move(float angle, float fac)
+	{
+		camera.posX += (float)cos((camera.rotY + angle) / 180 * M_PI) * fac;
+		camera.posY += (float)sin((camera.rotY + angle) / 180 * M_PI) * fac;
 	}
 }
