@@ -17,7 +17,7 @@ namespace Game
 	bool keys[256];
 	Level currentLevel;
 	Camera camera;
-	GameObject player;
+	//GameObject player;
 	
 
 	void loadContent()
@@ -27,14 +27,14 @@ namespace Game
 		currentLevel = Level();
 		currentLevel.loadContent();
 
-		player = GameObject();
-		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(&currentLevel.objects));
+		//player = GameObject();
+		//player.position = Vec3f(0, 0, -1);
+		//player.addComponent(new PlayerComponent(&currentLevel.objects));
 	}
 
 	void update(float deltaTime)
 	{
-		player.update(deltaTime);
+		//player.update(deltaTime);
 		currentLevel.update(deltaTime);
 	}
 
@@ -45,7 +45,7 @@ namespace Game
 		glRotatef(camera.rotZ, 0, 0, 1);
 		glTranslatef(camera.posX, camera.posZ, camera.posY);*/
 
-		player.draw();
+		//player.draw();
 		currentLevel.draw();
 	}
 

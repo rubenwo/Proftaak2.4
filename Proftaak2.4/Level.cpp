@@ -5,9 +5,11 @@
 #include "StageComponent.h"
 #include "ObjectModel.h"
 #include "TrailAnimation.hpp"
+#include "ExplosionAnimation.hpp"
+#include "Game.hpp"
 #include <iostream>
 
-#define OBJECT_OUT_OF_BOUNDS -4.0f
+#define OBJECT_OUT_OF_BOUNDS -40.0f
 
 bool isObjectOutOfBounds(GameObject* o);
 
@@ -54,9 +56,20 @@ void Level::update(float deltaTime)
 		else
 		{
 			o->update(deltaTime);
+			if (o->position.z <= 4)
+			{
+				auto exp = o->getAnimation<ExplosionAnimation>();
+				if (exp != nullptr)
+				{
+					exp->explode();
+				}
+			}
+
 			++itr;
 		}
 	}
+
+
 }
 
 void Level::start()
@@ -83,6 +96,7 @@ void Level::createMovingCubeLeft(float height) //blue color
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
 	o->addAnimation(new TrailAnimation());
+	o->addAnimation(new ExplosionAnimation());
 	o->position = Vec3f(2, 0, 30);
 	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
 
