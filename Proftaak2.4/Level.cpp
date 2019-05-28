@@ -19,24 +19,14 @@ Level::Level(Texture* texture)
 	texturess = texture;
 }
 
-Level::Level()
-{
-
-}
+Level::Level() {}
 
 void Level::loadContent()
 {
-	//loadTextures();
 	createRoom();
 	createMovingCubeLeft();
 	createMovingCubeRight(1);
 }
-
-//void Level::loadTextures() 
-//{
-//	texturess = new Texture("texture");
-//	texturess->initTextures();
-//}
 
 void Level::draw()
 {

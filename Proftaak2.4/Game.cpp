@@ -21,7 +21,7 @@ namespace Game
 	Camera camera;
 	GameObject player;
 
-	//Menu menu(1);
+	Menu menu;
 
 
 
@@ -32,26 +32,27 @@ namespace Game
 		camera = Camera(0, -4, 0, 0);
 
 		loadTextures();
-
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 		
+		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[4], texturess->textures[5], texturess->textures[6]);
+
 		player = GameObject();
 		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent());
+		//player.addComponent(new PlayerComponent());
 	}
 
 	void update(float deltaTime)
 	{
-		currentLevel.update(deltaTime);
+		//currentLevel.update(deltaTime);
 		//menu.update(deltaTime);
 	}
 
 	void draw()
 	{
-		currentLevel.draw();
-		//menu.draw();
-		player.draw();
+		//currentLevel.draw();
+		menu.draw();
+		//player.draw();
 	}
 
 	void onKey(Key key)

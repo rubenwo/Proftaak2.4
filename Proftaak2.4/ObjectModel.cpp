@@ -11,6 +11,10 @@
 const char* textureFilenameCube = "textures12.png";
 const char* textureFilenameWalls = "wallTexture.png";
 const char* textureFilenameLogo = "smacky_logo_big.png";
+const char* textureFilenameCredits = "credits.png";
+const char* textureFilenameOptions = "options.png";
+const char* textureFilenameQuit = "quit.png";
+const char* textureFilenameStart = "start.png";
 
 Texture::Texture(const std::string &dirName) {
 
@@ -25,11 +29,20 @@ GLuint Texture::getWallTextureId()
 	return wallTextureId;
 }
 
+GLuint Texture::getLogoTextureId()
+{
+	return logoTextureId;
+}
+
 void Texture::initTextures() {
-	glGenTextures(2, textures);
+	glGenTextures(7, textures);
 	loadTextureFromFile(textureFilenameCube, textures[0]);
 	loadTextureFromFile(textureFilenameWalls, textures[1]);
 	loadTextureFromFile(textureFilenameLogo, textures[2]);
+	loadTextureFromFile(textureFilenameCredits, textures[3]);
+	loadTextureFromFile(textureFilenameOptions, textures[4]);
+	loadTextureFromFile(textureFilenameQuit, textures[5]);
+	loadTextureFromFile(textureFilenameStart, textures[6]);
 }
 
 void Texture::loadTextureFromFile(const char *filename, int texture)
