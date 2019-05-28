@@ -8,9 +8,6 @@ private:
 	void createMovingCubeLeft(float height);
 	void createMovingCubeRight(float height);
 public:
-	//Texture *texturess;
-
-
 	Level(Texture* texture);
 	Level();
 	std::list<GameObject*> objects;
