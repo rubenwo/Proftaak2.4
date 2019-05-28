@@ -34,7 +34,6 @@ PlayerComponent::~PlayerComponent()
 	free(tracker);
 }
 
-
 void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
@@ -54,6 +53,7 @@ void PlayerComponent::draw()
 		glVertex3f(size, size, -size);
 		glTexCoord2f(1, 0);
 		glVertex3f(-size, size, -size);
+		glEnd();
 		glDisable(GL_TEXTURE_2D);
 
 		////=================================

@@ -11,7 +11,6 @@
 
 std::list<GameObject*> objects;
 Texture *texturess;
-std::list<GameObject*> objects;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
 

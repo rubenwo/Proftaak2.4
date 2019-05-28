@@ -8,7 +8,7 @@ class DrawComponent;
 
 class GameObject
 {
-	DrawComponent* drawComponent = nullptr;
+	DrawComponent* drawComponent;
 
 	std::list<Component*> components;
 public:
