@@ -72,8 +72,8 @@ void Level::createMovingCubeLeft(float height) //blue color
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
 
-	o->position = Vec3f(0, 0, 30);
-	o->getComponent<MoveToComponent>()->target = Vec3f(0, 0, -5.0f);
+	o->position = Vec3f(2, 0, 30);
+	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
 
 	objects.push_back(o);
 }

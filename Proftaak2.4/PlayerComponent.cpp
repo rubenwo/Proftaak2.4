@@ -8,6 +8,8 @@
 #include <opencv2/highgui.hpp>
 #include <atomic>
 #include <GL/freeglut.h>
+#include "StageComponent.h"
+#include "CubeComponent.h"
 
 HandTracker* tracker;
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
@@ -33,24 +35,26 @@ void PlayerComponent::update(float elapsedTime)
 {
 	for (auto obj : *objects)
 	{
-		if (this->gameObject == obj)
+		if (!obj->getComponent<StageComponent>())
 		{
-			std::cout << "Object Position: " << obj->position.x << obj->position.y << obj->position.z << "\n";
-
-			continue;;
-		}
-		else
-		{
-			for (auto hand : atomic_hands.load())
+			if (obj->position.z < 0.01 && obj->position.z > -0.01f)
 			{
-				Vec3f pos(1, 1, 0);
-				if (obj->sphere.collides(pos, 0.25))
+				for (auto hand : atomic_hands.load())
 				{
-					if (this->onCollision != nullptr)
-						this->onCollision(hand.id, pos);
-					else
+					hand.x = 0;
+					hand.y = 0;
+
+					Vec2f pos(hand.x, hand.y);
+					if (obj->sphere.collides(pos, 0.25))
 					{
-						std::cout << "Collision occured but callback was not set" << std::endl;
+						if (this->onCollision != nullptr)
+							this->onCollision(hand.id, pos);
+						else
+						{
+							std::cout << "Collision detected with: " << obj
+							                                            ->getComponent<CubeComponent>()->getHandSide()
+								<< "\n";
+						}
 					}
 				}
 			}
@@ -59,7 +63,7 @@ void PlayerComponent::update(float elapsedTime)
 }
 
 
-void PlayerComponent::setCollisionCallback(const std::function<void(int, Vec3f)> onCollision)
+void PlayerComponent::setCollisionCallback(const std::function<void(int, Vec2f)> onCollision)
 {
 	this->onCollision = onCollision;
 }
@@ -67,7 +71,6 @@ void PlayerComponent::setCollisionCallback(const std::function<void(int, Vec3f)>
 
 void PlayerComponent::draw()
 {
-	update(0);
 	for (auto hand : atomic_hands.load())
 	{
 		glColor3f(1, 0, 0);

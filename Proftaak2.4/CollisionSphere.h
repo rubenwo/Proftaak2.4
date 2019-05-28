@@ -5,14 +5,15 @@
 
 class CollisionSphere
 {
-	Vec3f center;
+	float *x, *y;
 	float radius;
 public:
 	CollisionSphere() = default;
 
-	CollisionSphere(Vec3f& center, float radius)
+	CollisionSphere(float* x, float* y, float radius)
 	{
-		this->center = center;
+		this->x = x;
+		this->y = y;
 		this->radius = radius;
 	}
 
@@ -20,32 +21,16 @@ public:
 	{
 	}
 
-	Vec3f min(const Vec3f& other) const
+	bool collides(Vec2f& other, float radius) const
 	{
-		Vec3f result(center.x - other.x, center.y - other.y, center.z - other.z);
-		return result;
-	}
+		float distance = radius + this->radius;
+		distance *= distance;
 
-	float lengthSq(const Vec3f& vec) const
-	{
-		return (vec.x * vec.x + vec.y * vec.y + vec.z + vec.z);
-	}
+		float a = (*x) + other.x;
+		float b = (*y) + other.y;
 
-	bool collides(const CollisionSphere& other) const
-	{
-		float dist = radius + other.radius;
+		float hypotenuse = (a * a) + (b * b);
 
-		Vec3f distance = min(other.center);
-		return lengthSq(distance) < dist * dist;
-	}
-
-	bool collides(const Vec3f& other, float radius) const
-	{
-		float area = this->radius + radius;
-		Vec3f distance = min(other);
-		std::cout << "Max Area: " << area << "\n";
-		std::cout << "Distance SQR: " << lengthSq(distance) << "\n";
-
-		return lengthSq(distance) < area * area;
+		return hypotenuse < distance;
 	}
 };
