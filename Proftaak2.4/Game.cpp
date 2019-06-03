@@ -35,7 +35,6 @@ namespace Game
 		SoundPlayer& sp = SoundPlayer::getInstance();
 		sp.setListenerPosition(Vec3f(camera.posX, camera.posY, camera.posZ), Vec3f(camera.rotX, camera.rotY, camera.rotZ));
 		loadTextures();
-
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
