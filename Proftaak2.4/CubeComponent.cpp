@@ -6,9 +6,9 @@
 #include "ObjectModel.h"
 #include "GameObject.h"
 
-int textureID[];
-float startPos;
-float endPos;
+int textureID;
+int startPos;
+int endPos;
 HAND handSide;
 
 CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWDIRECTION arrowDirection)
