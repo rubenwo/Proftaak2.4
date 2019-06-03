@@ -11,12 +11,13 @@
 #include "ObjectModel.h"
 #include "Level.h"
 #include "Menu.h"
+#include <functional>
 
 namespace Game
 {
 	int windowWidth, windowHeight;
 	bool keys[256];
-	Texture *texturess;
+	Texture* texturess;
 	Level currentLevel;
 	Camera camera;
 	int index;
@@ -24,11 +25,14 @@ namespace Game
 
 	Menu menu;
 
+	void (*onObjectCollision)(GameObject* obj, Vec2f pos);
+
 	void loadContent()
 	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
 		loadTextures();
+
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
@@ -38,6 +42,7 @@ namespace Game
 			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
 			texturess->textures[11]);
 	}
+
 
 	void update(float deltaTime)
 	{
@@ -137,6 +142,7 @@ namespace Game
 	}
 
 	int lastTime = 0;
+
 	void idle()
 	{
 		int currentTime = glutGet(GLUT_ELAPSED_TIME);

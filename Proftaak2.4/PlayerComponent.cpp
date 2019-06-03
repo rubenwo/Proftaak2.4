@@ -57,7 +57,7 @@ void PlayerComponent::update(float elapsedTime)
 					if (obj->sphere.collides(pos, 0.25))
 					{
 						if (this->onCollision != nullptr)
-							this->onCollision(obj, pos);
+							this->onCollision(obj);
 						else
 						{
 							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
@@ -70,7 +70,7 @@ void PlayerComponent::update(float elapsedTime)
 }
 
 
-void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*, Vec2f)> onCollision)
+void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*)>& onCollision)
 {
 	this->onCollision = onCollision;
 }

@@ -31,6 +31,8 @@ void Level::loadContent()
 	player = new GameObject();
 	player->position = Vec3f(0, 0, -1);
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
+	score = 0;
+	//loadTextures();
 	createRoom();
 	srand(static_cast<unsigned>(time(0)));
 	createRandomLocCube();
@@ -159,6 +161,7 @@ void Level::createRandomLocCube(float maxX, float maxY)
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f);
 		//+0.4 to avoid the player
 	}
+
 
 	lastObjectAdded = 0;
 	objects.push_back(o);
