@@ -19,6 +19,7 @@ private:
 	std::array<hand, HANDS_AMOUNT> hands;
 
 	void track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
+	void track2(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
 
 public:
 	HandTracker();
