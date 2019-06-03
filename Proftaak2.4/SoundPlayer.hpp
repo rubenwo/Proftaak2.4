@@ -31,6 +31,10 @@ public:
 	irrklang::ISound* getSound(const SoundID& id);
 	// Delete a sound from the soundplayer.
 	void deleteSound(const SoundID& id);
+	// Sets the 3d listener position
+	void setListenerPosition(const Vec3f& pos, const Vec3f& heading);
+	// Gets an available sound id.
+	static SoundID getAvailableSoundID();
 };
 
 #endif // !SOUND_PLAYER_HPP
