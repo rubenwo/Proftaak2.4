@@ -24,6 +24,7 @@ Level::Level(Texture* texture)
 
 void Level::loadContent()
 {
+	score = 0;
 	//loadTextures();
 	createRoom();
 	srand(static_cast <unsigned> (time(0)));
@@ -146,6 +147,7 @@ void Level::createRandomLocCube(float maxX, float maxY)
 		o->position = Vec3f(randNumX, -randNumY, 50);
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
 	}
+
 
 	lastObjectAdded = 0;
 	objects.push_back(o);
