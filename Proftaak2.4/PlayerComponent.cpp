@@ -47,7 +47,7 @@ void PlayerComponent::update(float elapsedTime)
 		if (!obj->getComponent<StageComponent>())
 		{
 			std::cout << obj->position.z << " posZ\n";
-			if (obj->position.z > 0 && obj->position.z < 4.0f)
+			if (obj->position.z > 0 && obj->position.z < 2.0f)
 			{
 				for (auto hand : atomic_hands.load())
 				{
@@ -55,7 +55,7 @@ void PlayerComponent::update(float elapsedTime)
 					hand.y = 0;
 
 					Vec2f pos(hand.x, hand.y);
-					if (obj->sphere.collides(pos, 3.25))
+					if (obj->sphere.collides(pos, 0.5))
 					{
 						if (this->onCollision != nullptr)
 						{

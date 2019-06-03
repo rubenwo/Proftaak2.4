@@ -31,7 +31,8 @@ void Level::loadContent()
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[3], 0.25f));		//fix texturess->textures[3]
 	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
 	{
-		obj->removeComponent<DrawComponent>();
+		obj->position = Vec3f(0, 0, -3);
+		// obj->removeComponent<MoveToComponent>();
 		std::cout << "Hit an object";
 		//TODO explosion
 	});
@@ -75,9 +76,9 @@ void Level::update(float deltaTime)
 	}
 
 	//DEBUG CODE
-	// if(lastObjectAdded > 10)
-	// 	createRandomLocCube();
-	// lastObjectAdded++;
+	if(lastObjectAdded > 10)
+		createRandomLocCube();
+	lastObjectAdded++;
 	//END DEBUG CODE
 }
 
