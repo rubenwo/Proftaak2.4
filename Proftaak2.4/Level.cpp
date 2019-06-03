@@ -31,9 +31,8 @@ void Level::loadContent()
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[3], 0.25f));		//fix texturess->textures[3]
 	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
 	{
-		obj->position = Vec3f(0, 0, -3);
-		// obj->removeComponent<MoveToComponent>();
-		std::cout << "Hit an object";
+		obj->position = Vec3f(0, 0, -4);
+		obj->getComponent<CubeComponent>()->isHit = true;
 		//TODO explosion
 	});
 
@@ -65,6 +64,14 @@ void Level::update(float deltaTime)
 		auto o = (*itr);
 		if (isObjectOutOfBounds(o))
 		{
+			if (!o->getComponent<CubeComponent>()->isHit)
+				combo = 0;
+			else
+			{
+				if(combo < 8)
+					combo++;
+				score += combo;
+			}
 			itr = objects.erase(itr);
 			delete o;
 		}
