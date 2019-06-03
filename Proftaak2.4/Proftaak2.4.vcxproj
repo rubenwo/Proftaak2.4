@@ -192,6 +192,7 @@
   <ItemGroup>
     <Image Include="credits.png" />
     <Image Include="creditsSelect.png" />
+    <Image Include="handTexture.png" />
     <Image Include="options.png" />
     <Image Include="optionsSelect.png" />
     <Image Include="quit.png" />
