@@ -11,6 +11,7 @@
 #include "ObjectModel.h"
 #include "Level.h"
 #include "Menu.h"
+#include "SoundPlayer.hpp"
 
 namespace Game
 {
@@ -27,6 +28,9 @@ namespace Game
 	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
+		
+		SoundPlayer& sp = SoundPlayer::getInstance();
+		sp.setListenerPosition(Vec3f(camera.posX, camera.posY, camera.posZ), Vec3f(camera.rotX, camera.rotY, camera.rotZ));
 		loadTextures();
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
