@@ -15,8 +15,16 @@ float map(float input, float srcRangeLow, float srcRangeHigh, float dstRangeLow,
 
 void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
-	const auto orange_lower = cv::Scalar(10, 150, 20);
-	const auto orange_upper = cv::Scalar(20, 255, 255);
+	//const auto orange_lower = cv::Scalar(10, 150, 20);
+	//const auto orange_upper = cv::Scalar(20, 255, 255);
+
+	//const auto blue_lower = cv::Scalar(100, 55, 55);
+	//const auto blue_upper = cv::Scalar(130, 255, 255);
+
+	const auto green_lower = cv::Scalar(45, 100, 50);
+	const auto green_upper = cv::Scalar(75, 255, 255);
+
+
 
 	cv::UMat frame, scaled_frame, flipped_frame, blurred, hsv;
 	cv::UMat orange_mask;
@@ -53,7 +61,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 			cv::GaussianBlur(flipped_frame, blurred, cv::Size(13, 13), 0); //Blur the image in order to remove noise.
 			cv::cvtColor(blurred, hsv, CV_BGR2HSV); //Convert the blurred image to HSV.
 
-			cv::inRange(hsv, orange_lower, orange_upper, orange_mask); //Create a binary output with only the blue's.
+			cv::inRange(hsv, green_lower, green_upper, orange_mask); //Create a binary output with only the blue's.
 
 			//Erode & Dilate to remove smaller objects
 			cv::erode(orange_mask, orange_mask, element, cv::Point(-1, -1), 5);
