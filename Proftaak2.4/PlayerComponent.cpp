@@ -94,8 +94,9 @@ void PlayerComponent::draw()
 		glEnable(GL_BLEND);
 
 		glPushMatrix();
+
 		glRotatef(-90, 0, 0, 1);
-		glTranslatef(hand.x, hand.y, 0);
+		glTranslatef(-hand.y, hand.x, 0);
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);	
 		glBegin(GL_QUADS);
 		glColor4f(1, 1, 1, 1);
@@ -110,6 +111,7 @@ void PlayerComponent::draw()
 		glDisable(GL_BLEND);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
+
 		glPopMatrix();
 	}
 }
