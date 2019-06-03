@@ -11,17 +11,21 @@
 #include "ObjectModel.h"
 #include "Level.h"
 #include "Menu.h"
+#include <functional>
 
 namespace Game
 {
 	int windowWidth, windowHeight;
 	bool keys[256];
-	Texture *texturess;
+	Texture* texturess;
 	Level currentLevel;
 	Camera camera;
 	GameObject* player;
 
+
 	//Menu menu(1);
+
+	void (*onObjectCollision)(GameObject* obj, Vec2f pos);
 
 	void loadContent()
 	{
@@ -29,14 +33,22 @@ namespace Game
 		camera = Camera(0, -4, 0, 0, 0, 0);
 		loadTextures();
 
+		// std::function<void(GameObject*, Vec2f)> onCollision = std::bind(onObjectCollision, std::placeholders::_1, std::placeholders::_2);
+
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
 		player = new GameObject();
 		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[3], 0.25f)); //fix texturess->textures[3]
-
+		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[2], 1.0f));
+		//fix texturess->textures[3]
+		player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
+		{
+			obj->removeComponent<DrawComponent>();
+			//TODO explosion
+		});
 	}
+
 
 	void update(float deltaTime)
 	{
@@ -116,6 +128,7 @@ namespace Game
 	}
 
 	int lastTime = 0;
+
 	void idle()
 	{
 		int currentTime = glutGet(GLUT_ELAPSED_TIME);
