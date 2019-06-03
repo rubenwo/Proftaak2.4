@@ -50,6 +50,16 @@ void mousePassiveMotion(int x, int y)
 	Game::onMouseMove(x,y);
 }
 
+void specialKey(int key, int x, int y) 
+{
+	Game::onKey(key);
+}
+
+void specialKeyUp(int key, int x, int y)
+{
+	Game::onKeyUp(key);
+}
+
 void display()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -76,6 +86,8 @@ bool initGlut(int argc, char* argv[])
 	glutIdleFunc(Game::idle);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(specialKey);
+	glutSpecialUpFunc(specialKeyUp);
 	glutKeyboardUpFunc(keyboardup);
 	glutPassiveMotionFunc(mousePassiveMotion);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);

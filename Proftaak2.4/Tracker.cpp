@@ -7,7 +7,10 @@
 #define camera_width 1240
 #define camera_height 720
 
-
+//compareContourAreas
+//It returns a True when the i is smaller than j and it returns false when i is bigger than 
+//parm @ countour1: the first contour that needs to be compared
+//parm @ countour2: the second contour that needs to be compared
 bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point> contour2)
 {
 	double i = fabs(contourArea(cv::Mat(contour1)));
@@ -20,10 +23,15 @@ float map(float input, float srcRangeLow, float srcRangeHigh, float dstRangeLow,
 	return dstRangeLow + (input - srcRangeLow) * (dstRangeHigh - dstRangeLow) / (srcRangeHigh - srcRangeLow);
 }
 
-void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
+//trackByColor
+//It sets the color you want to search
+// It checks if the webcam is active and sends a feed
+//Shows the feed with contours
+//If it can find a webcam feed it will print a error
+//Param @ callback: it calls the callback with an array of hands
+void HandTracker::trackByColor(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
 	const auto color_sensitivity = 15;
-
 
 	//const auto orange_lower = cv::Scalar(10, 150, 20);
 	//const auto orange_upper = cv::Scalar(20, 255, 255);
@@ -136,8 +144,11 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 	}
 }
 
-
-void HandTracker::track2(const std::function<void(std::array<hand, 2>)>& callback)
+//trackByTracker
+//It calls for a webcam frame
+//It tracks the hands of the user
+//Param @ callback: it calls the callback with an array of hands
+void HandTracker::trackByTracker(const std::function<void(std::array<hand, 2>)>& callback)
 {
 	cv::UMat raw, scaled;
 
@@ -200,10 +211,12 @@ HandTracker::~HandTracker()
 {
 }
 
-
+//startTracking
+//Starts a tracking thread
+//Param @ callback: it calls the callback with an array of hands
 void HandTracker::startTracking(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback)
 {
 	callback(hands);
-	std::thread tracking_thread(&HandTracker::track, this, callback);
+	std::thread tracking_thread(&HandTracker::trackByColor, this, callback);
 	tracking_thread.detach();
 }

@@ -16,6 +16,10 @@ const char* textureFilenameOptions = "options.png";
 const char* textureFilenameQuit = "quit.png";
 const char* textureFilenameStart = "start.png";
 const char* textureFilenameHands = "handTexture.png";
+const char* textureFilenameCreditSelect = "creditsSelect.png";
+const char* textureFilenameOptionsSelect = "optionsSelect.png";
+const char* textureFilenameQuitSelect = "quitSelect.png";
+const char* textureFilenameStartSelect = "startSelect.png";
 
 Texture::Texture(const std::string &dirName) {
 
@@ -36,7 +40,8 @@ GLuint Texture::getLogoTextureId()
 }
 
 void Texture::initTextures() {
-	glGenTextures(8, textures);
+	glGenTextures(13, textures);
+
 	loadTextureFromFile(textureFilenameCube, textures[0]);
 	loadTextureFromFile(textureFilenameWalls, textures[1]);
 	loadTextureFromFile(textureFilenameLogo, textures[2]);
@@ -45,6 +50,10 @@ void Texture::initTextures() {
 	loadTextureFromFile(textureFilenameQuit, textures[5]);
 	loadTextureFromFile(textureFilenameStart, textures[6]);
 	loadTextureFromFile(textureFilenameHands, textures[7]);
+	loadTextureFromFile(textureFilenameCreditSelect, textures[8]);
+	loadTextureFromFile(textureFilenameOptionsSelect, textures[9]);
+	loadTextureFromFile(textureFilenameQuitSelect, textures[10]);
+	loadTextureFromFile(textureFilenameStartSelect, textures[11]);
 }
 
 void Texture::loadTextureFromFile(const char *filename, int texture)
