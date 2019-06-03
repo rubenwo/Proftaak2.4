@@ -22,7 +22,7 @@ void TrailAnimation::draw()
 	for (int i = 1; i <= PARTICLES; i++)
 	{
 
-		float angle = (rand() % 360) + 1;
+		float angle = ((float)(rand() % 360)) + 1.0f;
 		glRotatef(angle, 0, 0, 1);
 		glTranslatef(0, 0, i * 0.002f); // 1 van de z van position
 		float alpha = ((rand() % 100) + 0) / 100.0f;
