@@ -20,7 +20,6 @@ namespace Game
 	Texture* texturess;
 	Level currentLevel;
 	Camera camera;
-	GameObject* player;
 
 
 	//Menu menu(1);
@@ -38,20 +37,12 @@ namespace Game
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
-		player = new GameObject();
-		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[3], 0.25f));		//fix texturess->textures[3]
-		player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
-		{
-			obj->removeComponent<DrawComponent>();
-			//TODO explosion
-		});
+		
 	}
 
 
 	void update(float deltaTime)
 	{
-		player->update(deltaTime);
 		currentLevel.update(deltaTime);
 		//menu.update(deltaTime);
 	}
@@ -59,7 +50,6 @@ namespace Game
 	void draw()
 	{
 		//menu.draw();
-		player->draw();
 		currentLevel.draw();
 	}
 

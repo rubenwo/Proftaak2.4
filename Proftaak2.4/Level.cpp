@@ -7,8 +7,10 @@
 #include "ObjectModel.h"
 #include "TrailAnimation.hpp"
 #include <ctime>
+#include "PlayerComponent.h"
 
 #define OBJECT_OUT_OF_BOUNDS -4.0f
+GameObject* player;
 
 Texture *texturess;
 Vec2f lastRandLoc;
@@ -24,6 +26,16 @@ Level::Level(Texture* texture)
 
 void Level::loadContent()
 {
+	player = new GameObject();
+	player->position = Vec3f(0, 0, -1);
+	player->addComponent(new PlayerComponent(&objects, texturess->textures[3], 0.25f));		//fix texturess->textures[3]
+	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
+	{
+		obj->removeComponent<DrawComponent>();
+		std::cout << "Hit an object";
+		//TODO explosion
+	});
+
 	score = 0;
 	//loadTextures();
 	createRoom();
@@ -34,6 +46,8 @@ void Level::loadContent()
 
 void Level::draw()
 {
+	player->draw();
+
 	glRotatef(180, 1, 0, 0);
 	for (const auto& o : objects)
 		o->draw();
@@ -41,6 +55,8 @@ void Level::draw()
 
 void Level::update(float deltaTime)
 {
+	player->update(deltaTime);
+
 	std::list<GameObject*>::iterator itr = objects.begin();
 
 	while (itr != objects.end())
