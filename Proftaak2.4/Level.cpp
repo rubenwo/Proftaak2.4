@@ -8,13 +8,18 @@
 #include "ObjectModel.h"
 #include "AudioComponent.hpp"
 #include "TrailAnimation.hpp"
+#include "Util.hpp"
+#include "Assets.hpp"
 #include <ctime>
 
+using std::string;
 #define OBJECT_OUT_OF_BOUNDS -4.0f
 
 Texture *texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
+string exePath;
+
 
 bool isObjectOutOfBounds(GameObject* o);
 void createRoom(void);
@@ -28,6 +33,7 @@ Level::Level(Texture* texture)
 
 void Level::loadContent()
 {
+	exePath = Util::getExePath();
 	createRoom();
 	srand(static_cast <unsigned> (time(0)));
 	createRandomLocCube();
@@ -60,10 +66,15 @@ void Level::update(float deltaTime)
 		}
 	}
 
-	//DEBUG CODE
-	if(lastObjectAdded > 10)
+	if (objects.size() < 25)
+	{
 		createRandomLocCube();
-	lastObjectAdded++;
+	}
+
+	//DEBUG CODE
+	/*if(lastObjectAdded > 10)
+		createRandomLocCube();
+	lastObjectAdded++;*/
 	//END DEBUG CODE
 }
 
@@ -92,9 +103,6 @@ void Level::createMovingCubeLeft(float height) //blue color
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
 
-	std::string path = Util::getExePath();
-
-	o->addComponent(new AudioComponent(path + SOUND_ENGINE));
 	o->addAnimation(new TrailAnimation());
 	o->position = Vec3f(2, 0, 50);
 	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
@@ -146,12 +154,21 @@ void Level::createRandomLocCube(float maxX, float maxY)
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
+		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
+		o->addComponent(a);
+		o->addAnimation(new TrailAnimation());
+		a->playAudio();
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
 	}
 	else
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
+		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
+		o->addComponent(a);
+		o->addAnimation(new TrailAnimation());
+
+		a->playAudio();
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
 	}
 

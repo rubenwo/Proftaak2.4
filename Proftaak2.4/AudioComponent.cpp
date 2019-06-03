@@ -23,5 +23,6 @@ void AudioComponent::update(float elapsedTime)
 
 void AudioComponent::playAudio()
 {
+	sound->setPosition(irrklang::vec3df(gameObject->position.x, gameObject->position.y, gameObject->position.z));
 	sound->setIsPaused(false);
 }
