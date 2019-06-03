@@ -33,7 +33,8 @@ void Level::loadContent()
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
 	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
 	{
-		obj->removeComponent<DrawComponent>();
+		obj->position = Vec3f(0, 0, -3);
+		// obj->removeComponent<MoveToComponent>();
 		std::cout << "Hit an object";
 		//TODO explosion
 	});
