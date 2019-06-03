@@ -87,7 +87,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 			{
 				for (auto i = 0; i < hands.size(); i++)
 				{
-					hands[i].x = map(mc[i].x, 0, camera_width, -1, 1);
+					hands[i].x = -map(mc[i].x, 0, camera_width, -1, 1);
 					hands[i].y = -map(mc[i].y, 0, camera_height, -1, 1);
 				}
 			}
@@ -95,7 +95,7 @@ void HandTracker::track(const std::function<void(std::array<hand, HANDS_AMOUNT>)
 			{
 				for (auto i = 0; i < mc.size(); i++)
 				{
-					hands[i].x = map(mc[i].x, 0, camera_width, -1, 1);
+					hands[i].x = -map(mc[i].x, 0, camera_width, -1, 1);
 					hands[i].y = -map(mc[i].y, 0, camera_height, -1, 1);
 				}
 			}

@@ -90,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)irrklang\include;$(OPENCV_DIR)\include;$(SolutionDir)freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)irrklang\lib\Winx64-visualStudio;$(OPENCV_DIR)\x64\vc15\lib;$(SolutionDir)freeglut\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
