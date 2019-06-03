@@ -46,7 +46,6 @@ void PlayerComponent::update(float elapsedTime)
 	{
 		if (!obj->getComponent<StageComponent>())
 		{
-			std::cout << obj->position.z << " posZ\n";
 			if (obj->position.z > 0 && obj->position.z < 2.0f)
 			{
 				for (auto hand : atomic_hands.load())
@@ -58,7 +57,9 @@ void PlayerComponent::update(float elapsedTime)
 					if (obj->sphere.collides(pos, 0.5))
 					{
 						if (this->onCollision != nullptr)
+						{
 							this->onCollision(obj);
+						}
 						else
 							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
 					}
