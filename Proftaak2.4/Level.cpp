@@ -22,9 +22,6 @@ void createMovingCubeRight(float height = 0);
 void createMovingCubeLeft(float height = 0);
 void createRandomLocCube(float maxX = 2, float maxY = 1);
 
-
-Texture* texturess;
-
 Level::Level(Texture* texture)
 {
 	texturess = texture;
@@ -37,7 +34,7 @@ Level::Level()
 
 void Level::loadContent()
 {
-	loadTextures();
+	//loadTextures();
 	createRoom();
 	srand(static_cast <unsigned> (time(0)));
 	createRandomLocCube();
