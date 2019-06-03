@@ -25,8 +25,8 @@ public:
 	void drawLogo();
 	void draw();
 	void update(float elapsedTime, int index);
-	void drawStart();
-	void drawOptions();
+	void drawStart(GLuint texture);
+	void drawOptions(GLuint texture);
 	void drawCredits(GLuint texture);
 	void drawQuit(GLuint texture);
 };

@@ -3,12 +3,14 @@
 #include "Menu.h"
 
 
-Menu::Menu(GLuint logoTextureId, GLuint creditTextureId, GLuint creditSelectedTextureId,
+Menu::Menu(GLuint logoTextureId, 
+	GLuint creditTextureId, GLuint creditSelectedTextureId,
 	GLuint optionsTextureId, GLuint opetionsSelectedTextureId,
 	GLuint quitTextureId, GLuint quitSelectedTextureId,
 	GLuint startTextureId, GLuint startSelectedTextureId)
 	: mLogoTextureId(logoTextureId), mCreditTextureId(creditTextureId), mCreditSelectedTextureId(creditSelectedTextureId),
-	mOptionsTextureId(optionsTextureId), mOptionsSelectedTextureId(opetionsSelectedTextureId), mQuitTextureId(quitTextureId),
+	mOptionsTextureId(optionsTextureId), mOptionsSelectedTextureId(opetionsSelectedTextureId), 
+	mQuitTextureId(quitTextureId), mQuitSelectedTextureId(quitSelectedTextureId),
 	mStartTextureIdl(startTextureId), mStartSelectedTextureIdl(startSelectedTextureId)
 {
 	this->mIndex = 0;
@@ -27,25 +29,41 @@ Menu::~Menu()
 void Menu::draw() 
 {
 	drawLogo();
-	drawStart();
-	drawOptions();
 
 	if (this->mIndex == 1) {
-		drawCredits(mCreditSelectedTextureId);
+		drawStart(mStartSelectedTextureIdl);
 	}
 	else {
-		drawCredits(mCreditTextureId);
+		drawStart(mStartTextureIdl);
 	}
-	drawQuit(mQuitTextureId);
+
+	if (this->mIndex == 2) {
+		drawOptions(mOptionsSelectedTextureId);
+	}
+	else {
+		drawOptions(mOptionsTextureId);
+	}
+
+	if (this->mIndex == 4) {
+		drawCredits(mQuitSelectedTextureId);
+	}
+	else {
+		drawCredits(mQuitTextureId);
+	}
+
+	if (this->mIndex == 3) {
+		drawQuit(mCreditSelectedTextureId);
+	}
+	else {
+		drawQuit(mCreditTextureId);
+	}
+
+	//drawCredits(mCreditTextureId);
 }
 
 void Menu::update(float deltaTime, int index) 
 {
 	this->mIndex = index;
-
-	if (index == 1) {
-		drawCredits(mCreditSelectedTextureId);
-	}
 }
 
 void Menu::drawQuit(GLuint texture)
@@ -98,9 +116,9 @@ void Menu::drawCredits(GLuint texture)
 	glDisable(GL_TEXTURE_2D);
 }
 
-void Menu::drawOptions()
+void Menu::drawOptions(GLuint texture)
 {
-	glBindTexture(GL_TEXTURE_2D, mOptionsTextureId);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 
@@ -121,9 +139,9 @@ void Menu::drawOptions()
 	glDisable(GL_TEXTURE_2D);
 }
 
-void Menu::drawStart()
+void Menu::drawStart(GLuint texture)
 {
-	glBindTexture(GL_TEXTURE_2D, mStartTextureIdl);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 

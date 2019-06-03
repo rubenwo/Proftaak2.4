@@ -35,7 +35,7 @@ namespace Game
 		player = new GameObject();
 		player->position = Vec3f(0, 0, -1);
 		//player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[7], 0.25f)); //fix texturess->textures[3]
-		index = 0;
+		index = 1;
 
 		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[8], texturess->textures[4],
 			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
@@ -72,13 +72,13 @@ namespace Game
 			break;
 		case GLUT_KEY_UP:
 			camera.posZ -= 0.025f;
-			if (index >= 0 && index <= 4) {
+			if (index >= 1 && index < 4) {
 				index++;
 			}
 			break;
 		case GLUT_KEY_DOWN:
 			camera.posZ += 0.025f;
-			if (index <= 4 && index >= 0) {
+			if (index > 1 && index <= 4) {
 				index--;
 			}
 			break;
