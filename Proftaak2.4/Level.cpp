@@ -5,55 +5,56 @@
 #include "MoveToComponent.h"
 #include "StageComponent.h"
 #include "ObjectModel.h"
-#include <iostream>
+#include "TrailAnimation.hpp"
 #include <ctime>
 
-std::list<GameObject*> objects;
+#define OBJECT_OUT_OF_BOUNDS -4.0f
+
 Texture *texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
 
+bool isObjectOutOfBounds(GameObject* o);
 void createRoom(void);
-void createMovingCubeRight(float height = 0);
-void createMovingCubeLeft(float height = 0);
-void createRandomLocCube(float maxX = 2, float maxY = 1);
 
 Level::Level(Texture* texture)
 {
 	texturess = texture;
 }
 
-Level::Level()
-{
-
-}
-
 void Level::loadContent()
 {
 	//loadTextures();
 	createRoom();
-	createRandomLocCube();
-	createRandomLocCube();
 	srand(static_cast <unsigned> (time(0)));
+	createRandomLocCube();
+	createRandomLocCube();
 }
 
 void Level::draw()
 {
-	glRotatef(180, 0, 1, 0);
+	glRotatef(180, 1, 0, 0);
 	for (const auto& o : objects)
 		o->draw();
 }
 
 void Level::update(float deltaTime)
 {
-	for (const auto& o : objects)
+	std::list<GameObject*>::iterator itr = objects.begin();
+
+	while (itr != objects.end())
 	{
-		if (o->position.z <= -4) {
-			std::cout << "\r\nDelete object: ";
-			objects.remove(o);
-			break;
+		auto o = (*itr);
+		if (isObjectOutOfBounds(o))
+		{
+			itr = objects.erase(itr);
+			delete o;
 		}
-		o->update(deltaTime);
+		else
+		{
+			o->update(deltaTime);
+			++itr;
+		}
 	}
 
 	//DEBUG CODE
@@ -74,31 +75,33 @@ void Level::stop()
 	~Level();
 }
 
-void createRoom() {
+void Level::createRoom()
+{
 	GameObject* room = new GameObject();
 	room->addComponent(new StageComponent(texturess->textures[1]));
 	objects.push_back(room);
 }
 
-void createMovingCubeLeft(float height) //blue color
+void Level::createMovingCubeLeft(float height) //blue color
 {
 	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 	GameObject* o = new GameObject();
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
-
+	o->addAnimation(new TrailAnimation());
 	o->position = Vec3f(2, 0, 50);
-	o->getComponent<MoveToComponent>()->target = Vec3f(1.5f, -height + 0.6f, -5.0f);
+	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
 
 	objects.push_back(o);
 }
 
-void createMovingCubeRight(float height) //red color
+void Level::createMovingCubeRight(float height) //red color
 {
 	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 	GameObject* o = new GameObject();
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
 	o->addComponent(new MoveToComponent());
+	o->addAnimation(new TrailAnimation());
 
 	o->position = Vec3f(-2, 0, 50);
 	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5f, -height + 0.6f, -5.0f);
@@ -106,7 +109,11 @@ void createMovingCubeRight(float height) //red color
 	objects.push_back(o);
 }
 
-void createRandomLocCube(float maxX, float maxY)
+bool isObjectOutOfBounds(GameObject* o)
+{
+	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
+}
+void Level::createRandomLocCube(float maxX, float maxY)
 {
 	GameObject* o = new GameObject();
 	o->addComponent(new MoveToComponent());
@@ -132,13 +139,13 @@ void createRandomLocCube(float maxX, float maxY)
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4, -5.0f); //+0.3 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
 	}
 	else
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4, -5.0f); //+0.4 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
 	}
 
 	lastObjectAdded = 0;

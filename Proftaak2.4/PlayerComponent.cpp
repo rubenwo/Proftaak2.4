@@ -12,6 +12,8 @@
 #include <opencv2/highgui.hpp>
 #include <atomic>
 #include <GL/freeglut.h>
+#include "StageComponent.h"
+#include "CubeComponent.h"
 #include <iostream>
 
 HandTracker* tracker;
@@ -19,7 +21,7 @@ GLuint textureID;
 float size;
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
-PlayerComponent::PlayerComponent(float size, GLuint textureID)
+PlayerComponent::PlayerComponent(std::list<GameObject*>* objects, GLuint textureID, float size)
 {
 	this->size = size;
 	this->textureID = textureID;
@@ -28,11 +30,51 @@ PlayerComponent::PlayerComponent(float size, GLuint textureID)
 	{
 		atomic_hands.store(hands);
 	});
+	this->onCollision = nullptr;
+	this->objects = objects;
 }
 
 PlayerComponent::~PlayerComponent()
 {
-	free(tracker);
+	delete tracker;
+}
+
+
+void PlayerComponent::update(float elapsedTime)
+{
+	for (auto obj : *objects)
+	{
+		if (!obj->getComponent<StageComponent>())
+		{
+			if (obj->position.z < 0 && obj->position.z > -1.0f)
+			{
+				for (auto hand : atomic_hands.load())
+				{
+					hand.x = 0;
+					hand.y = 0;
+
+					Vec2f pos(hand.x, hand.y);
+					if (obj->sphere.collides(pos, 0.25))
+					{
+						if (this->onCollision != nullptr)
+							this->onCollision(obj, pos);
+						else
+						{
+							std::cout << "Collision detected with: " << obj
+							                                            ->getComponent<CubeComponent>()->getHandSide()
+								<< "\n";
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*, Vec2f)> onCollision)
+{
+	this->onCollision = onCollision;
 }
 
 void PlayerComponent::draw()

@@ -1,14 +1,11 @@
 /*
 	Engine functionality
 */
-#define _USE_MATH_DEFINES
 #define STB_IMAGE_IMPLEMENTATION
 #include <iostream>
 #include <GL\freeglut.h>
 #include "Globals.hpp"
 #include "Game.hpp"
-#include "ObjectModel.h"
-#include <math.h>
 #include <opencv2/highgui.hpp>
 #include "Tracker.hpp"
 #include <atomic>
@@ -19,6 +16,8 @@
 
 using namespace std;
 
+int windowWidth;
+int windowHeight;
 struct Camera
 {
 	float posX = 0;
@@ -28,13 +27,6 @@ struct Camera
 	float posZ = 0;
 	float rotZ = 0;
 } camera;
-
-bool keys[256];
-bool skeys[5]; //for arrow keys
-
-
-int windowWidth = 1200;
-int windowHeight = 800;
 
 void reshape(int w, int h)
 {
@@ -48,6 +40,16 @@ void keyboard(unsigned char key, int x, int y)
 	Game::onKey(key);
 }
 
+void keyboardup(unsigned char key, int x, int y)
+{
+	Game::onKeyUp(key);
+}
+
+void mousePassiveMotion(int x, int y)
+{
+	Game::onMouseMove(x,y);
+}
+
 void display()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -59,102 +61,9 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glRotatef(camera.rotX, 1, 0, 0);
-	glRotatef(camera.rotY, 0, 1, 0);
-	glRotatef(camera.rotZ, 0, 0, 1);
-	glTranslatef(camera.posX, camera.posZ, camera.posY);
-
 	Game::draw();
 
 	glutSwapBuffers();
-}
-
-int lastTime = 0;
-
-void move(float angle, float fac)
-{
-	camera.posX += (float)cos((camera.rotY + angle) / 180 * M_PI) * fac;
-	camera.posY += (float)sin((camera.rotY + angle) / 180 * M_PI) * fac;
-}
-
-void idle()
-{
-	int currentTime = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = (currentTime - lastTime) / 1000.0f;
-	lastTime = currentTime;
-
-	const float speed = 3;
-	if (keys['a']) move(0, deltaTime*speed);
-	if (keys['d']) move(180, deltaTime*speed);
-	if (keys['w']) move(90, deltaTime*speed);
-	if (keys['s']) move(270, deltaTime*speed);
-
-	//glutWarpPointer(windowWidth / 2, windowHeight / 2);
-
-	if (skeys[0]) { //UP ARROW KEY
-		camera.posZ -= 0.025f;
-	}
-	if (skeys[1]) { //DOWN ARROW KEY
-		camera.posZ += 0.025f;
-	}
-
-	// update
-	Game::update(deltaTime);
-
-	glutPostRedisplay();
-}
-
-bool justMovedMouse = false;
-void mousePassiveMotion(int x, int y)
-{
-	int dx = x - windowWidth / 2;
-	int dy = y - windowHeight / 2;
-	if ((dx != 0 || dy != 0) && abs(dx) < 400 && abs(dy) < 400 && !justMovedMouse)
-	{
-		camera.rotY += dx / 10.0f;
-		camera.rotX += dy / 10.0f;
-	}
-	if (!justMovedMouse)
-	{
-		glutWarpPointer(windowWidth / 2, windowHeight / 2);
-		justMovedMouse = true;
-	}
-	else
-		justMovedMouse = false;
-}
-
-void keyboardup(unsigned char key, int x, int y)
-{
-	keys[key] = false;
-}
-
-void specialKeys(int key, int x, int y)
-{
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		skeys[0] = true;
-		glutPostRedisplay();
-		break;
-	case GLUT_KEY_DOWN:
-		skeys[1] = true;
-		glutPostRedisplay();
-		break;
-	}
-	std::cout << "Special key: " << key << std::endl;
-}
-
-void specialKeysUp(int key, int x, int y)
-{
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		skeys[0] = false;
-		break;
-	case GLUT_KEY_DOWN:
-		skeys[1] = false;
-		break;
-	}
 }
 
 bool initGlut(int argc, char* argv[])
@@ -164,11 +73,11 @@ bool initGlut(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutCreateWindow(APP_NAME);
 	glutDisplayFunc(display);
-	glutIdleFunc(idle);
+	glutIdleFunc(Game::idle);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardup);
-	//glutPassiveMotionFunc(mousePassiveMotion);
+	glutPassiveMotionFunc(mousePassiveMotion);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
 	return true;

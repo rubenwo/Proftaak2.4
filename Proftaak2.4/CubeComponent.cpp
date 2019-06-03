@@ -1,7 +1,10 @@
 #include "CubeComponent.h"
 #include <GL/freeglut.h>
+#include <GL\GL.h>
+#include <GL\freeglut_ext.h>
 #include <iostream>
 #include "ObjectModel.h"
+#include "GameObject.h"
 
 int textureID;
 int startPos;
@@ -14,6 +17,8 @@ CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWD
 	this->textureID = textureID;
 	this->arrowDirection = arrowDirection;
 	this->handSide = handSide;
+
+	
 }
 
 CubeComponent::~CubeComponent()
@@ -99,4 +104,3 @@ void CubeComponent::draw()
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 }
-

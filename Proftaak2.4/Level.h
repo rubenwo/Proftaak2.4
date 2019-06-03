@@ -1,13 +1,19 @@
 #pragma once
-#include "ObjectModel.h"
+#include "GameObject.h"
+
+class Texture;
 
 class Level
 {
-
+private:
+	void createRoom();
+	void createMovingCubeRight(float height = 0);
+	void createMovingCubeLeft(float height = 0);
+	void createRandomLocCube(float maxX = 2, float maxY = 1);
 public:
+	Level() = default;
 	Level(Texture* texture);
-	Level();
-	~Level();
+	std::list<GameObject*> objects;
 
 	float score;
 	float combo;
@@ -25,4 +31,3 @@ public:
 	//Gets called every update, update level logic
 	void update(float deltaTime);
 };
-

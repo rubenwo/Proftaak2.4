@@ -129,10 +129,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
+    <ClCompile Include="ExplosionAnimation.cpp" />
+    <ClCompile Include="FrameRateCounter.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -147,13 +149,18 @@
     <ClCompile Include="MusicTrack.cpp" />
     <ClCompile Include="SpinComponent.cpp" />
     <ClCompile Include="TimerJumper.cpp" />
+    <ClCompile Include="TrailAnimation.cpp" />
+    <ClCompile Include="Util.cpp" />
     <ClCompile Include="Vec.cpp" />
     <ClCompile Include="StageComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="ExplosionAnimation.hpp" />
+    <ClInclude Include="FrameRateCounter.hpp" />
     <ClInclude Include="SoundPlayer.hpp" />
-    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="Tracker.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +181,8 @@
     <ClInclude Include="SpinComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TimerJumper.h" />
+    <ClInclude Include="TrailAnimation.hpp" />
+    <ClInclude Include="Util.hpp" />
     <ClInclude Include="Vec.h" />
     <ClInclude Include="StageComponent.h" />
   </ItemGroup>

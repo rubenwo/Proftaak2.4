@@ -27,7 +27,7 @@ GLuint Texture::getWallTextureId()
 }
 
 void Texture::initTextures() {
-	//Space for 6 textures;
+	//Space for 4 textures;
 	glGenTextures(4, textures);
 	loadTextureFromFile(textureFilenameCube, textures[0]);
 	loadTextureFromFile(textureFilenameWalls, textures[1]);
