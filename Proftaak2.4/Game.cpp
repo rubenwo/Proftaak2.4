@@ -26,15 +26,15 @@ namespace Game
 		ZeroMemory(keys, sizeof(keys));
 
 		camera = Camera(0, -4, 0, 0);
-
 		loadTextures();
 
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 		
 		player = new GameObject();
-		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(0.1, 3));
+		player->position = Vec3f(0, 0, 1);
+		player->addComponent(new PlayerComponent(0.25f, 4));
+
 	}
 
 	void update(float deltaTime)

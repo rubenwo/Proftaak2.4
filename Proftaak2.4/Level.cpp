@@ -8,7 +8,6 @@
 #include <iostream>
 #include <ctime>
 
-
 std::list<GameObject*> objects;
 Texture *texturess;
 Vec2f lastRandLoc;
@@ -37,12 +36,6 @@ void Level::loadContent()
 	createRandomLocCube();
 	srand(static_cast <unsigned> (time(0)));
 }
-
-//void Level::loadTextures() 
-//{
-//	texturess = new Texture("texture");
-//	texturess->initTextures();
-//}
 
 void Level::draw()
 {
@@ -78,6 +71,7 @@ void Level::start()
 void Level::stop()
 {
 	//TODO stop level, return to menu
+	~Level();
 }
 
 void createRoom() {

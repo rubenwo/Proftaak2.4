@@ -7,6 +7,7 @@ class Level
 public:
 	Level(Texture* texture);
 	Level();
+	~Level();
 
 	float score;
 	float combo;

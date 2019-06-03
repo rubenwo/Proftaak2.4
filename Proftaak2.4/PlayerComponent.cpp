@@ -12,6 +12,7 @@
 #include <opencv2/highgui.hpp>
 #include <atomic>
 #include <GL/freeglut.h>
+#include <iostream>
 
 HandTracker* tracker;
 GLuint textureID;
@@ -38,11 +39,24 @@ void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
+		std::cout << "\r\nHandX: " << hand.x;
+		if (hand.x > 0) {
+			std::cout << "\r\nRIGHT";
+		}
+		else {
+			std::cout << "Scale (-1, 1, 1); Left";
+			glScalef(-1, 1, 1);
+		}
+
+		std::cout << "\r\nsize";
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glEnable(GL_TEXTURE_2D);
-		//glDisable(GL_BLEND);
-		//glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
 
+		glPushMatrix();
+		glRotatef(-90, 0, 0, 1);
+		glTranslatef(hand.x, hand.y, 0);
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);	
 		glBegin(GL_QUADS);
 		glColor4f(1, 1, 1, 1);
 		glTexCoord2f(0, 0);
@@ -53,53 +67,9 @@ void PlayerComponent::draw()
 		glVertex3f(size, size, -size);
 		glTexCoord2f(1, 0);
 		glVertex3f(-size, size, -size);
+		glDisable(GL_BLEND);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
-
-		////=================================
-		//float radius = 1.0f;
-		//float radian, x, y, tx, ty;
-		//
-		//glColor3f(1, 0, 0);
-		////glPushMatrix();
-		//glTranslatef(hand.x, hand.y, 0);
-
-		//glBindTexture(GL_TEXTURE_2D, textureID);
-		//glEnable(GL_TEXTURE_2D);
-		//glDisable(GL_BLEND);
-
-		////draw circles with textures here!
-		//glBegin(GL_POLYGON);
-
-		//for (double angle = 0.0; angle < 360.0; angle += 2.0)
-		//{
-		//	radian = angle * (M_PI / 180.0f);
-
-		//	float xcos = (float)cos(radian);
-		//	float ysin = (float)sin(radian);
-		//	x = xcos * radius + hand.x;
-		//	y = ysin * radius + hand.y;
-		//	tx = xcos * 0.5 + 0.5;
-		//	ty = ysin * 0.5 + 0.5;
-
-		//	glTexCoord2f(tx, ty);
-		//	glVertex2f(x, y);
-		//}
-		//glEnd();
-		//glDisable(GL_TEXTURE_2D);
+		glPopMatrix();
 	}
-}
-
-void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
-{
-	glBegin(GL_LINE_LOOP);
-	for (int ii = 0; ii < num_segments; ii++)
-	{
-		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments); //get the current angle 
-		float x = r * cosf(theta); //calculate the x component 
-		float y = r * sinf(theta); //calculate the y component 
-		glColor3f(0, 0, 0);
-		glVertex2f(x + cx, y + cy); //output vertex 
-	}
-	glEnd();
 }
