@@ -1,14 +1,18 @@
 #pragma once
 #include "GameObject.h"
 
+class Texture;
+
 class Level
 {
 private:
 	void createRoom();
-	void createMovingCubeLeft(float height);
-	void createMovingCubeRight(float height);
+	void createMovingCubeRight(float height = 0);
+	void createMovingCubeLeft(float height = 0);
+	void createRandomLocCube(float maxX = 2, float maxY = 1);
 public:
-	Level();
+	Level() = default;
+	Level(Texture* texture);
 	std::list<GameObject*> objects;
 
 	float score;
@@ -17,7 +21,7 @@ public:
 	//Load all content, gets called before starting a level.
 	void loadContent();
 	//Load all textures
-	void loadTextures();
+	//void loadTextures();
 	//Gets called on every draw, draw level components
 	void draw();
 	//Gets called at the beginning of a level.

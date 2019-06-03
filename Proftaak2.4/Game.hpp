@@ -1,7 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include "Globals.hpp"
-#include "Tracker.hpp"
 
 namespace Game
 {
@@ -23,5 +22,10 @@ namespace Game
 	void onResize(int w, int h);
 	// Gets called when app is closing.
 	void onClose();
+
+	void loadTextures();
+
+	void idle();
+
 }
 #endif

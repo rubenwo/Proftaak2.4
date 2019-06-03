@@ -90,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)irrklang\include;$(OPENCV_DIR)\include;$(SolutionDir)freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)irrklang\lib\Winx64-visualStudio;$(OPENCV_DIR)\x64\vc15\lib;$(SolutionDir)freeglut\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -141,6 +142,7 @@
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="Tracker.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MoveToCompontent.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
     <ClCompile Include="MusicLoader.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.hpp" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjectModel.h" />
@@ -184,7 +187,14 @@
     <ClInclude Include="StageComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="credits.png" />
+    <Image Include="options.png" />
+    <Image Include="quit.png" />
+    <Image Include="C:\Users\Gerben\Desktop\handTexture.png" />
+    <Image Include="smacky_logo_big.png" />
+    <Image Include="start.png" />
     <Image Include="textures12.png" />
+    <Image Include="blockTextures.png" />
     <Image Include="wallTexture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

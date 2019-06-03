@@ -84,9 +84,6 @@
     <ClCompile Include="ObjectModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StageComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -128,6 +125,18 @@
     </ClCompile>
     <ClCompile Include="Util.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StageComponent.cpp">
+      <Filter>Source Files\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="StageComponent.cpp">
+      <Filter>Source Files\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,15 +235,36 @@
     <ClInclude Include="StageComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures12.png">
+    <Image Include="wallTexture.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="wallTexture.png">
+    <Image Include="smacky_logo_big.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="credits.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="options.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="quit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="start.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="blockTextures.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Gerben\Desktop\handTexture.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

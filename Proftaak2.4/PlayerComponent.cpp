@@ -3,6 +3,10 @@
 #include "Tracker.hpp"
 #include "Component.h"
 
+#define _USE_MATH_DEFINES
+#define STB_IMAGE_IMPLEMENTATION
+
+#include <math.h>
 #include <array>
 #include <iostream>
 #include <opencv2/highgui.hpp>
@@ -10,12 +14,17 @@
 #include <GL/freeglut.h>
 #include "StageComponent.h"
 #include "CubeComponent.h"
+#include <iostream>
 
 HandTracker* tracker;
+GLuint textureID;
+float size;
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
-PlayerComponent::PlayerComponent(std::list<GameObject*>* objects)
+PlayerComponent::PlayerComponent(std::list<GameObject*>* objects, GLuint textureID, float size)
 {
+	this->size = size;
+	this->textureID = textureID;
 	tracker = new HandTracker();
 	tracker->startTracking([](std::array<hand, HANDS_AMOUNT> hands)
 	{
@@ -37,7 +46,7 @@ void PlayerComponent::update(float elapsedTime)
 	{
 		if (!obj->getComponent<StageComponent>())
 		{
-			if (obj->position.z < 0.01 && obj->position.z > -0.01f)
+			if (obj->position.z < 0 && obj->position.z > -1.0f)
 			{
 				for (auto hand : atomic_hands.load())
 				{
@@ -51,9 +60,7 @@ void PlayerComponent::update(float elapsedTime)
 							this->onCollision(obj, pos);
 						else
 						{
-							std::cout << "Collision detected with: " << obj
-							                                            ->getComponent<CubeComponent>()->getHandSide()
-								<< "\n";
+							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
 						}
 					}
 				}
@@ -68,31 +75,41 @@ void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*,
 	this->onCollision = onCollision;
 }
 
-
 void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
-		glColor3f(1, 0, 0);
+		//std::cout << "\r\nHandX: " << hand.x;
+		if (hand.x > 0) {
+			std::cout << "\r\nRIGHT";
+		}
+		else {
+			//std::cout << "Scale (-1, 1, 1); Left";
+			glScalef(-1, 1, 1);
+		}
+
+		std::cout << "\r\nsize";
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+
 		glPushMatrix();
+		glRotatef(-90, 0, 0, 1);
 		glTranslatef(hand.x, hand.y, 0);
-		glutSolidSphere(0.25, 30, 20);
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);	
+		glBegin(GL_QUADS);
+		glColor4f(1, 1, 1, 1);
+		glTexCoord2f(0, 0);
+		glVertex3f(-size, -size, -size);
+		glTexCoord2f(0, 1);
+		glVertex3f(size, -size, -size);
+		glTexCoord2f(1, 1);
+		glVertex3f(size, size, -size);
+		glTexCoord2f(1, 0);
+		glVertex3f(-size, size, -size);
+		glDisable(GL_BLEND);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
-		drawCircle(hand.x, hand.y, 0.25, 50);
 	}
-}
-
-
-void PlayerComponent::drawCircle(float cx, float cy, float r, int num_segments)
-{
-	glBegin(GL_LINE_LOOP);
-	for (int ii = 0; ii < num_segments; ii++)
-	{
-		float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments); //get the current angle 
-		float x = r * cosf(theta); //calculate the x component 
-		float y = r * sinf(theta); //calculate the y component 
-		glColor3f(0, 0, 0);
-		glVertex2f(x + cx, y + cy); //output vertex 
-	}
-	glEnd();
 }

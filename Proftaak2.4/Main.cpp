@@ -18,6 +18,15 @@ using namespace std;
 
 int windowWidth;
 int windowHeight;
+struct Camera
+{
+	float posX = 0;
+	float posY = 0;
+	float rotX = 0;
+	float rotY = 0;
+	float posZ = 0;
+	float rotZ = 0;
+} camera;
 
 void reshape(int w, int h)
 {
@@ -57,19 +66,6 @@ void display()
 	glutSwapBuffers();
 }
 
-int lastTime = 0;
-void idle()
-{
-	int currentTime = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = (currentTime - lastTime) / 1000.0f;
-	lastTime = currentTime;
-
-	Game::update(deltaTime);
-	// update
-
-	glutPostRedisplay();
-}
-
 bool initGlut(int argc, char* argv[])
 {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -77,7 +73,7 @@ bool initGlut(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutCreateWindow(APP_NAME);
 	glutDisplayFunc(display);
-	glutIdleFunc(idle);
+	glutIdleFunc(Game::idle);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardup);

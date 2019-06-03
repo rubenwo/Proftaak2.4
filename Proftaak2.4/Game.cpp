@@ -10,42 +10,46 @@
 #include "PlayerComponent.h"
 #include "ObjectModel.h"
 #include "Level.h"
+#include "Menu.h"
 
 namespace Game
 {
 	int windowWidth, windowHeight;
 	bool keys[256];
+	Texture *texturess;
 	Level currentLevel;
 	Camera camera;
-	GameObject player;
-	
+	GameObject* player;
+
+	Menu menu;
 
 	void loadContent()
 	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
-		currentLevel = Level();
+		loadTextures();
+		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
-		player = GameObject();
-		player.position = Vec3f(0, 0, -1);
-		player.addComponent(new PlayerComponent(&currentLevel.objects));
+		player = new GameObject();
+		player->position = Vec3f(0, 0, -1);
+		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[7], 0.25f)); //fix texturess->textures[3]
+
+
+		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[4], texturess->textures[5], texturess->textures[6]);
 	}
 
 	void update(float deltaTime)
 	{
-		player.update(deltaTime);
+		player->update(deltaTime);
 		currentLevel.update(deltaTime);
+		//menu.update(deltaTime);
 	}
 
 	void draw()
 	{
-		/*glRotatef(camera.rotX, 1, 0, 0);
-		glRotatef(camera.rotY, 0, 1, 0);
-		glRotatef(camera.rotZ, 0, 0, 1);
-		glTranslatef(camera.posX, camera.posZ, camera.posY);*/
-
-		player.draw();
+		//menu.draw();
+		player->draw();
 		currentLevel.draw();
 	}
 
@@ -106,9 +110,38 @@ namespace Game
 		std::cout << "Closing game.\n";
 	}
 
-	void move(float angle, float fac)
+	void loadTextures()
 	{
-		camera.posX += (float)cos((camera.rotY + angle) / 180 * M_PI) * fac;
-		camera.posY += (float)sin((camera.rotY + angle) / 180 * M_PI) * fac;
+		texturess = new Texture("texture");
+		texturess->initTextures();
+	}
+
+	int lastTime = 0;
+	void idle()
+	{
+		int currentTime = glutGet(GLUT_ELAPSED_TIME);
+		float deltaTime = (currentTime - lastTime) / 1000.0f;
+
+		lastTime = currentTime;
+		//
+		// const float speed = 3;
+		// if (keys['a']) move(0, deltaTime*speed);
+		// if (keys['d']) move(180, deltaTime*speed);
+		// if (keys['w']) move(90, deltaTime*speed);
+		// if (keys['s']) move(270, deltaTime*speed);
+		//
+		// //glutWarpPointer(windowWidth / 2, windowHeight / 2);
+		//
+		// if (keys[0]) { //UP ARROW KEY
+		// 	camera.posZ -= 0.025f;
+		// }
+		// if (keys[1]) { //DOWN ARROW KEY
+		// 	camera.posZ += 0.025f;
+		// }
+
+		// update
+		Game::update(deltaTime);
+
+		glutPostRedisplay();
 	}
 }
