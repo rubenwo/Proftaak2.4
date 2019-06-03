@@ -40,8 +40,7 @@ namespace Game
 
 		player = new GameObject();
 		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[2], 1.0f));
-		//fix texturess->textures[3]
+		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[3], 0.25f));		//fix texturess->textures[3]
 		player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
 		{
 			obj->removeComponent<DrawComponent>();
