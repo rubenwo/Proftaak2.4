@@ -58,9 +58,7 @@ void PlayerComponent::update(float elapsedTime)
 					if (obj->sphere.collides(pos, 0.5))
 					{
 						if (this->onCollision != nullptr)
-						{
 							this->onCollision(obj);
-						}
 						else
 							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
 					}

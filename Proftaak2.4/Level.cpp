@@ -39,7 +39,7 @@ void Level::loadContent()
 
 	player = new GameObject();
 	player->position = Vec3f(0, 0, -1);
-	player->addComponent(new PlayerComponent(&objects, texturess->textures[3], 0.25f));		//fix texturess->textures[3]
+	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
 	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
 	{
 		obj->position = Vec3f(0, 0, -4);
