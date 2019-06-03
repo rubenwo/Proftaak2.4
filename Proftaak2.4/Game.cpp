@@ -20,6 +20,7 @@ namespace Game
 	Level currentLevel;
 	Camera camera;
 	int index;
+	bool start;
 
 	Menu menu;
 
@@ -31,7 +32,6 @@ namespace Game
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
-		
 		index = 1;
 
 		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[8], texturess->textures[4],
@@ -42,13 +42,24 @@ namespace Game
 	void update(float deltaTime)
 	{
 		//currentLevel.update(deltaTime);
-		menu.update(deltaTime, index);
+		//menu.update(deltaTime, index);
+
+		if (start) {
+			currentLevel.update(deltaTime);
+		}
+		else {
+			menu.update(deltaTime, index);
+		}
 	}
 
 	void draw()
 	{
-		menu.draw();
-		//currentLevel.draw();
+		if (start) {
+			currentLevel.draw();
+		}
+		else {
+			menu.draw();
+		}
 	}
 
 	void onKey(Key key)
@@ -78,7 +89,9 @@ namespace Game
 			}
 			break;
 		case VK_RETURN:
-			std::cout << "test \n";
+			if (index == 1) {
+				start = true;
+			}
 			break;
 		default:
 			break;
