@@ -12,9 +12,17 @@
 #include "Level.h"
 #include "Menu.h"
 #include "SoundPlayer.hpp"
+#include "Util.hpp"
+#define FPS_COUNTER
+#ifdef FPS_COUNTER
+#include "FrameRateCounter.hpp"
+#endif
 
 namespace Game
 {
+#ifdef FPS_COUNTER
+	FrameRateCounter frc;
+#endif
 	int windowWidth, windowHeight;
 	bool keys[256];
 	Texture *texturess;
@@ -47,7 +55,9 @@ namespace Game
 	{
 		//currentLevel.update(deltaTime);
 		//menu.update(deltaTime, index);
-
+#ifdef FPS_COUNTER
+		frc.update(deltaTime);
+#endif
 		if (start) {
 			currentLevel.update(deltaTime);
 		}
@@ -58,6 +68,12 @@ namespace Game
 
 	void draw()
 	{
+#ifdef FPS_COUNTER
+		float avgFrames= frc.getAverageFramesPerSecond();
+		std::string avgStr = std::to_string(avgFrames);
+		std::string fps = "FPS: " + avgStr.substr(0, avgStr.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(20, windowHeight - 40), windowWidth, windowHeight, fps);
+#endif
 		if (start) {
 			currentLevel.draw();
 		}

@@ -85,7 +85,7 @@ void Level::update(float deltaTime)
 	//DEBUG CODE
 	if (lastObjectAdded > 10)
 		createRandomLocCube();
-	lastObjectAdded++;*/
+	lastObjectAdded++;
 	//END DEBUG CODE
 }
 
