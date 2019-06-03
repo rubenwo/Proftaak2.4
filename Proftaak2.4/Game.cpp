@@ -21,21 +21,22 @@ namespace Game
 	Camera camera;
 	GameObject* player;
 
-	//Menu menu(1);
+	Menu menu;
 
 	void loadContent()
 	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
 		loadTextures();
-
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
 		player = new GameObject();
 		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[3], 0.25f)); //fix texturess->textures[3]
+		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[7], 0.25f)); //fix texturess->textures[3]
 
+
+		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[4], texturess->textures[5], texturess->textures[6]);
 	}
 
 	void update(float deltaTime)

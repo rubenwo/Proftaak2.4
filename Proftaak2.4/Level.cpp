@@ -22,9 +22,10 @@ Level::Level(Texture* texture)
 	texturess = texture;
 }
 
+//Level::Level() {}
+
 void Level::loadContent()
 {
-	//loadTextures();
 	createRoom();
 	srand(static_cast <unsigned> (time(0)));
 	createRandomLocCube();

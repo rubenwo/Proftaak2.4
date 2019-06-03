@@ -249,6 +249,18 @@
     <Image Include="smacky_logo_big.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="credits.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="options.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="quit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="start.png">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="blockTextures.png">
       <Filter>Resource Files</Filter>
     </Image>

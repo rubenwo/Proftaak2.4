@@ -11,13 +11,15 @@
 class Texture
 {
 public:
-	GLuint textures[4];
+	GLuint textures[10];
 	Texture(const std::string &dirName);
 	const std::string dirName;
 	void initTextures();
 	GLuint getTextureId();
 	GLuint getWallTextureId();
+	GLuint getLogoTextureId();
 	GLuint wallTextureId;
+	GLuint logoTextureId;
 	GLuint blockTextureId;
 	GLuint * getTextures();
 
