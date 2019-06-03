@@ -12,6 +12,7 @@
 #include "Level.h"
 #include "Menu.h"
 #include <functional>
+#include "MoveToComponent.h"
 
 namespace Game
 {
