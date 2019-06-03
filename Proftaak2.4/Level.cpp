@@ -138,13 +138,13 @@ void Level::createRandomLocCube(float maxX, float maxY)
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4, -5.0f); //+0.3 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
 	}
 	else
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4, -5.0f); //+0.4 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
 	}
 
 	lastObjectAdded = 0;

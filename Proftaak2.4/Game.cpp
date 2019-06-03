@@ -49,7 +49,7 @@ namespace Game
 	void draw()
 	{
 		//menu.draw();
-		player->draw();
+		//player->draw();
 		currentLevel.draw();
 	}
 
@@ -121,22 +121,23 @@ namespace Game
 	{
 		int currentTime = glutGet(GLUT_ELAPSED_TIME);
 		float deltaTime = (currentTime - lastTime) / 1000.0f;
+
 		lastTime = currentTime;
-
-		const float speed = 3;
-		if (keys['a']) move(0, deltaTime*speed);
-		if (keys['d']) move(180, deltaTime*speed);
-		if (keys['w']) move(90, deltaTime*speed);
-		if (keys['s']) move(270, deltaTime*speed);
-
-		//glutWarpPointer(windowWidth / 2, windowHeight / 2);
-
-		if (keys[0]) { //UP ARROW KEY
-			camera.posZ -= 0.025f;
-		}
-		if (keys[1]) { //DOWN ARROW KEY
-			camera.posZ += 0.025f;
-		}
+		//
+		// const float speed = 3;
+		// if (keys['a']) move(0, deltaTime*speed);
+		// if (keys['d']) move(180, deltaTime*speed);
+		// if (keys['w']) move(90, deltaTime*speed);
+		// if (keys['s']) move(270, deltaTime*speed);
+		//
+		// //glutWarpPointer(windowWidth / 2, windowHeight / 2);
+		//
+		// if (keys[0]) { //UP ARROW KEY
+		// 	camera.posZ -= 0.025f;
+		// }
+		// if (keys[1]) { //DOWN ARROW KEY
+		// 	camera.posZ += 0.025f;
+		// }
 
 		// update
 		Game::update(deltaTime);
