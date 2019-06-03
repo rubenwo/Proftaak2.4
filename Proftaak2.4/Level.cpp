@@ -1,11 +1,14 @@
 #include "Level.h"
+#include <iostream>
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
 #include "StageComponent.h"
 #include "ObjectModel.h"
+#include "AudioComponent.hpp"
 #include "TrailAnimation.hpp"
-#include <iostream>
+#include "Assets.hpp"
+#include "Util.hpp"
 
 #define OBJECT_OUT_OF_BOUNDS -4.0f
 
@@ -24,6 +27,8 @@ void Level::loadContent()
 	createRoom();
 	createMovingCubeLeft(1);
 	createMovingCubeRight(1);
+	SoundPlayer& player = SoundPlayer::getInstance();
+	player.setListenerPosition(Vec3f(0, -4, 0), Vec3f(0, 0, 1));
 }
 
 void Level::loadTextures()
@@ -80,10 +85,18 @@ void Level::createMovingCubeLeft(float height) //blue color
 {
 	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 	GameObject* o = new GameObject();
+	o->position = Vec3f(2, 0, 30);
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
+
+	std::string path = Util::getExePath();
+
+	o->addComponent(new AudioComponent(path + SOUND_ENGINE));
 	o->addAnimation(new TrailAnimation());
-	o->position = Vec3f(2, 0, 30);
+
+	
+	auto c = o->getComponent<AudioComponent>();
+	c->playAudio();
 	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
 
 	objects.push_back(o);
