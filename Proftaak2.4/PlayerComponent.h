@@ -10,14 +10,14 @@ class PlayerComponent : public DrawComponent
 {
 private:
 	void drawCircle(float cx, float cy, float r, int num_segments);
-	std::function<void(int, Vec2f)> onCollision;
-	std::list<GameObject*> *objects;
+	std::function<void(GameObject*, Vec2f)> onCollision;
+	std::list<GameObject*>* objects;
 public:
 	PlayerComponent() = default;
 	PlayerComponent(std::list<GameObject*>* objects);
 	~PlayerComponent();
 
-	void setCollisionCallback(const std::function<void(int, Vec2f)> onCollision);
+	void setCollisionCallback(const std::function<void(GameObject*, Vec2f)> onCollision);
 
 	void update(float elapsedTime) override;
 	virtual void draw() override;
