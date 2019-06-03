@@ -82,6 +82,9 @@ namespace Game
 				index--;
 			}
 			break;
+		case VK_RETURN:
+			std::cout << "test \n";
+			break;
 		default:
 			break;
 		}
