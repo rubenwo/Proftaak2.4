@@ -264,9 +264,6 @@
     <Image Include="blockTextures.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\Gerben\Desktop\handTexture.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="textures12.png">
       <Filter>Resource Files</Filter>
     </Image>
