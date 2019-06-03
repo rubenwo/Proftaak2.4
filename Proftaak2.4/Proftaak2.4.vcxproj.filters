@@ -267,5 +267,20 @@
     <Image Include="C:\Users\Gerben\Desktop\handTexture.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="textures12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="creditsSelect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="optionsSelect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="quitSelect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="startSelect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

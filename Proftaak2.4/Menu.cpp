@@ -3,14 +3,15 @@
 #include "Menu.h"
 
 
-Menu::Menu(GLuint logoTextureID, GLuint creditTextureId, 
-	GLuint optionsTextureId,
-	GLuint quitTextureId, GLuint startTextureId) 
-	:	mLogoTextureId(logoTextureID), mCreditTextureId(creditTextureId), 
-		mOptionsTextureId(optionsTextureId),
-		mQuitTextureId(quitTextureId), mStartTextureIdl(startTextureId)
+Menu::Menu(GLuint logoTextureId, GLuint creditTextureId, GLuint creditSelectedTextureId,
+	GLuint optionsTextureId, GLuint opetionsSelectedTextureId,
+	GLuint quitTextureId, GLuint quitSelectedTextureId,
+	GLuint startTextureId, GLuint startSelectedTextureId)
+	: mLogoTextureId(logoTextureId), mCreditTextureId(creditTextureId), mCreditSelectedTextureId(creditSelectedTextureId),
+	mOptionsTextureId(optionsTextureId), mOptionsSelectedTextureId(opetionsSelectedTextureId), mQuitTextureId(quitTextureId),
+	mStartTextureIdl(startTextureId), mStartSelectedTextureIdl(startSelectedTextureId)
 {
-
+	this->mIndex = 0;
 }
 
 Menu::Menu()
@@ -28,18 +29,28 @@ void Menu::draw()
 	drawLogo();
 	drawStart();
 	drawOptions();
-	drawCredits();
-	drawQuit();
+
+	if (this->mIndex == 1) {
+		drawCredits(mCreditSelectedTextureId);
+	}
+	else {
+		drawCredits(mCreditTextureId);
+	}
+	drawQuit(mQuitTextureId);
 }
 
-void Menu::update(float deltaTime) 
+void Menu::update(float deltaTime, int index) 
 {
+	this->mIndex = index;
 
+	if (index == 1) {
+		drawCredits(mCreditSelectedTextureId);
+	}
 }
 
-void Menu::drawQuit()
+void Menu::drawQuit(GLuint texture)
 {
-	glBindTexture(GL_TEXTURE_2D, mQuitTextureId);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glEnable(GL_TEXTURE_2D);
 	//glTranslatef(2.0f, -2.0f, 2.0f);
 
@@ -64,9 +75,9 @@ void Menu::drawQuit()
 	glDisable(GL_TEXTURE_2D);
 }
 
-void Menu::drawCredits()
+void Menu::drawCredits(GLuint texture)
 {
-	glBindTexture(GL_TEXTURE_2D, mCreditTextureId);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_BLEND);
 
