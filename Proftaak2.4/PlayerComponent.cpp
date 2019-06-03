@@ -60,9 +60,7 @@ void PlayerComponent::update(float elapsedTime)
 							this->onCollision(obj, pos);
 						else
 						{
-							std::cout << "Collision detected with: " << obj
-							                                            ->getComponent<CubeComponent>()->getHandSide()
-								<< "\n";
+							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
 						}
 					}
 				}
@@ -81,12 +79,12 @@ void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
-		std::cout << "\r\nHandX: " << hand.x;
+		//std::cout << "\r\nHandX: " << hand.x;
 		if (hand.x > 0) {
 			std::cout << "\r\nRIGHT";
 		}
 		else {
-			std::cout << "Scale (-1, 1, 1); Left";
+			//std::cout << "Scale (-1, 1, 1); Left";
 			glScalef(-1, 1, 1);
 		}
 

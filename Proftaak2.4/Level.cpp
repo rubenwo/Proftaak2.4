@@ -72,7 +72,6 @@ void Level::start()
 void Level::stop()
 {
 	//TODO stop level, return to menu
-	~Level();
 }
 
 void Level::createRoom()

@@ -27,8 +27,6 @@ namespace Game
 	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
-
-		camera = Camera(0, -4, 0, 0);
 		loadTextures();
 
 		currentLevel = Level(texturess);
@@ -36,7 +34,7 @@ namespace Game
 
 		player = new GameObject();
 		player->position = Vec3f(0, 0, -1);
-		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[2], 1.0f)); //fix texturess->textures[3]
+		player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[3], 0.25f)); //fix texturess->textures[3]
 
 	}
 
@@ -50,7 +48,7 @@ namespace Game
 	void draw()
 	{
 		//menu.draw();
-		//player->draw();
+		player->draw();
 		currentLevel.draw();
 	}
 

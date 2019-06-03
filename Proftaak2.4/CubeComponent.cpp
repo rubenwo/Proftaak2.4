@@ -17,8 +17,6 @@ CubeComponent::CubeComponent(float size, GLuint textureID, HAND handSide, ARROWD
 	this->textureID = textureID;
 	this->arrowDirection = arrowDirection;
 	this->handSide = handSide;
-
-	
 }
 
 CubeComponent::~CubeComponent()
