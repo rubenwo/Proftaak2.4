@@ -31,6 +31,13 @@ void Level::loadContent()
 	player = new GameObject();
 	player->position = Vec3f(0, 0, -1);
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
+	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
+	{
+		obj->removeComponent<DrawComponent>();
+		std::cout << "Hit an object";
+		//TODO explosion
+	});
+
 	score = 0;
 	//loadTextures();
 	createRoom();
@@ -41,6 +48,8 @@ void Level::loadContent()
 
 void Level::draw()
 {
+	player->draw();
+
 	glRotatef(180, 1, 0, 0);
 	player->draw();
 
