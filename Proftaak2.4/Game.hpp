@@ -22,9 +22,9 @@ namespace Game
 	void onResize(int w, int h);
 	// Gets called when app is closing.
 	void onClose();
-
+	// Load all textures.
 	void loadTextures();
-
+	// Idle method to proceed time in the game.
 	void idle();
 
 }

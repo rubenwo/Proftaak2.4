@@ -17,13 +17,15 @@ namespace Game
 {
 	int windowWidth, windowHeight;
 	bool keys[256];
-	Texture *texturess;
+	Texture* texturess;
 	Level currentLevel;
 	Camera camera;
 	int index;
 	bool start;
 
 	Menu menu;
+
+	void (*onObjectCollision)(GameObject* obj, Vec2f pos);
 
 	void loadContent()
 	{
@@ -33,6 +35,7 @@ namespace Game
 		SoundPlayer& sp = SoundPlayer::getInstance();
 		sp.setListenerPosition(Vec3f(camera.posX, camera.posY, camera.posZ), Vec3f(camera.rotX, camera.rotY, camera.rotZ));
 		loadTextures();
+
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
@@ -42,6 +45,7 @@ namespace Game
 			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
 			texturess->textures[11]);
 	}
+
 
 	void update(float deltaTime)
 	{
@@ -141,6 +145,7 @@ namespace Game
 	}
 
 	int lastTime = 0;
+
 	void idle()
 	{
 		int currentTime = glutGet(GLUT_ELAPSED_TIME);
