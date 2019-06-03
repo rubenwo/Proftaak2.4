@@ -9,7 +9,7 @@ protected:
 	bool drawAllowed = true;
 public:
 	Animation();
-	~Animation();
+	virtual ~Animation();
 	virtual void update(float elapsedTime) {};
 	virtual void draw() = 0;
 	inline void setGameObject(GameObject* gameObject) { this->gameObject = gameObject; }

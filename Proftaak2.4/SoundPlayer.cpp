@@ -1,6 +1,7 @@
 #include "SoundPlayer.hpp"
 
 #include <iostream>
+#include <random>
 
 using std::string;
 using namespace irrklang;
@@ -11,7 +12,8 @@ SoundPlayer::SoundPlayer()
 	//TODO Set engine->setListenerPosition(vec3df(0,0,0), vec3df(0,0,1));
 	if (!engine)
 		std::cout << "Failed to create irrklang device\n";
-
+	else
+		engine->setSoundVolume(1.0f);
 }
 SoundPlayer::~SoundPlayer()
 {
@@ -55,4 +57,28 @@ void SoundPlayer::deleteSound(const SoundID& id)
 		cleanupSound(sound);
 		sounds.erase(id);
 	}
+}
+
+void SoundPlayer::setListenerPosition(const Vec3f& pos, const Vec3f& heading)
+{
+	engine->setListenerPosition(vec3df(pos.x, pos.y, pos.z), vec3df(heading.x, heading.y, heading.z));
+}
+SoundID SoundPlayer::getAvailableSoundID()
+{
+	size_t length = 16;
+	static auto& chrs = "0123456789"
+		"abcdefghijklmnopqrstuvwxyz"
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	thread_local static std::mt19937 rg{ std::random_device{}() };
+	thread_local static std::uniform_int_distribution<std::string::size_type> pick(0, sizeof(chrs) - 2);
+
+	std::string s;
+
+	s.reserve(length);
+
+	while (length--)
+		s += chrs[pick(rg)];
+
+	return s;
 }

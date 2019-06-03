@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
@@ -156,6 +157,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="Assets.hpp" />
+    <ClInclude Include="AudioComponent.hpp" />
     <ClInclude Include="ExplosionAnimation.hpp" />
     <ClInclude Include="FrameRateCounter.hpp" />
     <ClInclude Include="SoundPlayer.hpp" />
