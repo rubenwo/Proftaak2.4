@@ -18,7 +18,8 @@ class HandTracker
 private:
 	std::array<hand, HANDS_AMOUNT> hands;
 
-	void track(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
+	void trackByColor(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
+	void trackByTracker(const std::function<void(std::array<hand, HANDS_AMOUNT>)>& callback);
 
 public:
 	HandTracker();

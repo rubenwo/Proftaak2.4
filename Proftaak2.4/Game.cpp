@@ -19,7 +19,6 @@ namespace Game
 	Texture *texturess;
 	Level currentLevel;
 	Camera camera;
-	GameObject* player;
 	int index;
 
 	Menu menu;
@@ -32,9 +31,7 @@ namespace Game
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
-		player = new GameObject();
-		player->position = Vec3f(0, 0, -1);
-		//player->addComponent(new PlayerComponent(&currentLevel.objects, texturess->textures[7], 0.25f)); //fix texturess->textures[3]
+		
 		index = 1;
 
 		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[8], texturess->textures[4],
@@ -44,7 +41,6 @@ namespace Game
 
 	void update(float deltaTime)
 	{
-		//player->update(deltaTime);
 		//currentLevel.update(deltaTime);
 		menu.update(deltaTime, index);
 	}
@@ -52,7 +48,6 @@ namespace Game
 	void draw()
 	{
 		menu.draw();
-		//player->draw();
 		//currentLevel.draw();
 	}
 
