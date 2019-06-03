@@ -1,7 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include "Globals.hpp"
-#include "Tracker.hpp"
 
 namespace Game
 {
@@ -25,5 +24,8 @@ namespace Game
 	void onClose();
 
 	void loadTextures();
+
+	void idle();
+
 }
 #endif

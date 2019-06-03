@@ -45,7 +45,7 @@ void PlayerComponent::update(float elapsedTime)
 	{
 		if (!obj->getComponent<StageComponent>())
 		{
-			if (obj->position.z < 0.01 && obj->position.z > -0.01f)
+			if (obj->position.z < 0 && obj->position.z > -1.0f)
 			{
 				for (auto hand : atomic_hands.load())
 				{

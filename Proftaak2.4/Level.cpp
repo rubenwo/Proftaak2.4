@@ -6,30 +6,20 @@
 #include "StageComponent.h"
 #include "ObjectModel.h"
 #include "TrailAnimation.hpp"
-#include <iostream>
 #include <ctime>
 
 #define OBJECT_OUT_OF_BOUNDS -4.0f
 
-std::list<GameObject*> objects;
 Texture *texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
 
 bool isObjectOutOfBounds(GameObject* o);
 void createRoom(void);
-void createMovingCubeRight(float height = 0);
-void createMovingCubeLeft(float height = 0);
-void createRandomLocCube(float maxX = 2, float maxY = 1);
 
 Level::Level(Texture* texture)
 {
 	texturess = texture;
-}
-
-Level::Level()
-{
-
 }
 
 void Level::loadContent()
@@ -41,15 +31,9 @@ void Level::loadContent()
 	createRandomLocCube();
 }
 
-void Level::loadTextures()
-{
-	texturess = new Texture("texture");
-	texturess->initTextures();
-}
-
 void Level::draw()
 {
-	glRotatef(180, 0, 1, 0);
+	glRotatef(180, 1, 0, 0);
 	for (const auto& o : objects)
 		o->draw();
 }
@@ -128,7 +112,7 @@ bool isObjectOutOfBounds(GameObject* o)
 {
 	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
 }
-void createRandomLocCube(float maxX, float maxY)
+void Level::createRandomLocCube(float maxX, float maxY)
 {
 	GameObject* o = new GameObject();
 	o->addComponent(new MoveToComponent());
