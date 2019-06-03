@@ -138,6 +138,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioComponent.cpp">
+      <Filter>Source Files\GameObjects\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.hpp">
@@ -217,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="Util.hpp">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioComponent.hpp">
+      <Filter>Header Files\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

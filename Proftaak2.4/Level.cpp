@@ -1,10 +1,12 @@
 #include <iostream>
 #include "Level.h"
+#include <iostream>
 #include "GameObject.h"
 #include "CubeComponent.h"
 #include "MoveToComponent.h"
 #include "StageComponent.h"
 #include "ObjectModel.h"
+#include "AudioComponent.hpp"
 #include "TrailAnimation.hpp"
 #include <ctime>
 
@@ -86,8 +88,13 @@ void Level::createMovingCubeLeft(float height) //blue color
 {
 	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
 	GameObject* o = new GameObject();
+	o->position = Vec3f(2, 0, 30);
 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
 	o->addComponent(new MoveToComponent());
+
+	std::string path = Util::getExePath();
+
+	o->addComponent(new AudioComponent(path + SOUND_ENGINE));
 	o->addAnimation(new TrailAnimation());
 	o->position = Vec3f(2, 0, 50);
 	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
