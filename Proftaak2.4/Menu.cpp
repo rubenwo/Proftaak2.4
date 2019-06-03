@@ -41,19 +41,23 @@ void Menu::drawQuit()
 {
 	glBindTexture(GL_TEXTURE_2D, mQuitTextureId);
 	glEnable(GL_TEXTURE_2D);
+	//glTranslatef(2.0f, -2.0f, 2.0f);
+
 	glDisable(GL_BLEND);
 
 	glColor3f(1.0f, 1.0f, 1.0f);
 
+	glScalef(1.0f, -1.0f, 1.0f);
+
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
-	glVertex3f(-0.5f, -0.5f, -1.5f);
+	glVertex3f(-0.5f, 0.30f, -1.5f);
 	glTexCoord2f(0, 1);
-	glVertex3f(-0.5f, -0.30f, -1.5f);
+	glVertex3f(-0.5f, 0.50f, -1.5f);
 	glTexCoord2f(1, 1);
-	glVertex3f(0.5f, -0.30f, -1.5f);
+	glVertex3f(0.5f, 0.50f, -1.5f);
 	glTexCoord2f(1, 0);
-	glVertex3f(0.5f, -0.5f, -1.5f);
+	glVertex3f(0.5f, 0.30f, -1.5f);
 	glDisable(GL_TEXTURE_BINDING_2D);
 	glEnd();
 
@@ -70,13 +74,13 @@ void Menu::drawCredits()
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
-	glVertex3f(-0.5f, -0.75f, -1.5f);
-	glTexCoord2f(0, 1);
 	glVertex3f(-0.5f, -0.55f, -1.5f);
+	glTexCoord2f(0, 1);
+	glVertex3f(-0.5f, -0.75f, -1.5f);
 	glTexCoord2f(1, 1);
-	glVertex3f(0.5f, -0.55f, -1.5f);
-	glTexCoord2f(1, 0);
 	glVertex3f(0.5f, -0.75f, -1.5f);
+	glTexCoord2f(1, 0);
+	glVertex3f(0.5f, -0.55f, -1.5f);
 	glDisable(GL_TEXTURE_BINDING_2D);
 	glEnd();
 
@@ -93,13 +97,13 @@ void Menu::drawOptions()
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
-	glVertex3f(-0.5f, -0.25f, -1.5f);
-	glTexCoord2f(0, 1);
 	glVertex3f(-0.5f, -0.05f, -1.5f);
+	glTexCoord2f(0, 1);
+	glVertex3f(-0.5f, -0.25f, -1.5f);
 	glTexCoord2f(1, 1);
-	glVertex3f(0.5f, -0.05f, -1.5f);
-	glTexCoord2f(1, 0);
 	glVertex3f(0.5f, -0.25f, -1.5f);
+	glTexCoord2f(1, 0);
+	glVertex3f(0.5f, -0.05f, -1.5f);
 	glDisable(GL_TEXTURE_BINDING_2D);
 	glEnd();
 
@@ -116,13 +120,13 @@ void Menu::drawStart()
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
 
-	glVertex3f(-0.5f, 0, -1.5f);
-	glTexCoord2f(0, 1);
 	glVertex3f(-0.5f, 0.20f, -1.5f);
+	glTexCoord2f(0, 1);
+	glVertex3f(-0.5f, 0, -1.5f);
 	glTexCoord2f(1, 1);
-	glVertex3f(0.5f, 0.20f, -1.5f);
-	glTexCoord2f(1, 0);
 	glVertex3f(0.5f, 0, -1.5f);
+	glTexCoord2f(1, 0);
+	glVertex3f(0.5f, 0.20f, -1.5f);
 	glDisable(GL_TEXTURE_BINDING_2D);
 	glEnd();
 
@@ -139,13 +143,13 @@ void Menu::drawLogo()
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
-	glVertex3f(-1.0f, 0.25f, -1.0f);
-	glTexCoord2f(0, 1);
 	glVertex3f(-1.0f, 0.5f, -1.0f);
+	glTexCoord2f(0, 1);
+	glVertex3f(-1.0f, 0.25f, -1.0f);
 	glTexCoord2f(1, 1);
-	glVertex3f(1.0f, 0.5f, -1.0f);
-	glTexCoord2f(1, 0);
 	glVertex3f(1.0f, 0.25f, -1.0f);
+	glTexCoord2f(1, 0);
+	glVertex3f(1.0f, 0.5f, -1.0f);
 	glDisable(GL_TEXTURE_BINDING_2D);
 	glEnd();
 
