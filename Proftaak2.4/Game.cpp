@@ -34,6 +34,8 @@ namespace Game
 		camera = Camera(0, -4, 0, 0, 0, 0);
 		loadTextures();
 
+		// std::function<void(GameObject*, Vec2f)> onCollision = std::bind(onObjectCollision, std::placeholders::_1, std::placeholders::_2);
+
 		currentLevel = Level(texturess);
 		currentLevel.loadContent();
 
