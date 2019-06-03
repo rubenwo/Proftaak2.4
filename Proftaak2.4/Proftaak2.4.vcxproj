@@ -188,11 +188,14 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="credits.png" />
+    <Image Include="creditsSelect.png" />
     <Image Include="options.png" />
+    <Image Include="optionsSelect.png" />
     <Image Include="quit.png" />
-    <Image Include="C:\Users\Gerben\Desktop\handTexture.png" />
+    <Image Include="quitSelect.png" />
     <Image Include="smacky_logo_big.png" />
     <Image Include="start.png" />
+    <Image Include="startSelect.png" />
     <Image Include="textures12.png" />
     <Image Include="blockTextures.png" />
     <Image Include="wallTexture.png" />
