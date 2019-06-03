@@ -7,10 +7,12 @@
 #include "ObjectModel.h"
 #include "TrailAnimation.hpp"
 #include <ctime>
+#include "PlayerComponent.h"
 
 #define OBJECT_OUT_OF_BOUNDS -4.0f
+GameObject* player;
 
-Texture *texturess;
+Texture* texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
 
@@ -26,8 +28,11 @@ Level::Level(Texture* texture)
 
 void Level::loadContent()
 {
+	player = new GameObject();
+	player->position = Vec3f(0, 0, -1);
+	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
 	createRoom();
-	srand(static_cast <unsigned> (time(0)));
+	srand(static_cast<unsigned>(time(0)));
 	createRandomLocCube();
 	createRandomLocCube();
 }
@@ -35,12 +40,16 @@ void Level::loadContent()
 void Level::draw()
 {
 	glRotatef(180, 1, 0, 0);
+	player->draw();
+
 	for (const auto& o : objects)
 		o->draw();
 }
 
 void Level::update(float deltaTime)
 {
+	player->update(deltaTime);
+
 	std::list<GameObject*>::iterator itr = objects.begin();
 
 	while (itr != objects.end())
@@ -59,7 +68,7 @@ void Level::update(float deltaTime)
 	}
 
 	//DEBUG CODE
-	if(lastObjectAdded > 10)
+	if (lastObjectAdded > 10)
 		createRandomLocCube();
 	lastObjectAdded++;
 	//END DEBUG CODE
@@ -113,13 +122,14 @@ bool isObjectOutOfBounds(GameObject* o)
 {
 	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
 }
+
 void Level::createRandomLocCube(float maxX, float maxY)
 {
 	GameObject* o = new GameObject();
 	o->addComponent(new MoveToComponent());
 
-	float rX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-	float rY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	float rX = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	float rY = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 
 	float randNumX = rX * maxX;
 	float randNumY = rY * maxY;
@@ -139,13 +149,15 @@ void Level::createRandomLocCube(float maxX, float maxY)
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f);
+		//+0.3 to avoid the player
 	}
 	else
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 50);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f);
+		//+0.4 to avoid the player
 	}
 
 	lastObjectAdded = 0;
