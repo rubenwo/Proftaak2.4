@@ -3,7 +3,7 @@
 #include <vector>
 #include "MusicTrack.h"
 
-#define MUSIC_TIME_OFFSET (6000 - 500) //milliseconds
+#define MUSIC_TIME_OFFSET (6000 - 100) //milliseconds
 
 namespace MusicLoader
 {

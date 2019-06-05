@@ -29,7 +29,7 @@ namespace Game
 	Level currentLevel;
 	Camera camera;
 	int index;
-	bool start;
+	bool start,isStarted;
 
 	Menu menu;
 
@@ -45,6 +45,7 @@ namespace Game
 		currentLevel.loadContent();
 
 		index = 1;
+		isStarted = false;
 
 		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[8], texturess->textures[4],
 			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
@@ -59,6 +60,11 @@ namespace Game
 		frc.update(deltaTime);
 #endif
 		if (start) {
+			if (!isStarted) {
+				currentLevel.start();
+				isStarted = true;
+			}
+
 			currentLevel.update(deltaTime);
 		}
 		else {
