@@ -10,10 +10,10 @@ using namespace MusicDataStructures;
 
 namespace MusicLoader
 {
-	MusicTrack * LoadMusicFile()
+	MusicTrack * LoadMusicFile(string fileLocation)
 	{
 		ifstream inFile;
-		inFile.open("..\\music\\Boom Boom Boom Boom\\Simfile.sm");
+		inFile.open(fileLocation);//..\\music\\Boom Boom Boom Boom\\Simfile.sm"
 		if (!inFile) {
 			cerr << "Unable to open file datafile.txt";
 			return nullptr;
@@ -45,10 +45,12 @@ namespace MusicLoader
 					int pos = line.find("=");
 					string value_bpms = line.substr(pos + 1, line.find(";") - pos);
 					track->bpms = stof(value_bpms);
+					track->barTime = (60.0f / track->bpms) * 4.0f * 1000.0f;
 				}
 				if (key == "OFFSET")
 				{
-					track->offset = stof(value);
+					track->offset = stof(value) * 1000;
+					track->totalTime += track->offset;
 				}
 				if (key == "NOTES")
 				{
@@ -63,7 +65,6 @@ namespace MusicLoader
 					song->bars.push_back(*bar);
 					delete(bar);
 					bar = new Bar();
-					//song->bars[song->bars.size()] = *bar;
 				}
 				else if (line.find("//") != string::npos || line.find(":") != string::npos) continue;
 				else
@@ -82,14 +83,9 @@ namespace MusicLoader
 					}
 					bar->notes.push_back(*note);
 					delete(note);
-					// int k = bar->notes.size();
-					//
-					// bar->notes[k] = *note;
 				}
 			}
 		}
-
-
 
 		delete(bar);
 		inFile.close();

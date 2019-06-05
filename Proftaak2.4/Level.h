@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Enums.h"
 
 class Texture;
 
@@ -7,9 +8,10 @@ class Level
 {
 private:
 	void createRoom();
-	void createMovingCubeRight(float height = 0);
-	void createMovingCubeLeft(float height = 0);
-	void createRandomLocCube(float maxX = 2, float maxY = 1);
+	// void createMovingCubeRight(ARROWDIRECTION arrowdirection);
+	// void createMovingCubeLeft(ARROWDIRECTION arrowdirection);
+	// void createRandomLocCube(float maxX = 2, float maxY = 1);
+	void createRandomLocCube(ARROWDIRECTION arrowDirection, float maxX = 2, float maxY = 1.5);
 public:
 	Level() = default;
 	Level(Texture* texture);
@@ -21,7 +23,9 @@ public:
 	//Load all content, gets called before starting a level.
 	void loadContent();
 	//Load all textures
-	//void loadTextures();
+	void loadTextures();
+	void initMusic();
+	static void startMusic(int);
 	//Gets called on every draw, draw level components
 	void draw();
 	//Gets called at the beginning of a level.

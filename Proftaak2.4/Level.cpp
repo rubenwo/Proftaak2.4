@@ -11,6 +11,9 @@
 #include "Util.hpp"
 #include "Assets.hpp"
 #include <ctime>
+#include "MusicLoader.hpp"
+#include <iostream>
+#include "SoundPlayer.hpp"
 #include "PlayerComponent.h"
 
 using std::string;
@@ -20,6 +23,7 @@ GameObject* player;
 Texture* texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
+MusicDataStructures::MusicTrack * track;
 string exePath;
 
 
@@ -42,9 +46,30 @@ void Level::loadContent()
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
 
 	createRoom();
-	srand(static_cast<unsigned>(time(0)));
-	createRandomLocCube();
-	createRandomLocCube();
+	srand(static_cast <unsigned> (time(0)));
+	initMusic();
+}
+
+void Level::loadTextures()
+{
+	texturess = new Texture("texture");
+	texturess->initTextures();
+}
+
+void Level::initMusic()
+{
+	string path = "..";
+	track = MusicLoader::LoadMusicFile(path + DATA_BOOMx4);
+	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
+	soundPlayer.addSound(path + MUSIC_BOOMx4, track->title, false);//..\\music\\Boom Boom Boom Boom\\Music.ogg"
+	glutTimerFunc(MUSIC_TIME_OFFSET, startMusic, 0);
+}
+
+void Level::startMusic(int)
+{
+	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
+	irrklang::ISound * sound = soundPlayer.getSound(track->title);
+	sound->setIsPaused(false);
 }
 
 void Level::draw()
@@ -60,6 +85,13 @@ void Level::update(float deltaTime)
 {
 	player->update(deltaTime);
 
+	auto result = track->update(deltaTime);
+
+	if (std::get<0>(result) == MusicDataStructures::MusicAction::Left)
+		createRandomLocCube(std::get<1>(result));
+	else if (std::get<0>(result) == MusicDataStructures::MusicAction::Right)
+		createRandomLocCube(std::get<1>(result));
+	
 	std::list<GameObject*>::iterator itr = objects.begin();
 
 	while (itr != objects.end())
@@ -77,15 +109,10 @@ void Level::update(float deltaTime)
 		}
 	}
 
-	if (objects.size() < 25)
-	{
-		createRandomLocCube();
-	}
-
 	//DEBUG CODE
-	if (lastObjectAdded > 10)
-		createRandomLocCube();
-	lastObjectAdded++;
+	// if(lastObjectAdded > 10)
+	// 	createRandomLocCube();
+	// lastObjectAdded++;
 	//END DEBUG CODE
 }
 
@@ -106,41 +133,95 @@ void Level::createRoom()
 	objects.push_back(room);
 }
 
-void Level::createMovingCubeLeft(float height) //blue color
-{
-	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
-	GameObject* o = new GameObject();
-	o->position = Vec3f(2, 0, 30);
-	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, ARROWDIRECTION::up));
-	o->addComponent(new MoveToComponent());
-
-	o->addAnimation(new TrailAnimation());
-	o->position = Vec3f(2, 0, 50);
-	o->getComponent<MoveToComponent>()->target = Vec3f(+1.5f, -height + 0.6f, -5.0f);
-
-	objects.push_back(o);
-}
-
-void Level::createMovingCubeRight(float height) //red color
-{
-	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
-	GameObject* o = new GameObject();
-	o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, ARROWDIRECTION::right));
-	o->addComponent(new MoveToComponent());
-	o->addAnimation(new TrailAnimation());
-
-	o->position = Vec3f(-2, 0, 50);
-	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5f, -height + 0.6f, -5.0f);
-
-	objects.push_back(o);
-}
+// void Level::createMovingCubeLeft(ARROWDIRECTION arrowdirection) //blue color
+// {
+// 	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
+// 	GameObject* o = new GameObject();
+// 	o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, arrowdirection));
+// 	o->addComponent(new MoveToComponent());
+// 	o->addAnimation(new TrailAnimation());
+//
+// 	// float rX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+// 	// float rY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+// 	// bool negativeY = (rand() % 1 > 0);
+// 	// float randNumX = rX * glutGet(GLUT_WINDOW_WIDTH) / 2;
+// 	// float randNumY = rY * glutGet(GLUT_WINDOW_HEIGHT) / 2;
+// 	// if (negativeY)
+// 	// 	randNumY = -1 * rY * glutGet(GLUT_WINDOW_HEIGHT) / 2;
+//
+// 	o->position = Vec3f(2, 0, 50);
+// 	o->getComponent<MoveToComponent>()->target = Vec3f(1.5f, 0.6f, -5.0f);
+//
+// 	objects.push_back(o);
+// }
+//
+// void Level::createMovingCubeRight(ARROWDIRECTION arrowdirection) //red color
+// {
+// 	//Add moving cube right side of platform, TODO zorg ervoor dat dit gebaseerd op muziek gebeurt
+// 	GameObject* o = new GameObject();
+// 	o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, arrowdirection));
+// 	o->addComponent(new MoveToComponent());
+// 	o->addAnimation(new TrailAnimation());
+//
+// 	float rX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+// 	float rY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+// 	bool negativeY = (rand() % 1 > 0);
+// 	float randNumX = rX * glutGet(GLUT_WINDOW_WIDTH) / 2;
+// 	float randNumY = rY * glutGet(GLUT_WINDOW_HEIGHT) / 2;
+// 	if(negativeY)
+// 		randNumY = -1 * rY * glutGet(GLUT_WINDOW_HEIGHT) / 2;
+//
+//
+// 	o->position = Vec3f(-2, 0, 50);
+// 	o->getComponent<MoveToComponent>()->target = Vec3f(-1.5f, 0.6f, -5.0f);//y = -height + 0.6f,
+//
+// 	objects.push_back(o);
+// }
 
 bool isObjectOutOfBounds(GameObject* o)
 {
 	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
 }
+// void Level::createRandomLocCube(float maxX, float maxY)
+// {
+// 	GameObject* o = new GameObject();
+// 	o->addComponent(new MoveToComponent());
+//
+// 	float rX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+// 	float rY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//
+// 	float randNumX = rX * maxX;
+// 	float randNumY = rY * maxY;
+//
+// 	const int arrowDirection = rand() % 4;
+// 	ARROWDIRECTION direction;
+// 	if (arrowDirection == 0)
+// 		direction = ARROWDIRECTION::left;
+// 	else if (arrowDirection == 1)
+// 		direction = ARROWDIRECTION::up;
+// 	else if (arrowDirection == 2)
+// 		direction = ARROWDIRECTION::right;
+// 	else
+// 		direction = ARROWDIRECTION::down;
+//
+// 	if (randNumX > maxX / 2)
+// 	{
+// 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
+// 		o->position = Vec3f(randNumX, -randNumY, 50);
+// 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
+// 	}
+// 	else
+// 	{
+// 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
+// 		o->position = Vec3f(randNumX, -randNumY, 50);
+// 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
+// 	}
+//
+// 	lastObjectAdded = 0;
+// 	objects.push_back(o);
+// }
 
-void Level::createRandomLocCube(float maxX, float maxY)
+void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY)
 {
 	GameObject* o = new GameObject();
 	o->addComponent(new MoveToComponent());
@@ -151,21 +232,10 @@ void Level::createRandomLocCube(float maxX, float maxY)
 	float randNumX = rX * maxX;
 	float randNumY = rY * maxY;
 
-	const int arrowDirection = rand() % 4;
-	ARROWDIRECTION direction;
-	if (arrowDirection == 0)
-		direction = ARROWDIRECTION::left;
-	else if (arrowDirection == 1)
-		direction = ARROWDIRECTION::up;
-	else if (arrowDirection == 2)
-		direction = ARROWDIRECTION::right;
-	else
-		direction = ARROWDIRECTION::down;
-
 	if (randNumX > maxX / 2)
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
-		o->position = Vec3f(randNumX, -randNumY, 50);
+		o->position = Vec3f(randNumX, -randNumY, 30);
 
 		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
 		o->addComponent(a);
@@ -176,7 +246,7 @@ void Level::createRandomLocCube(float maxX, float maxY)
 	else
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
-		o->position = Vec3f(randNumX, -randNumY, 50);
+		o->position = Vec3f(randNumX, -randNumY, 30);
 
 		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
 		o->addComponent(a);
