@@ -79,7 +79,7 @@ void Level::startMusic(int)
 {
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
 	//irrklang::ISound * sound = soundPlayer.getSound(track->title);
-	//soundPlayer.playSound(track->title, false);
+	soundPlayer.playSound(track->title, false);
 }
 
 void Level::draw()
