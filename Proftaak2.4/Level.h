@@ -11,7 +11,7 @@ private:
 	// void createMovingCubeRight(ARROWDIRECTION arrowdirection);
 	// void createMovingCubeLeft(ARROWDIRECTION arrowdirection);
 	// void createRandomLocCube(float maxX = 2, float maxY = 1);
-	void createRandomLocCube(ARROWDIRECTION arrowDirection, float maxX = 2, float maxY = 1.5);
+	void createRandomLocCube(ARROWDIRECTION arrowDirection, float maxX = 1.5f, float maxY = 1.2f);
 public:
 	Level() = default;
 	Level(Texture* texture);

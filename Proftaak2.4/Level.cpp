@@ -43,7 +43,8 @@ void Level::loadContent()
 
 	player = new GameObject();
 	player->position = Vec3f(0, 0, -1);
-	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
+	//use texture 7 instead of 12 for hand textures..
+	player->addComponent(new PlayerComponent(&objects, texturess->textures[12], 0.25f));
 	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
 	{
 		obj->position = Vec3f(0, 0, -4);
@@ -112,6 +113,7 @@ void Level::update(float deltaTime)
 				combo = 0;
 			else
 			{
+				std::cout << "HIT";
 				if(combo < 8)
 					combo++;
 				score += combo;
@@ -146,7 +148,9 @@ void Level::createRoom()
 
 bool isObjectOutOfBounds(GameObject* o)
 {
+	//std::cout << "DESPAWN";
 	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
+
 }
 
 void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY)
