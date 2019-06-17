@@ -20,10 +20,10 @@ using std::string;
 #define OBJECT_OUT_OF_BOUNDS -4.0f
 GameObject* player;
 
+MusicDataStructures::MusicTrack * track;
 Texture* texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
-MusicDataStructures::MusicTrack * track;
 string exePath;
 
 
@@ -49,7 +49,6 @@ void Level::loadContent()
 	{
 		obj->position = Vec3f(0, 0, -4);
 		obj->getComponent<CubeComponent>()->isHit = true;
-		//TODO explosion
 	});
 
 	score = 0;
@@ -77,6 +76,7 @@ void Level::initMusic()
 
 void Level::startMusic(int)
 {
+
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
 	//irrklang::ISound * sound = soundPlayer.getSound(track->title);
 	soundPlayer.playSound(track->title, false);
@@ -131,6 +131,11 @@ void Level::update(float deltaTime)
 			++itr;
 		}
 	}
+}
+
+MusicDataStructures::MusicTrack* Level::getTrack()
+{
+	return track;
 }
 
 void Level::start()

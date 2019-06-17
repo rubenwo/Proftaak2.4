@@ -44,8 +44,8 @@ namespace Game
 		SoundPlayer& sp = SoundPlayer::getInstance();
 		sp.setListenerPosition(Vec3f(camera.posX, camera.posY, camera.posZ), Vec3f(camera.rotX, camera.rotY, camera.rotZ));
 		loadTextures();
-		currentLevel = Level(texturess);
-		currentLevel.loadContent();
+		//currentLevel = Level(texturess);
+		// currentLevel.loadContent();
 
 		index = 1;
 		isStarted = false;
@@ -67,6 +67,17 @@ namespace Game
 			if (!isStarted) {
 				currentLevel.start();
 				isStarted = true;
+			}
+			else
+			{
+				SoundPlayer& soundPlayer = SoundPlayer::getInstance();
+				irrklang::ISound * sound = soundPlayer.getSound(currentLevel.getTrack()->title);
+				if (sound != nullptr && sound->isFinished())
+				{
+					soundPlayer.deleteSound(currentLevel.getTrack()->title);
+					currentLevel.stop();
+					start = !start;
+				}
 			}
 
 			currentLevel.update(deltaTime);
@@ -121,6 +132,8 @@ namespace Game
 			break;
 		case VK_RETURN:
 			if (index == 1) {
+				currentLevel = Level(texturess);
+				currentLevel.loadContent();
 				start = true;
 			}
 			break;

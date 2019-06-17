@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Enums.h"
+#include "SoundPlayer.hpp"
+#include "MusicTrack.h"
 
 class Texture;
 
@@ -17,14 +19,16 @@ public:
 	Level(Texture* texture);
 	std::list<GameObject*> objects;
 
-	float score = 0;
-	float combo = 1;
+	int score = 0;
+	int combo = 1;
 
 	//Load all content, gets called before starting a level.
 	void loadContent();
 	//Load all textures
 	void loadTextures();
 	void initMusic();
+	//Inits song
+	static void initSong();
 	static void startMusic(int);
 	//Gets called on every draw, draw level components
 	void draw();
@@ -34,4 +38,6 @@ public:
 	void stop();
 	//Gets called every update, update level logic
 	void update(float deltaTime);
+	//Returns the current track.
+	MusicDataStructures::MusicTrack* getTrack();
 };
