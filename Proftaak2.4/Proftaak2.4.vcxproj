@@ -197,6 +197,7 @@
     <Image Include="optionsSelect.png" />
     <Image Include="quit.png" />
     <Image Include="quitSelect.png" />
+    <Image Include="slipper.png" />
     <Image Include="smacky_logo_big.png" />
     <Image Include="start.png" />
     <Image Include="startSelect.png" />
