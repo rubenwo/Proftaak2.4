@@ -192,6 +192,7 @@
   <ItemGroup>
     <Image Include="credits.png" />
     <Image Include="creditsSelect.png" />
+    <Image Include="handTexture.png" />
     <Image Include="options.png" />
     <Image Include="optionsSelect.png" />
     <Image Include="quit.png" />
@@ -202,6 +203,9 @@
     <Image Include="textures12.png" />
     <Image Include="blockTextures.png" />
     <Image Include="wallTexture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollisionSphere" Collapsed="true">
+    <Position X="22.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAACAAAAIAAAAAAAAAAAAAEAAABgAAAAAAA=</HashCode>
+      <FileName>CollisionSphere.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HandTracker" Collapsed="true">
+    <Position X="27.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAQAAAAAEAAACAAAAAAAAAAARIAAAAAAAA=</HashCode>
+      <FileName>Tracker.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Menu" Collapsed="true">
+    <Position X="24" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAASgAAAABECAAAAgYQAEAAAIAMACIAgAAAAAAEQAA=</HashCode>
+      <FileName>Menu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level" Collapsed="true">
+    <Position X="22.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAABAAIABAgAAIIAABEAQAgAAABAQAAAAAEAAA=</HashCode>
+      <FileName>Level.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture" Collapsed="true">
+    <Position X="22.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQAIQEAAAAAAAAAgEAAAAAAACAAAAAIAAIggAAA=</HashCode>
+      <FileName>ObjectModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StageComponent" Collapsed="true">
+    <Position X="9" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAIAAAhAAIAAGAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StageComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="25.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAABEAAAAAADAgECAKAIAACAAJAEAAAABAAAAIEAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vec3f" Collapsed="true">
+    <Position X="25.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAQAAAAAAAAAAEAAAAAAAAEAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Vec.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vec2f" Collapsed="true">
+    <Position X="24" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vec.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioComponent" Collapsed="true">
+    <Position X="2.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAQAAAAAAAAAAAAAAAABAAAECAAAAAAAAAAEAAA=</HashCode>
+      <FileName>AudioComponent.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerComponent" Collapsed="true">
+    <Position X="4.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAQAAAAAIIAAAAAAQAAABCAAAAQACAEAAA=</HashCode>
+      <FileName>PlayerComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Component" Collapsed="true">
+    <Position X="9" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAgBAAAAEAAA=</HashCode>
+      <FileName>Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CubeComponent" Collapsed="true">
+    <Position X="6.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAgAEgAAAAgAAIIIAAAAAABAAABIAAAAAAAAAACI=</HashCode>
+      <FileName>CubeComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawComponent" Collapsed="true">
+    <Position X="6.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>DrawComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveToComponent" Collapsed="true">
+    <Position X="11.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAQAAAAAAAAAAIAAAAAAIAAAAAQAAAAAAAAAEAAA=</HashCode>
+      <FileName>MoveToComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpinComponent" Collapsed="true">
+    <Position X="13.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAACAAQAAAAAAAAAEAAA=</HashCode>
+      <FileName>SpinComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerJumper" Collapsed="true">
+    <Position X="15.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAEAAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAEAAA=</HashCode>
+      <FileName>TimerJumper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundPlayer" Collapsed="true">
+    <Position X="27.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAABEAAAAAAAQAAAAAACAAAAEEAQAAAAgABQAAAA=</HashCode>
+      <FileName>SoundPlayer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Animation" Collapsed="true">
+    <Position X="3" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAgAIAAAAAAAAEAACAAgAAAAAEAAE=</HashCode>
+      <FileName>Animation.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExplosionAnimation" Collapsed="true">
+    <Position X="1.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAACAIAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExplosionAnimation.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrailAnimation" Collapsed="true">
+    <Position X="4" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAIAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrailAnimation.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FrameRateCounter" Collapsed="true">
+    <Position X="24" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAgAAAAIAIAAAAAAAIAAAAAAAIAAAAAAAAAAkEAAA=</HashCode>
+      <FileName>FrameRateCounter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MusicDataStructures::MusicTrack" Collapsed="true">
+    <Position X="25.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAAgAQQAAAAQIABAAAAAAAQAAAAAABAAAIAAEAAA=</HashCode>
+      <FileName>MusicTrack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="hand" Collapsed="true">
+    <Position X="27.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAgA=</HashCode>
+      <FileName>Tracker.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Color4" Collapsed="true">
+    <Position X="25.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAQABgAAAAAA=</HashCode>
+      <FileName>Globals.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0223_2" Collapsed="true">
+    <Position X="19.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAEAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>stb_image.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Camera" Collapsed="true">
+    <Position X="24" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAIADAAAAAAAAwAIAAAA=</HashCode>
+      <FileName>Camera.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MusicDataStructures::Notes" Collapsed="true">
+    <Position X="22.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAIAAAAAAAAAgAAgAA=</HashCode>
+      <FileName>MusicTrack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MusicDataStructures::Bar" Collapsed="true">
+    <Position X="22.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>MusicTrack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MusicDataStructures::Song" Collapsed="true">
+    <Position X="24" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MusicTrack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="stbi_io_callbacks" Collapsed="true">
+    <Position X="19.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>stb_image.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

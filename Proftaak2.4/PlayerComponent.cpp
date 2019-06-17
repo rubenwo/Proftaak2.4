@@ -46,7 +46,7 @@ void PlayerComponent::update(float elapsedTime)
 	{
 		if (!obj->getComponent<StageComponent>())
 		{
-			if (obj->position.z < 0 && obj->position.z > -1.0f)
+			if (obj->position.z > 0 && obj->position.z < 2.0f)
 			{
 				for (auto hand : atomic_hands.load())
 				{
@@ -54,14 +54,14 @@ void PlayerComponent::update(float elapsedTime)
 					hand.y = 0;
 
 					Vec2f pos(hand.x, hand.y);
-					if (obj->sphere.collides(pos, 0.25))
+					if (obj->sphere.collides(pos, 0.5))
 					{
 						if (this->onCollision != nullptr)
-							this->onCollision(obj, pos);
-						else
 						{
-							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
+							this->onCollision(obj);
 						}
+						else
+							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
 					}
 				}
 			}
@@ -70,7 +70,7 @@ void PlayerComponent::update(float elapsedTime)
 }
 
 
-void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*, Vec2f)> onCollision)
+void PlayerComponent::setCollisionCallback(const std::function<void(GameObject*)>& onCollision)
 {
 	this->onCollision = onCollision;
 }
@@ -81,14 +81,14 @@ void PlayerComponent::draw()
 	{
 		//std::cout << "\r\nHandX: " << hand.x;
 		if (hand.x > 0) {
-			std::cout << "\r\nRIGHT";
+			//std::cout << "\r\nRIGHT";
 		}
 		else {
 			//std::cout << "Scale (-1, 1, 1); Left";
 			glScalef(-1, 1, 1);
 		}
 
-		std::cout << "\r\nsize";
+		//std::cout << "\r\nsize";
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);

@@ -44,7 +44,15 @@ void Level::loadContent()
 	player = new GameObject();
 	player->position = Vec3f(0, 0, -1);
 	player->addComponent(new PlayerComponent(&objects, texturess->textures[7], 0.25f));
+	player->getComponent<PlayerComponent>()->setCollisionCallback([](GameObject* obj)
+	{
+		obj->position = Vec3f(0, 0, -4);
+		obj->getComponent<CubeComponent>()->isHit = true;
+		//TODO explosion
+	});
 
+	score = 0;
+	//loadTextures();
 	createRoom();
 	srand(static_cast <unsigned> (time(0)));
 	initMusic();
@@ -73,8 +81,12 @@ void Level::startMusic(int)
 
 void Level::draw()
 {
+	player->draw();
+
 	glRotatef(180, 1, 0, 0);
 	player->draw();
+
+	//TODO: draw score
 
 	for (const auto& o : objects)
 		o->draw();
@@ -98,6 +110,14 @@ void Level::update(float deltaTime)
 		auto o = (*itr);
 		if (isObjectOutOfBounds(o))
 		{
+			if (!o->getComponent<CubeComponent>()->isHit)
+				combo = 1;
+			else
+			{
+				if(combo < 8)
+					combo++;
+				score += combo;
+			}
 			itr = objects.erase(itr);
 			delete o;
 		}
@@ -167,6 +187,7 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 		a->playAudio(true);
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
 	}
+
 
 	lastObjectAdded = 0;
 	objects.push_back(o);

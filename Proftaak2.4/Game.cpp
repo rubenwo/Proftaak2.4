@@ -25,13 +25,16 @@ namespace Game
 #endif
 	int windowWidth, windowHeight;
 	bool keys[256];
-	Texture *texturess;
+	Texture* texturess;
 	Level currentLevel;
 	Camera camera;
 	int index;
 	bool start,isStarted;
 
 	Menu menu;
+
+	void (*onObjectCollision)(GameObject* obj, Vec2f pos);
+	void drawScore();
 
 	void loadContent()
 	{
@@ -51,6 +54,7 @@ namespace Game
 			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
 			texturess->textures[11]);
 	}
+
 
 	void update(float deltaTime)
 	{
@@ -82,6 +86,7 @@ namespace Game
 #endif
 		if (start) {
 			currentLevel.draw();
+			drawScore();
 		}
 		else {
 			menu.draw();
@@ -163,6 +168,7 @@ namespace Game
 	}
 
 	int lastTime = 0;
+
 	void idle()
 	{
 		int currentTime = glutGet(GLUT_ELAPSED_TIME);
@@ -190,4 +196,15 @@ namespace Game
 
 		glutPostRedisplay();
 	}
+
+	void drawScore()
+	{
+		std::string lvlScore = std::to_string(currentLevel.score);
+		std::string lvlCombo = std::to_string(currentLevel.combo);
+		std::string score = "Score: " + lvlScore.substr(0, lvlScore.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 100, 80), windowWidth, windowHeight, score);
+		std::string combo = "Combo: " + lvlCombo.substr(0, lvlCombo.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 100, 40), windowWidth, windowHeight, combo);
+	}
+
 }
