@@ -121,6 +121,7 @@ void Level::update(float deltaTime)
 				if (combo < 8)
 					combo++;
 				score += combo;
+				highScore < score ? highScore = score : highScore = highScore;
 			}
 			itr = objects.erase(itr);
 			delete o;
@@ -140,6 +141,25 @@ MusicDataStructures::MusicTrack* Level::getTrack()
 
 void Level::start()
 {
+	try
+	{
+		http::Request request("http://rubenwoldhuis.nl/highscore/olaf/" + std::to_string(0));
+		http::Response response = request.send("GET");
+		if (response.status == 200)
+		{
+			string result(response.body.begin(), response.body.end());
+			std::cout << result << std::endl;
+			highScore = std::stoi(result);
+		}
+		else
+		{
+			std::cout << "internal server error occurred" << std::endl;
+		}
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Request failed, error: " << e.what() << std::endl;
+	}
 	glutTimerFunc(MUSIC_TIME_OFFSET, startMusic, 0);
 }
 
@@ -148,7 +168,7 @@ void Level::stop()
 	//TODO stop level, return to menu
 	try
 	{
-		http::Request request("http://rubenwoldhuis.nl/highscore/test/" + std::to_string(score));
+		http::Request request("http://rubenwoldhuis.nl/highscore/olaf/" + std::to_string(score));
 		http::Response response = request.send("GET");
 		if (response.status == 200)
 		{
