@@ -161,6 +161,7 @@
     <ClInclude Include="AudioComponent.hpp" />
     <ClInclude Include="ExplosionAnimation.hpp" />
     <ClInclude Include="FrameRateCounter.hpp" />
+    <ClInclude Include="HTTPRequest.hpp" />
     <ClInclude Include="SoundPlayer.hpp" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="CollisionSphere.h" />
