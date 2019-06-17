@@ -12,16 +12,24 @@
 #include "Level.h"
 #include "Menu.h"
 #include "SoundPlayer.hpp"
+#include "Util.hpp"
+#define FPS_COUNTER
+#ifdef FPS_COUNTER
+#include "FrameRateCounter.hpp"
+#endif
 
 namespace Game
 {
+#ifdef FPS_COUNTER
+	FrameRateCounter frc;
+#endif
 	int windowWidth, windowHeight;
 	bool keys[256];
 	Texture* texturess;
 	Level currentLevel;
 	Camera camera;
 	int index;
-	bool start;
+	bool start,isStarted;
 
 	Menu menu;
 
@@ -39,6 +47,7 @@ namespace Game
 		currentLevel.loadContent();
 
 		index = 1;
+		isStarted = false;
 
 		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[8], texturess->textures[4],
 			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
@@ -50,8 +59,15 @@ namespace Game
 	{
 		//currentLevel.update(deltaTime);
 		//menu.update(deltaTime, index);
-
+#ifdef FPS_COUNTER
+		frc.update(deltaTime);
+#endif
 		if (start) {
+			if (!isStarted) {
+				currentLevel.start();
+				isStarted = true;
+			}
+
 			currentLevel.update(deltaTime);
 		}
 		else {
@@ -61,6 +77,12 @@ namespace Game
 
 	void draw()
 	{
+#ifdef FPS_COUNTER
+		float avgFrames= frc.getAverageFramesPerSecond();
+		std::string avgStr = std::to_string(avgFrames);
+		std::string fps = "FPS: " + avgStr.substr(0, avgStr.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(20, windowHeight - 40), windowWidth, windowHeight, fps);
+#endif
 		if (start) {
 			currentLevel.draw();
 		}

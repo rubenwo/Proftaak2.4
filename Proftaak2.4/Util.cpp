@@ -2,6 +2,7 @@
 #include "Globals.hpp"
 #include <GL\freeglut.h>
 #include <Windows.h>
+#include "Vec.h"
 
 namespace Util
 {
@@ -15,7 +16,7 @@ namespace Util
 		glPushMatrix();
 		glLoadIdentity();
 		gluOrtho2D(0, windowWidth, 0, windowHeight);
-		glRasterPos2i(20, 20);
+		glRasterPos2i(pos.x, pos.y);
 
 		const unsigned char* str = reinterpret_cast<const unsigned char *>(text.c_str());
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18, str);
