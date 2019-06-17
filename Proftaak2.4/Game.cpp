@@ -30,6 +30,7 @@ namespace Game
 	Camera camera;
 	int index;
 	bool start,isStarted;
+	bool drawFrame;
 
 	Menu menu;
 
@@ -89,6 +90,8 @@ namespace Game
 
 	void draw()
 	{
+		glPolygonMode(GL_FRONT_AND_BACK, drawFrame ? GL_LINE : GL_FILL);
+
 #ifdef FPS_COUNTER
 		float avgFrames= frc.getAverageFramesPerSecond();
 		std::string avgStr = std::to_string(avgFrames);
@@ -136,6 +139,9 @@ namespace Game
 				currentLevel.loadContent();
 				start = true;
 			}
+			break;
+		case 'p':
+			drawFrame = !drawFrame;
 			break;
 		default:
 			break;
