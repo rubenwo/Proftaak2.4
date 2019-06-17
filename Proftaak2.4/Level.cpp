@@ -143,7 +143,7 @@ void Level::start()
 {
 	try
 	{
-		http::Request request("http://rubenwoldhuis.nl/highscore/olaf/" + std::to_string(0));
+		http::Request request("http://rubenwoldhuis.nl/highscore/olaf");
 		http::Response response = request.send("GET");
 		if (response.status == 200)
 		{

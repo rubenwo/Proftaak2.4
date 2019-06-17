@@ -109,7 +109,7 @@ int main(int argc, char** argv)
 {
 	try
 	{
-		http::Request request("http://rubenwoldhuis.nl/highscore/test/" + std::to_string(1000));
+		http::Request request("http://rubenwoldhuis.nl/highscore/test");
 		http::Response response = request.send("GET");
 		if (response.status == 200)
 		{
