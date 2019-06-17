@@ -87,6 +87,8 @@ void Level::draw()
 	glRotatef(180, 1, 0, 0);
 	player->draw();
 
+	//TODO: draw score
+
 	for (const auto& o : objects)
 		o->draw();
 }
@@ -110,7 +112,7 @@ void Level::update(float deltaTime)
 		if (isObjectOutOfBounds(o))
 		{
 			if (!o->getComponent<CubeComponent>()->isHit)
-				combo = 0;
+				combo = 1;
 			else
 			{
 				std::cout << "HIT";

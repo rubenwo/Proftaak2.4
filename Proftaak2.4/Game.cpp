@@ -34,6 +34,7 @@ namespace Game
 	Menu menu;
 
 	void (*onObjectCollision)(GameObject* obj, Vec2f pos);
+	void drawScore();
 
 	void loadContent()
 	{
@@ -85,6 +86,7 @@ namespace Game
 #endif
 		if (start) {
 			currentLevel.draw();
+			drawScore();
 		}
 		else {
 			menu.draw();
@@ -194,4 +196,15 @@ namespace Game
 
 		glutPostRedisplay();
 	}
+
+	void drawScore()
+	{
+		std::string lvlScore = std::to_string(currentLevel.score);
+		std::string lvlCombo = std::to_string(currentLevel.combo);
+		std::string score = "Score: " + lvlScore.substr(0, lvlScore.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 100, 80), windowWidth, windowHeight, score);
+		std::string combo = "Combo: " + lvlCombo.substr(0, lvlCombo.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 100, 40), windowWidth, windowHeight, combo);
+	}
+
 }
