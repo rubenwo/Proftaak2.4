@@ -8,11 +8,12 @@
 class AudioComponent : public Component
 {
 public:
-	AudioComponent(const std::string& audioFile);
+	AudioComponent(const SoundID& soundID);
 	~AudioComponent();
 
 	virtual void update(float elapsedTime) override;
-	void playAudio();
+	void playAudio(bool loop);
+	void stopAudio();
 private:
 	SoundPlayer* soundPlayer;
 	SoundID soundID;
