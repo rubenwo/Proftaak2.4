@@ -198,12 +198,16 @@
     <Image Include="optionsSelect.png" />
     <Image Include="quit.png" />
     <Image Include="quitSelect.png" />
+    <Image Include="slipper.png" />
     <Image Include="smacky_logo_big.png" />
     <Image Include="start.png" />
     <Image Include="startSelect.png" />
     <Image Include="textures12.png" />
     <Image Include="blockTextures.png" />
     <Image Include="wallTexture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
