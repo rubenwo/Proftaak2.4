@@ -3,6 +3,7 @@
 // Status codes
 #define GLUT_INIT_FAILED 1
 #define OPENGL_INIT_FAILED 2
+#define HIGHSCORE_SERVER "http://rubenwoldhuis.nl/highscore"
 
 typedef unsigned char Key;
 

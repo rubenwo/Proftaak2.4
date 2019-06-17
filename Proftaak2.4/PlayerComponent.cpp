@@ -50,10 +50,11 @@ void PlayerComponent::update(float elapsedTime)
 			{
 				for (auto hand : atomic_hands.load())
 				{
-					hand.x = 0;
-					hand.y = 0;
+					//hand.x = 0;
+					//hand.y = 0;
 
 					Vec2f pos(hand.x, hand.y);
+
 					if (obj->sphere.collides(pos, 0.5f))
 					{
 						if (this->onCollision != nullptr)

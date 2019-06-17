@@ -41,9 +41,10 @@ namespace Game
 	{
 		ZeroMemory(keys, sizeof keys);
 		camera = Camera(0, -4, 0, 0, 0, 0);
-		
+
 		SoundPlayer& sp = SoundPlayer::getInstance();
-		sp.setListenerPosition(Vec3f(camera.posX, camera.posY, camera.posZ), Vec3f(camera.rotX, camera.rotY, camera.rotZ));
+		sp.setListenerPosition(Vec3f(camera.posX, camera.posY, camera.posZ),
+		                       Vec3f(camera.rotX, camera.rotY, camera.rotZ));
 		loadTextures();
 		//currentLevel = Level(texturess);
 		// currentLevel.loadContent();
@@ -52,8 +53,8 @@ namespace Game
 		isStarted = false;
 
 		menu = Menu(texturess->textures[2], texturess->textures[3], texturess->textures[8], texturess->textures[4],
-			texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
-			texturess->textures[11]);
+		            texturess->textures[9], texturess->textures[5], texturess->textures[10], texturess->textures[6],
+		            texturess->textures[11]);
 	}
 
 
@@ -64,15 +65,17 @@ namespace Game
 #ifdef FPS_COUNTER
 		frc.update(deltaTime);
 #endif
-		if (start) {
-			if (!isStarted) {
+		if (start)
+		{
+			if (!isStarted)
+			{
 				currentLevel.start();
 				isStarted = true;
 			}
 			else
 			{
 				SoundPlayer& soundPlayer = SoundPlayer::getInstance();
-				irrklang::ISound * sound = soundPlayer.getSound(currentLevel.getTrack()->title);
+				irrklang::ISound* sound = soundPlayer.getSound(currentLevel.getTrack()->title);
 				if (sound != nullptr && sound->isFinished())
 				{
 					soundPlayer.deleteSound(currentLevel.getTrack()->title);
@@ -83,7 +86,8 @@ namespace Game
 
 			currentLevel.update(deltaTime);
 		}
-		else {
+		else
+		{
 			menu.update(deltaTime, index);
 		}
 	}
@@ -93,16 +97,18 @@ namespace Game
 		glPolygonMode(GL_FRONT_AND_BACK, drawFrame ? GL_LINE : GL_FILL);
 
 #ifdef FPS_COUNTER
-		float avgFrames= frc.getAverageFramesPerSecond();
+		float avgFrames = frc.getAverageFramesPerSecond();
 		std::string avgStr = std::to_string(avgFrames);
 		std::string fps = "FPS: " + avgStr.substr(0, avgStr.find_last_of('.'));
 		Util::drawText(Color4(255, 255, 255, 1), Vec2f(20, windowHeight - 40), windowWidth, windowHeight, fps);
 #endif
-		if (start) {
+		if (start)
+		{
 			currentLevel.draw();
 			drawScore();
 		}
-		else {
+		else
+		{
 			menu.draw();
 		}
 	}
@@ -123,18 +129,21 @@ namespace Game
 			break;
 		case GLUT_KEY_UP:
 			camera.posZ -= 0.025f;
-			if (index >= 1 && index < 4) {
+			if (index >= 1 && index < 4)
+			{
 				index++;
 			}
 			break;
 		case GLUT_KEY_DOWN:
 			camera.posZ += 0.025f;
-			if (index > 1 && index <= 4) {
+			if (index > 1 && index <= 4)
+			{
 				index--;
 			}
 			break;
 		case VK_RETURN:
-			if (index == 1) {
+			if (index == 1)
+			{
 				currentLevel = Level(texturess);
 				currentLevel.loadContent();
 				start = true;
@@ -220,10 +229,12 @@ namespace Game
 	{
 		std::string lvlScore = std::to_string(currentLevel.score);
 		std::string lvlCombo = std::to_string(currentLevel.combo);
+		std::string lvlHighScore = std::to_string(currentLevel.highScore);
+		std::string highScore = "HighScore: " + lvlHighScore.substr(0, lvlHighScore.find_last_of('.'));
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 150, 120), windowWidth, windowHeight, highScore);
 		std::string score = "Score: " + lvlScore.substr(0, lvlScore.find_last_of('.'));
-		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 100, 80), windowWidth, windowHeight, score);
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 150, 80), windowWidth, windowHeight, score);
 		std::string combo = "Combo: " + lvlCombo.substr(0, lvlCombo.find_last_of('.'));
-		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 100, 40), windowWidth, windowHeight, combo);
+		Util::drawText(Color4(255, 255, 255, 1), Vec2f(windowWidth - 150, 40), windowWidth, windowHeight, combo);
 	}
-
 }

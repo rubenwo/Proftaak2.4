@@ -23,6 +23,7 @@ public:
 
 	bool collides(Vec2f& other, float radius) const
 	{
+		std::cout << other.x << "\n";
 		float distance = radius + this->radius;
 		distance *= distance;
 
