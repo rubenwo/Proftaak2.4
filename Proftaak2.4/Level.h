@@ -17,8 +17,8 @@ public:
 	Level(Texture* texture);
 	std::list<GameObject*> objects;
 
-	float score;
-	float combo;
+	float score = 0;
+	float combo = 1;
 
 	//Load all content, gets called before starting a level.
 	void loadContent();
