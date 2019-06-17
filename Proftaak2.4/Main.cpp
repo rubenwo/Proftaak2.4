@@ -9,6 +9,7 @@
 #include <opencv2/highgui.hpp>
 #include "Tracker.hpp"
 #include <atomic>
+#include "HTTPRequest.hpp"
 
 #define APP_NAME "Game"
 #define WINDOW_WIDTH 1200
@@ -18,6 +19,7 @@ using namespace std;
 
 int windowWidth;
 int windowHeight;
+
 struct Camera
 {
 	float posX = 0;
@@ -47,10 +49,10 @@ void keyboardup(unsigned char key, int x, int y)
 
 void mousePassiveMotion(int x, int y)
 {
-	Game::onMouseMove(x,y);
+	Game::onMouseMove(x, y);
 }
 
-void specialKey(int key, int x, int y) 
+void specialKey(int key, int x, int y)
 {
 	Game::onKey(key);
 }
@@ -105,6 +107,26 @@ bool initOpenGL()
 
 int main(int argc, char** argv)
 {
+	try
+	{
+		http::Request request("http://localhost/highscore/ruben/200");
+		http::Response response = request.send("GET");
+		if (response.status == 200)
+		{
+			string result(response.body.begin(), response.body.end());
+			std::cout << result << std::endl;
+		}
+		else
+		{
+			std::cout << "internal server error occurred" << std::endl;
+		}
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Request failed, error: " << e.what() << std::endl;
+	}
+
+
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
 
