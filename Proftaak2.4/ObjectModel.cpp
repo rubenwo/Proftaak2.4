@@ -20,6 +20,7 @@ const char* textureFilenameCreditSelect = "creditsSelect.png";
 const char* textureFilenameOptionsSelect = "optionsSelect.png";
 const char* textureFilenameQuitSelect = "quitSelect.png";
 const char* textureFilenameStartSelect = "startSelect.png";
+const char* textureFilenameFlipFlop = "slipper.png";
 
 Texture::Texture(const std::string &dirName) {
 
@@ -54,6 +55,7 @@ void Texture::initTextures() {
 	loadTextureFromFile(textureFilenameOptionsSelect, textures[9]);
 	loadTextureFromFile(textureFilenameQuitSelect, textures[10]);
 	loadTextureFromFile(textureFilenameStartSelect, textures[11]);
+	loadTextureFromFile(textureFilenameFlipFlop, textures[12]);
 }
 
 void Texture::loadTextureFromFile(const char *filename, int texture)

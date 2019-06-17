@@ -54,7 +54,7 @@ void PlayerComponent::update(float elapsedTime)
 					hand.y = 0;
 
 					Vec2f pos(hand.x, hand.y);
-					if (obj->sphere.collides(pos, 0.5))
+					if (obj->sphere.collides(pos, 0.5f))
 					{
 						if (this->onCollision != nullptr)
 						{
@@ -79,39 +79,46 @@ void PlayerComponent::draw()
 {
 	for (auto hand : atomic_hands.load())
 	{
+		//std::cout << "\r\nHand.x()" << hand.x;
 		//std::cout << "\r\nHandX: " << hand.x;
-		if (hand.x > 0) {
-			//std::cout << "\r\nRIGHT";
+		if (hand.x  <= 0) {
+			glScalef(1, 1, 1);
 		}
-		else {
+		else if(hand.x >= 0) {
 			//std::cout << "Scale (-1, 1, 1); Left";
 			glScalef(-1, 1, 1);
 		}
 
-		//std::cout << "\r\nsize";
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glEnable(GL_TEXTURE_2D);
+
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
 
-		glPushMatrix();
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glAlphaFunc(GL_GREATER, 0.5);
 
+		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+		glPushMatrix();
 		glRotatef(-90, 0, 0, 1);
 		glTranslatef(-hand.y, hand.x, 0);
-		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);	
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBegin(GL_QUADS);
 		glColor4f(1, 1, 1, 1);
 		glTexCoord2f(0, 0);
 		glVertex3f(-size, -size, -size);
 		glTexCoord2f(0, 1);
-		glVertex3f(size, -size, -size);
+		glVertex3f(size*2, -size, -size);
 		glTexCoord2f(1, 1);
-		glVertex3f(size, size, -size);
+		glVertex3f(size*2, size, -size);
 		glTexCoord2f(1, 0);
 		glVertex3f(-size, size, -size);
-		glDisable(GL_BLEND);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
-
+		glDisable(GL_BLEND);
 		glPopMatrix();
 	}
 }
