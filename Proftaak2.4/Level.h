@@ -20,7 +20,8 @@ public:
 	std::list<GameObject*> objects;
 
 	int score = 0;
-	int combo = 1;
+	int highScore = 0;
+	float combo = 1;
 
 	//Load all content, gets called before starting a level.
 	void loadContent();

@@ -15,6 +15,7 @@
 #include <iostream>
 #include "SoundPlayer.hpp"
 #include "PlayerComponent.h"
+#include "HTTPRequest.hpp"
 
 using std::string;
 #define OBJECT_OUT_OF_BOUNDS -4.0f
@@ -54,7 +55,7 @@ void Level::loadContent()
 	score = 0;
 	//loadTextures();
 	createRoom();
-	srand(static_cast <unsigned> (time(0)));
+	srand(static_cast<unsigned>(time(0)));
 	initMusic();
 }
 
@@ -105,7 +106,7 @@ void Level::update(float deltaTime)
 		createRandomLocCube(std::get<1>(result));
 	else if (std::get<0>(result) == MusicDataStructures::MusicAction::Right)
 		createRandomLocCube(std::get<1>(result));
-	
+
 	std::list<GameObject*>::iterator itr = objects.begin();
 
 	while (itr != objects.end())
@@ -146,6 +147,25 @@ void Level::start()
 void Level::stop()
 {
 	//TODO stop level, return to menu
+	try
+	{
+		http::Request request("http://localhost/highscore/ruben/" + std::to_string(score));
+		http::Response response = request.send("GET");
+		if (response.status == 200)
+		{
+			string result(response.body.begin(), response.body.end());
+			std::cout << result << std::endl;
+			highScore = std::stoi(result);
+		}
+		else
+		{
+			std::cout << "internal server error occurred" << std::endl;
+		}
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Request failed, error: " << e.what() << std::endl;
+	}
 }
 
 void Level::createRoom()
