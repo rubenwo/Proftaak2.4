@@ -109,7 +109,7 @@ int main(int argc, char** argv)
 {
 	try
 	{
-		http::Request request("http://localhost/highscore/ruben/200");
+		http::Request request("http://localhost/highscore/test/200");
 		http::Response response = request.send("GET");
 		if (response.status == 200)
 		{
