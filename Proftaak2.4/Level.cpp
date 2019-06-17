@@ -21,7 +21,7 @@ using std::string;
 #define OBJECT_OUT_OF_BOUNDS -4.0f
 GameObject* player;
 
-MusicDataStructures::MusicTrack * track;
+MusicDataStructures::MusicTrack* track;
 Texture* texturess;
 Vec2f lastRandLoc;
 int lastObjectAdded = 0;
@@ -70,14 +70,13 @@ void Level::initMusic()
 	string path = exePath;
 	track = MusicLoader::LoadMusicFile(path + DATA_BOOMx4);
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
-	soundPlayer.addSound(path + MUSIC_BOOMx4, track->title, true);//..\\music\\Boom Boom Boom Boom\\Music.ogg"
+	soundPlayer.addSound(path + MUSIC_BOOMx4, track->title, true); //..\\music\\Boom Boom Boom Boom\\Music.ogg"
 
 	soundPlayer.addSound(path + SOUND_ENGINE, SOUND_ENGINE, true);
 }
 
 void Level::startMusic(int)
 {
-
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
 	//irrklang::ISound * sound = soundPlayer.getSound(track->title);
 	soundPlayer.playSound(track->title, false);
@@ -119,7 +118,7 @@ void Level::update(float deltaTime)
 			else
 			{
 				std::cout << "HIT";
-				if(combo < 8)
+				if (combo < 8)
 					combo++;
 				score += combo;
 			}
@@ -149,7 +148,7 @@ void Level::stop()
 	//TODO stop level, return to menu
 	try
 	{
-		http::Request request("http://localhost/highscore/ruben/" + std::to_string(score));
+		http::Request request("http://rubenwoldhuis.nl/highscore/test/" + std::to_string(score));
 		http::Response response = request.send("GET");
 		if (response.status == 200)
 		{
@@ -179,7 +178,6 @@ bool isObjectOutOfBounds(GameObject* o)
 {
 	//std::cout << "DESPAWN";
 	return o->position.z <= OBJECT_OUT_OF_BOUNDS;
-
 }
 
 void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY)
@@ -204,7 +202,8 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 		o->addComponent(a);
 		o->addAnimation(new TrailAnimation());
 		a->playAudio(true);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f);
+		//+0.3 to avoid the player
 	}
 	else
 	{
@@ -216,7 +215,8 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 		o->addAnimation(new TrailAnimation());
 
 		a->playAudio(true);
-		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
+		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f);
+		//+0.4 to avoid the player
 	}
 
 
