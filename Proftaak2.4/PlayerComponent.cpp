@@ -21,15 +21,19 @@ GLuint textureID;
 float size;
 std::atomic<std::array<hand, HANDS_AMOUNT>> atomic_hands;
 
+
 PlayerComponent::PlayerComponent(std::list<GameObject*>* objects, GLuint textureID, float size)
 {
 	this->size = size;
 	this->textureID = textureID;
+
 	tracker = new HandTracker();
 	tracker->startTracking([](std::array<hand, HANDS_AMOUNT> hands)
 	{
 		atomic_hands.store(hands);
 	});
+
+
 	this->onCollision = nullptr;
 	this->objects = objects;
 }
@@ -62,7 +66,9 @@ void PlayerComponent::update(float elapsedTime)
 							this->onCollision(obj);
 						}
 						else
-							std::cout << "Collision detected with: " << obj->getComponent<CubeComponent>()->getHandSide() << "\n";
+							std::cout << "Collision detected with: " << obj
+							                                            ->getComponent<CubeComponent>()->getHandSide()
+								<< "\n";
 					}
 				}
 			}
@@ -82,10 +88,12 @@ void PlayerComponent::draw()
 	{
 		//std::cout << "\r\nHand.x()" << hand.x;
 		//std::cout << "\r\nHandX: " << hand.x;
-		if (hand.x  <= 0) {
+		if (hand.x <= 0)
+		{
 			glScalef(1, 1, 1);
 		}
-		else if(hand.x >= 0) {
+		else if (hand.x >= 0)
+		{
 			//std::cout << "Scale (-1, 1, 1); Left";
 			glScalef(-1, 1, 1);
 		}
@@ -112,9 +120,9 @@ void PlayerComponent::draw()
 		glTexCoord2f(0, 0);
 		glVertex3f(-size, -size, -size);
 		glTexCoord2f(0, 1);
-		glVertex3f(size*2, -size, -size);
+		glVertex3f(size * 2, -size, -size);
 		glTexCoord2f(1, 1);
-		glVertex3f(size*2, size, -size);
+		glVertex3f(size * 2, size, -size);
 		glTexCoord2f(1, 0);
 		glVertex3f(-size, size, -size);
 		glEnd();
