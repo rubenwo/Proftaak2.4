@@ -15,14 +15,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Menu" Collapsed="true">
-    <Position X="24" Y="7.5" Width="1.5" />
+    <Position X="16.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAASgAAAABECAAAAgYQAEAAAIAMACIAgAAAAAAEQAA=</HashCode>
       <FileName>Menu.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Level" Collapsed="true">
-    <Position X="22.25" Y="7.5" Width="1.5" />
+    <Position X="15.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAABAAIABAgAAIIAABEAQAgAAABAQAAAAAEAAA=</HashCode>
       <FileName>Level.h</FileName>
@@ -120,7 +120,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SoundPlayer" Collapsed="true">
-    <Position X="27.5" Y="7.5" Width="1.5" />
+    <Position X="21.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAABEAAAAAAAQAAAAAACAAAAEEAQAAAAgABQAAAA=</HashCode>
       <FileName>SoundPlayer.hpp</FileName>
@@ -148,7 +148,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FrameRateCounter" Collapsed="true">
-    <Position X="24" Y="6.5" Width="1.5" />
+    <Position X="14.5" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAgAAAAIAIAAAAAAAIAAAAAAAIAAAAAAAAAAkEAAA=</HashCode>
       <FileName>FrameRateCounter.hpp</FileName>
@@ -162,14 +162,14 @@
     </TypeIdentifier>
   </Class>
   <Struct Name="hand" Collapsed="true">
-    <Position X="27.5" Y="9.75" Width="1.5" />
+    <Position X="24" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAgA=</HashCode>
       <FileName>Tracker.hpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Color4" Collapsed="true">
-    <Position X="25.75" Y="9.75" Width="1.5" />
+    <Position X="27.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAQABgAAAAAA=</HashCode>
       <FileName>Globals.hpp</FileName>
@@ -183,28 +183,28 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="Camera" Collapsed="true">
-    <Position X="24" Y="9.75" Width="1.5" />
+    <Position X="22.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAIADAAAAAAAAwAIAAAA=</HashCode>
       <FileName>Camera.hpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="MusicDataStructures::Notes" Collapsed="true">
-    <Position X="22.25" Y="10.75" Width="1.5" />
+    <Position X="19.75" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAIAAAAAAAAAgAAgAA=</HashCode>
       <FileName>MusicTrack.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="MusicDataStructures::Bar" Collapsed="true">
-    <Position X="22.25" Y="9.75" Width="1.5" />
+    <Position X="24" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>MusicTrack.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="MusicDataStructures::Song" Collapsed="true">
-    <Position X="24" Y="10.75" Width="1.5" />
+    <Position X="19.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MusicTrack.h</FileName>
