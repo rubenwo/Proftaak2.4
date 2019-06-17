@@ -70,13 +70,15 @@ void Level::initMusic()
 	track = MusicLoader::LoadMusicFile(path + DATA_BOOMx4);
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
 	soundPlayer.addSound(path + MUSIC_BOOMx4, track->title, true);//..\\music\\Boom Boom Boom Boom\\Music.ogg"
+
+	soundPlayer.addSound(path + SOUND_ENGINE, SOUND_ENGINE, true);
 }
 
 void Level::startMusic(int)
 {
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
 	//irrklang::ISound * sound = soundPlayer.getSound(track->title);
-	soundPlayer.playSound(track->title, false);
+	//soundPlayer.playSound(track->title, false);
 }
 
 void Level::draw()
@@ -169,7 +171,7 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 30);
 
-		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
+		AudioComponent* a = new AudioComponent(SOUND_ENGINE);
 		o->addComponent(a);
 		o->addAnimation(new TrailAnimation());
 		a->playAudio(true);
@@ -180,7 +182,7 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 30);
 
-		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
+		AudioComponent* a = new AudioComponent(SOUND_ENGINE);
 		o->addComponent(a);
 		o->addAnimation(new TrailAnimation());
 
