@@ -12,7 +12,8 @@ public:
 	~AudioComponent();
 
 	virtual void update(float elapsedTime) override;
-	void playAudio();
+	void playAudio(bool loop);
+	void stopAudio();
 private:
 	SoundPlayer* soundPlayer;
 	SoundID soundID;

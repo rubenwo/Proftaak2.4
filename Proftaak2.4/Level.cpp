@@ -58,17 +58,17 @@ void Level::loadTextures()
 
 void Level::initMusic()
 {
-	string path = "..";
+	string path = exePath;
 	track = MusicLoader::LoadMusicFile(path + DATA_BOOMx4);
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
-	soundPlayer.addSound(path + MUSIC_BOOMx4, track->title, false);//..\\music\\Boom Boom Boom Boom\\Music.ogg"
+	soundPlayer.addSound(path + MUSIC_BOOMx4, track->title, true);//..\\music\\Boom Boom Boom Boom\\Music.ogg"
 }
 
 void Level::startMusic(int)
 {
 	SoundPlayer& soundPlayer = SoundPlayer::getInstance();
-	irrklang::ISound * sound = soundPlayer.getSound(track->title);
-	sound->setIsPaused(false);
+	//irrklang::ISound * sound = soundPlayer.getSound(track->title);
+	soundPlayer.playSound(track->title, false);
 }
 
 void Level::draw()
@@ -142,17 +142,17 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 	float randNumX = rX * maxX;
 	float randNumY = rY * maxY;
 
-	string path = "..";
+	//string path = "..";
 
 	if (randNumX > maxX / 2)
 	{
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::leftHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 30);
 
-		AudioComponent* a = new AudioComponent(path + SOUND_ENGINE);
+		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
 		o->addComponent(a);
 		o->addAnimation(new TrailAnimation());
-		a->playAudio();
+		a->playAudio(true);
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) + 0.3, randNumY - 0.4f, -5.0f); //+0.3 to avoid the player
 	}
 	else
@@ -160,11 +160,11 @@ void Level::createRandomLocCube(ARROWDIRECTION direction, float maxX, float maxY
 		o->addComponent(new CubeComponent(0.2f, 1, HAND::rightHand, direction));
 		o->position = Vec3f(randNumX, -randNumY, 30);
 
-		AudioComponent* a = new AudioComponent(path + SOUND_ENGINE);
+		AudioComponent* a = new AudioComponent(exePath + SOUND_ENGINE);
 		o->addComponent(a);
 		o->addAnimation(new TrailAnimation());
 
-		a->playAudio();
+		a->playAudio(true);
 		o->getComponent<MoveToComponent>()->target = Vec3f(randNumX - (maxX / 2) - 0.4, randNumY - 0.4f, -5.0f); //+0.4 to avoid the player
 	}
 

@@ -3,11 +3,14 @@
 #include <iostream>
 #include <random>
 
+#include "Util.hpp"
+
 using std::string;
 using namespace irrklang;
 
 SoundPlayer::SoundPlayer()
 {
+	soundLocation = Util::getExePath() + DEFAULT_LOCATION;
 	engine = irrklang::createIrrKlangDevice();
 	//TODO Set engine->setListenerPosition(vec3df(0,0,0), vec3df(0,0,1));
 	if (!engine)
@@ -20,48 +23,82 @@ SoundPlayer::~SoundPlayer()
 	engine->drop();
 }
 
-void SoundPlayer::cleanupSound(ISound* sound)
+void SoundPlayer::cleanupSound(ISoundSource* source)
 {
-	if (sound)
+	if (source)
 	{
-		sound->stop();
-		sound->drop();
-		sound = NULL;
+		engine->removeSoundSource(source);
 	}
 }
 
-void SoundPlayer::addSound(const std::string& file, const SoundID& id, bool loop)
+void SoundPlayer::addSound(const std::string& file, const SoundID& id, bool preload)
 {
-	ISound* sound = engine->play2D(file.c_str(), loop, true, false);
-	sounds.insert(std::make_pair(id, sound));
+	/*ISound* sound = engine->play2D(file.c_str(), loop, true, false);
+	sounds.insert(std::make_pair(id, sound));*/
+	//std::string loc = soundLocation + file;
+	auto source = engine->addSoundSourceFromFile(file.c_str(), irrklang::ESM_AUTO_DETECT, preload);
+	//ISound* sound = engine->play2D(loc.c_str(), loop, true, false);
+	if (source)
+		sounds.insert(std::make_pair(id, source));
 }
-
+[[deprecated]]
 void SoundPlayer::addSound3D(const std::string& file, const SoundID& id, bool loop, const Vec3f& pos)
 {
-	ISound* sound = engine->play3D(file.c_str(), vec3df(pos.x, pos.y, pos.z), loop,	true, false);
-	sounds.insert(std::make_pair(id, sound));
+	std::string loc = soundLocation + file;
+	//ISound* sound = engine->play3D(loc.c_str(), vec3df(pos.x, pos.y, pos.z), loop, true, false);
+	auto source = engine->addSoundSourceFromFile(loc.c_str(), irrklang::ESM_AUTO_DETECT, true);
+	sounds.insert(std::make_pair(id, source));
 }
-
+[[deprecated]]
 ISound* SoundPlayer::getSound(const SoundID& id)
 {
 	if (sounds.find(id) == sounds.end())
 		return nullptr; // Sound not found
-	return sounds[id];
+	return nullptr;
 }
 
 void SoundPlayer::deleteSound(const SoundID& id)
 {
 	if (sounds.find(id) != sounds.end())
 	{
-		ISound* sound = sounds[id];
-		cleanupSound(sound);
+		auto source = sounds[id];
+		cleanupSound(source);
 		sounds.erase(id);
+		/*ISound* sound = sounds[id];
+		cleanupSound(sound);
+		sounds.erase(id);*/
 	}
 }
 
 void SoundPlayer::setListenerPosition(const Vec3f& pos, const Vec3f& heading)
 {
 	engine->setListenerPosition(vec3df(pos.x, pos.y, pos.z), vec3df(heading.x, heading.y, heading.z));
+}
+
+void SoundPlayer::playSound(const SoundID& sound, bool looped)
+{
+	auto source = getSoundSource(sound);
+	if (source != nullptr)
+	{
+		engine->play2D(source);
+	}
+}
+
+ISound* SoundPlayer::playSound3D(const SoundID& sound, const Vec3f& pos, bool looped)
+{
+	auto source = getSoundSource(sound);
+	if (source != nullptr)
+	{
+		return engine->play3D(source, vec3df(pos.x, pos.y, pos.z), looped, false, true, false);
+	}
+	return nullptr;
+}
+
+irrklang::ISoundSource* SoundPlayer::getSoundSource(SoundID sound)
+{
+	if (sounds.find(sound) == sounds.end())
+		return nullptr; // Sound not found
+	return sounds[sound];//sounds[id];
 }
 SoundID SoundPlayer::getAvailableSoundID()
 {
