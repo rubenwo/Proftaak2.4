@@ -10,15 +10,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
-//Highscore is a struct for marshalling highscore data to and from json
-type Highscore struct {
-	Score  string `json:"score"`
-	Player string `json:"player"`
-}
+var scores map[string]string
 
 func main() {
 	router := mux.NewRouter()
-
+	scores = make(map[string]string)
+	loadScores()
 	router.HandleFunc("/highscore/{player}/{score}", postHighscore).Methods("GET")
 	router.HandleFunc("/highscore/{player}", getHighscore).Methods("GET")
 
@@ -31,66 +28,43 @@ func postHighscore(w http.ResponseWriter, r *http.Request) {
 	score := vars["score"]
 
 	fmt.Println("Got a postHighscore request for player:", player, "with score:", score)
-	data, err := ioutil.ReadFile(player + ".json")
-	if err != nil {
-		data, err = json.Marshal(Highscore{
-			Score:  score,
-			Player: player,
-		})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		err = ioutil.WriteFile(player+".json", data, 0644)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.Write([]byte(score))
-	} else {
-		var hs Highscore
-		err = json.Unmarshal(data, &hs)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		if hs.Score > score {
-			w.Write([]byte(hs.Score))
-		} else {
-			data, err = json.Marshal(Highscore{
-				Score:  score,
-				Player: player,
-			})
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			err = ioutil.WriteFile(player+".json", data, 0644)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			w.Write([]byte(score))
-		}
+	if scores[player] < score {
+		scores[player] = score
 	}
+	w.Write([]byte(scores[player]))
+	saveScores()
 }
 
 func getHighscore(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	player := vars["player"]
 	fmt.Println("Got a getHighscore Request for player:", player)
-	data, err := ioutil.ReadFile(player + ".json")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if _, ok := scores[player]; ok {
+		//do something here
+		w.Write([]byte(scores[player]))
+	} else {
+		w.Write([]byte("0"))
 	}
-	var hs Highscore
-	err = json.Unmarshal(data, &hs)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+}
 
-	w.Write([]byte(hs.Score))
+func saveScores() {
+	data, err := json.Marshal(scores)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = ioutil.WriteFile("scores.json", data, 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func loadScores() {
+	data, err := ioutil.ReadFile("scores.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = json.Unmarshal(data, &scores)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
